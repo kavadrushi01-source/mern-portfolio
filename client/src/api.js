@@ -1,9 +1,12 @@
 import { FALLBACK_PORTFOLIO, FALLBACK_PROJECTS } from "./data/fallback.js";
 
-// Optional build-time override: VITE_API_URL=https://your-api.onrender.com
-// Otherwise requests go to the same origin (works via vite proxy in dev, or
-// via vercel.json rewrites / render single-service in production).
-const BASE = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+// API base URL, in priority order:
+// 1. VITE_API_URL build env (if you set it in Vercel's dashboard)
+// 2. production builds call Render directly (Render allows CORS "*")
+// 3. local dev falls back to the vite proxy (same origin)
+const BASE =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? "https://kavad-rushi-portfolio.onrender.com" : "");
 
 async function getJSON(url) {
   const res = await fetch(`${BASE}${url}`);
