@@ -33,6 +33,12 @@ app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/contact", contactRoutes);
 
+// SPA: resume page served at /resume on both Render and Vercel
+app.get("/resume", (req, res, next) => {
+  if (!hasClient) return next();
+  res.sendFile(path.join(clientDist, "resume.html"));
+});
+
 app.get("*", (req, res, next) => {
   if (req.path.startsWith("/api")) return next();
   if (hasClient) return res.sendFile(path.join(clientDist, "index.html"));

@@ -131,7 +131,7 @@ export default function Resume({ portfolio, projects }) {
               <p>{portfolio.title} • Full-stack developer</p>
             </div>
             <div className="resume-actions">
-              <a className="btn btn-outline" href="/resume.html" target="_blank" rel="noreferrer">
+              <a className="btn btn-outline" href="/resume" target="_blank" rel="noreferrer">
                 Visit Resume ↗
               </a>
               <button className="btn btn-primary" onClick={downloadPdf} disabled={busy}>
