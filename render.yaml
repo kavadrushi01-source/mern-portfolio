@@ -1,0 +1,21 @@
+# Render Blueprint - single web service hosting the full MERN app
+# (API + built React client served from the same Express server)
+version: "1"
+services:
+  - type: web
+    name: kavad-rushi-portfolio
+    runtime: node
+    plan: free
+    region: singapore
+    healthCheckPath: /api/portfolio/health
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: WHATSAPP_NUMBER
+        value: "919328581846"
+      # Optional: enter your MongoDB Atlas connection string in the Render
+      # dashboard (Environment -> Add -> MongoDB). Leave empty for in-memory.
+      - key: MONGODB_URI
+        sync: false
