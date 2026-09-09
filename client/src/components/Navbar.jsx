@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <a href="#home" className="brand" onClick={() => setOpen(false)}>
-        KR<span>.</span>
+        Kavad Rushi<span>.</span>
       </a>
 
       <button

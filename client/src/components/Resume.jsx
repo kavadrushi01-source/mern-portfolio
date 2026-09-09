@@ -3,10 +3,6 @@ import { jsPDF } from "jspdf";
 
 export default function Resume({ portfolio, projects }) {
   const [busy, setBusy] = useState(false);
-  const initials = portfolio.name
-    .split(" ")
-    .map((w) => w[0])
-    .join("");
 
   function downloadPdf() {
     setBusy(true);
@@ -125,7 +121,7 @@ export default function Resume({ portfolio, projects }) {
 
         <div className="resume-card card">
           <div className="resume-head">
-            <div className="resume-avatar">{initials}</div>
+            <div className="resume-avatar">{portfolio.name}</div>
             <div>
               <h3>{portfolio.name}</h3>
               <p>{portfolio.title} • Full-stack developer</p>

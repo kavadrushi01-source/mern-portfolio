@@ -621,15 +621,17 @@ img {
   flex-wrap: wrap;
 }
 .resume-avatar {
-  width: 66px;
+  min-width: 66px;
   height: 66px;
   border-radius: 50%;
   display: grid;
   place-items: center;
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #04110d;
   background: var(--grad);
+  white-space: nowrap;
+  padding: 0 18px;
 }
 .resume-head h3 {
   font-size: 1.35rem;
