@@ -56,7 +56,7 @@ export const FALLBACK_PROJECTS = [
     live: "https://foodhub-seven-gules.vercel.app",
     github: "https://github.com/kavadrushi01-source/foodhub",
     demoLogins: {
-      admin: "admin@foodhub.com / Admin@123",
+      admin: "admin@foodhub.com / ********",
       customer: "user@foodhub.com / User@123",
       delivery: "delivery@foodhub.com / Delivery@123"
     },
