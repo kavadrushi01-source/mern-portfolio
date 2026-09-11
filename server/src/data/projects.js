@@ -26,7 +26,8 @@ const PROJECTS = [
       delivery: "delivery@foodhub.com / Delivery@123"
     },
     gradient: "linear-gradient(135deg, #f97316 0%, #ef4444 50%, #ec4899 100%)",
-    icon: "🍔"
+    icon: "🍔",
+    image: "/projects/foodhub.png"
   },
   {
     title: "Wanderlust",
@@ -56,7 +57,8 @@ const PROJECTS = [
       hitesh: "666"
     },
     gradient: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%)",
-    icon: "🏡"
+    icon: "🏡",
+    image: "/projects/wanderlust.png"
   }
 ];
 

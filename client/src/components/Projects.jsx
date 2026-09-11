@@ -12,8 +12,15 @@ function ProjectModal({ project, onClose }) {
           </svg>
         </button>
 
-        <div className="modal-hero" style={{ background: project.gradient }}>
-          <span className="modal-icon">{project.icon}</span>
+        <div className="modal-hero">
+          {project.image ? (
+            <img src={project.image} alt={project.title} className="modal-screenshot" />
+          ) : (
+            <>
+              <div className="modal-gradient" style={{ background: project.gradient }} />
+              <span className="modal-icon">{project.icon}</span>
+            </>
+          )}
         </div>
 
         <div className="modal-body">
@@ -112,11 +119,15 @@ export default function Projects({ projects }) {
         <div className={`projects-grid ${projects.length === 1 ? "single" : ""}`}>
           {projects.map((p) => (
             <article key={p.title} className="project-card">
-              <div
-                className="project-image"
-                style={{ background: p.gradient }}
-              >
-                <span className="project-icon">{p.icon}</span>
+              <div className="project-image">
+                {p.image ? (
+                  <img src={p.image} alt={p.title} className="project-screenshot" />
+                ) : (
+                  <>
+                    <div className="project-gradient" style={{ background: p.gradient }} />
+                    <span className="project-icon">{p.icon}</span>
+                  </>
+                )}
                 <div className="project-image-overlay">
                   <span className="view-badge">View Project</span>
                 </div>
