@@ -37,7 +37,7 @@ export const FALLBACK_PROJECTS = [
     title: "FoodHub",
     subtitle: "Food Delivery & E-Commerce Platform",
     description:
-      "Full-stack food ordering & delivery management app built on the MERN stack with a built-in AI chatbot 'Foodie'. 3 role-based apps (Customer, Admin, Delivery) with live order tracking, OTP-verified drop-offs and secure checkouts.",
+      "Full-stack food ordering & delivery management app with an AI chatbot 'Foodie'. 3 role-based apps — Customer, Admin, and Delivery — with live order tracking, OTP-verified drop-offs and secure checkouts.",
     highlights: [
       "Customer — search/filter menu, cart, coupons, checkout (COD / UPI / Card), live order tracking",
       "Admin — analytics dashboard, food/category/coupon management, orders, refunds, user & role management",
@@ -59,13 +59,15 @@ export const FALLBACK_PROJECTS = [
       admin: "admin@foodhub.com / Admin@123",
       customer: "user@foodhub.com / User@123",
       delivery: "delivery@foodhub.com / Delivery@123"
-    }
+    },
+    gradient: "linear-gradient(135deg, #f97316 0%, #ef4444 50%, #ec4899 100%)",
+    icon: "🍔"
   },
   {
     title: "Wanderlust",
     subtitle: "Airbnb-Style Rental Listing Platform",
     description:
-      "Full-stack rental listing platform where users can list their properties for rent and others can browse, search, and book them. Features an interactive map, category filtering, reviews system, and image uploads — like a complete Airbnb clone.",
+      "Full-stack rental listing platform where users can list properties for rent and others can browse, search, and book them. Interactive maps, category filtering, reviews, and image uploads — a complete Airbnb clone.",
     highlights: [
       "Browse & search listings with photos, prices, and locations on an interactive map",
       "Filter by 18 categories — Beach, Mountains, Villas, Camping, Castles, Arctic, and more",
@@ -88,6 +90,8 @@ export const FALLBACK_PROJECTS = [
     demoLogins: {
       rushi: "666",
       hitesh: "666"
-    }
+    },
+    gradient: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%)",
+    icon: "🏡"
   }
 ];
