@@ -91,10 +91,23 @@ export default function Resume({ portfolio, projects }) {
       y += skillLines.length * 14;
 
       section("Projects");
+      // Per-project brand colours for the title so each one stands out like a
+      // section header (FoodHub = its orange brand, Wanderlust = its blue brand);
+      // the subtitle stays neutral grey.
+      const TITLE_COLORS = {
+        FoodHub: [234, 88, 12],
+        Wanderlust: [37, 99, 235]
+      };
       projects.slice(0, 2).forEach((p) => {
         doc.setFont("helvetica", "bold");
         doc.setFontSize(12);
-        doc.text(`${p.title} — ${p.subtitle}`, M, y);
+        const [tr, tg, tb] = TITLE_COLORS[p.title] || [15, 23, 42];
+        doc.setTextColor(tr, tg, tb);
+        doc.text(p.title, M, y);
+        const titleW = doc.getTextWidth(p.title);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(71, 85, 105);
+        doc.text(` — ${p.subtitle}`, M + titleW + 4, y);
         y += 13;
         // Tech stack line (teal)
         doc.setFont("helvetica", "normal");
