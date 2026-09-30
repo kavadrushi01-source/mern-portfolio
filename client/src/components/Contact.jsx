@@ -42,7 +42,7 @@ export default function Contact({ portfolio }) {
     e.preventDefault();
     setStatus({ kind: "loading", text: "Sending…" });
     try {
-      const data = await sendContact(form);
+      const data = await sendContact({ ...form, to: portfolio.socials?.whatsapp });
       window.open(data.whatsapp, "_blank");
       setForm({ name: "", number: "", message: "" });
       setStatus({
