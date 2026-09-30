@@ -25,7 +25,8 @@ export const FALLBACK_PORTFOLIO = {
     "JWT Auth",
     "Google OAuth",
     "Mongoose",
-    "MySQL"
+    "MySQL",
+    "Next.js"
   ],
   socials: {
     github: "https://github.com/kavadrushi01-source",

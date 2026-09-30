@@ -13,7 +13,7 @@ const FALLBACK = {
       period: "2023 - 2025"
     }
   ],
-  skills: ["MongoDB", "Express.js", "React.js", "TypeScript", "Node.js", "REST API", "Git & GitHub", "JWT Auth", "Google OAuth", "Mongoose", "MySQL"],
+  skills: ["MongoDB", "Express.js", "React.js", "TypeScript", "Node.js", "REST API", "Git & GitHub", "JWT Auth", "Google OAuth", "Mongoose", "MySQL", "Next.js"],
   socials: {
     github: "https://github.com/kavadrushi01-source",
     linkedin: "https://linkedin.com/in/kavad-rushi-b24484411",
