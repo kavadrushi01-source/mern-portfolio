@@ -23,10 +23,12 @@ export default function Resume({ portfolio, projects }) {
       doc.setFont("helvetica", "normal");
       doc.setFontSize(13);
       doc.setTextColor(167, 243, 208);
+      doc.text(portfolio.title, M, 74);
+      doc.setFontSize(11);
       doc.text(
-        `${portfolio.title}  •  Email & links on portfolio`,
+        "+91 93285 81846  •  kavadrushi01@gmail.com  •  github.com/kavadrushi01-source",
         M,
-        74
+        93
       );
 
       doc.setFont("helvetica", "bold");
@@ -65,7 +67,11 @@ export default function Resume({ portfolio, projects }) {
         doc.setFont("helvetica", "bold");
         doc.text(e.degree, M, y);
         doc.setFont("helvetica", "normal");
-        doc.text(`${e.institution}   |   ${e.period}`, M, y + 15);
+        doc.text(
+          `${e.institution}   |   ${e.period}${e.cgpa ? `   |   CGPA: ${e.cgpa}` : ""}`,
+          M,
+          y + 15
+        );
         y += 34;
       });
 
@@ -89,17 +95,38 @@ export default function Resume({ portfolio, projects }) {
         doc.setFont("helvetica", "bold");
         doc.setFontSize(12);
         doc.text(`${p.title} — ${p.subtitle}`, M, y);
+        y += 13;
+        // Tech stack line (teal)
         doc.setFont("helvetica", "normal");
-        doc.setFontSize(10.5);
+        doc.setFontSize(10);
+        doc.setTextColor(13, 148, 136);
+        const tech = doc.splitTextToSize(p.tech.join(" • "), W - M * 2);
+        doc.text(tech, M, y);
+        y += tech.length * 12 + 2;
+        // Description
+        doc.setTextColor(50, 60, 80);
         const lines = doc.splitTextToSize(p.description, W - M * 2);
-        doc.text(lines, M, y + 14);
-        y += lines.length * 14 + 22;
+        doc.text(lines, M, y + 10);
+        y += lines.length * 13 + 6;
+        // Key highlights as bullets (capped so both projects fit one A4 page)
+        (p.highlights || []).slice(0, 3).forEach((h) => {
+          const bl = doc.splitTextToSize(`•  ${h}`, W - M * 2 - 12);
+          doc.text(bl, M + 12, y + 10);
+          y += bl.length * 13 + 3;
+        });
+        // Live link so recruiters can open the project straight from the PDF
+        if (p.live) {
+          doc.setTextColor(13, 118, 110);
+          doc.text(`Live: ${p.live.replace(/^https?:\/\//, "")}`, M + 12, y + 10);
+          y += 16;
+        }
+        y += 8;
       });
 
       doc.setTextColor(100, 116, 139);
       doc.setFontSize(9);
       doc.text(
-        "Generated from kavadrushi portfolio • Available for work",
+        "kavadrushi01@gmail.com  •  +91 93285 81846  •  Available for work",
         M,
         doc.internal.pageSize.getHeight() - 20
       );
@@ -146,7 +173,7 @@ export default function Resume({ portfolio, projects }) {
                 <div key={i} className="resume-row">
                   <strong>{e.degree}</strong>
                   <span>{e.institution}</span>
-                  <em>{e.period}</em>
+                  <em>{e.period}{e.cgpa ? ` · CGPA ${e.cgpa}` : ""}</em>
                 </div>
               ))}
             </div>

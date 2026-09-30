@@ -10,7 +10,8 @@ const FALLBACK = {
     {
       degree: "Bachelor of Computer Applications (BCA)",
       institution: "Smt. J.J Kundalia C. College",
-      period: "2023 - 2025"
+      period: "2023 - 2026",
+      cgpa: "6.9"
     }
   ],
   skills: ["MongoDB", "Express.js", "React.js", "TypeScript", "Node.js", "REST API", "Git & GitHub", "JWT Auth", "Google OAuth", "Mongoose", "MySQL", "Next.js"],

@@ -11,7 +11,8 @@ export const FALLBACK_PORTFOLIO = {
     {
       degree: "Bachelor of Computer Applications (BCA)",
       institution: "Smt. J.J Kundalia C. College",
-      period: "2023 - 2025"
+      period: "2023 - 2026",
+      cgpa: "6.9"
     }
   ],
   skills: [

@@ -39,7 +39,10 @@ export default function Explore({ portfolio }) {
                   <div className="timeline-body">
                     <span className="timeline-period">{e.period}</span>
                     <h4>{e.degree}</h4>
-                    <p>{e.institution}</p>
+                    <p>
+                      {e.institution}
+                      {e.cgpa ? ` · CGPA ${e.cgpa}` : ""}
+                    </p>
                   </div>
                 </div>
               ))}
