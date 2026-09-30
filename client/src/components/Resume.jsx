@@ -114,10 +114,14 @@ export default function Resume({ portfolio, projects }) {
           doc.text(bl, M + 12, y + 10);
           y += bl.length * 13 + 3;
         });
-        // Live link so recruiters can open the project straight from the PDF
+        // Live link so recruiters can open the project straight from the PDF -
+        // rendered in a vivid link-blue + bold so it pops against the grey body text
         if (p.live) {
-          doc.setTextColor(13, 118, 110);
-          doc.text(`Live: ${p.live.replace(/^https?:\/\//, "")}`, M + 12, y + 10);
+          const liveText = `Live: ${p.live.replace(/^https?:\/\//, "")}`;
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(2, 132, 199);
+          doc.text(liveText, M + 12, y + 10, { link: p.live });
+          doc.setFont("helvetica", "normal");
           y += 16;
         }
         y += 8;
