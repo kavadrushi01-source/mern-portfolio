@@ -78,7 +78,11 @@ export default function Resume({ portfolio, projects }) {
       doc.setFontSize(11);
       doc.setTextColor(50, 60, 80);
       y += 22;
-      doc.text(portfolio.skills.join("  •  "), M, y);
+      // Wrap instead of one long line - with 11+ skills a single line would
+      // run off the right edge of the A4 page.
+      const skillLines = doc.splitTextToSize(portfolio.skills.join("  •  "), W - M * 2);
+      doc.text(skillLines, M, y);
+      y += skillLines.length * 14;
 
       section("Projects");
       projects.slice(0, 2).forEach((p) => {

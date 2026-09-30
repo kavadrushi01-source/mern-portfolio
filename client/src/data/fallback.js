@@ -18,13 +18,17 @@ export const FALLBACK_PORTFOLIO = {
     "MongoDB",
     "Express.js",
     "React.js",
+    "TypeScript",
     "Node.js",
     "REST API",
     "Git & GitHub",
     "JWT Auth",
     "Google OAuth",
-    "Mongoose"
+    "Mongoose",
+    "MySQL"
   ],
+  // Skills picked up most recently - shown with a 🌱 badge next to the full list.
+  learning: ["TypeScript", "MySQL"],
   socials: {
     github: "https://github.com/kavadrushi01-source",
     linkedin: "https://linkedin.com/in/kavad-rushi-b24484411",

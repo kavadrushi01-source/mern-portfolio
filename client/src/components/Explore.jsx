@@ -1,4 +1,8 @@
 export default function Explore({ portfolio }) {
+  // Show every skill once, keeping the configured order. The defensive dedupe
+  // also guards against repeats in the API response data.
+  const skills = [...new Set(portfolio.skills || [])];
+  const learning = portfolio.learning || [];
   return (
     <section id="explore" className="section">
       <div className="container">
@@ -19,12 +23,17 @@ export default function Explore({ portfolio }) {
               </p>
             ))}
             <div className="skill-list">
-              {portfolio.skills.map((s) => (
+              {skills.map((s) => (
                 <span key={s} className="chip chip-solid">
                   {s}
                 </span>
               ))}
             </div>
+            {learning.length > 0 && (
+              <p className="skill-learning">
+                🌱 Currently learning: <strong>{learning.join(" · ")}</strong>
+              </p>
+            )}
           </div>
 
           <div className="card edu-card">

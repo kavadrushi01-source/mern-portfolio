@@ -61,9 +61,18 @@
         padding: 4px 12px;
         font-size: 13px;
       }
-      .proj { margin-bottom: 14px; }
+      .learning {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .learning strong { color: var(--teal); }
+      .proj { margin-bottom: 16px; }
       .proj h3 { font-size: 15px; }
-      .proj a { color: var(--teal); font-size: 13px; text-decoration: none; }
+      .proj .tech { font-size: 13px; color: var(--teal); margin-top: 2px; }
+      .proj .links { margin-top: 4px; }
+      .proj a { color: var(--teal); font-size: 13px; text-decoration: none; margin-right: 12px; }
+      .proj a:hover { text-decoration: underline; }
       .toolbar {
         max-width: 820px;
         margin: 0 auto 16px;
@@ -97,7 +106,7 @@
     <div class="page">
       <header>
         <h1>KAVAD RUSHI</h1>
-        <p>MERN Stack Developer — MongoDB, Express, React, Node.js, REST API</p>
+        <p>MERN Stack Developer — React, TypeScript, Node.js, SQL/MySQL</p>
         <div class="links">
           <a href="https://github.com/kavadrushi01-source" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://linkedin.com/in/kavad-rushi-b24484411" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -108,10 +117,10 @@
         <section>
           <h2>Summary</h2>
           <p>
-            Passionate MERN stack developer focused on building complete, secure web applications
-            end to end — from pixel-perfect React interfaces to robust Express + MongoDB backends.
-            Experienced with real-world features like live payment gateways, AI chatbots, JWT
-            authentication and Google OAuth.
+            MERN stack developer focused on building complete, secure web applications end to end —
+            from pixel-perfect React interfaces to robust Express + MongoDB backends. Skilled in
+            TypeScript and SQL/MySQL, with real-world experience shipping payment gateways, AI
+            chatbots, JWT authentication, role-based access control and Google OAuth.
           </p>
         </section>
         <section class="edu">
@@ -123,9 +132,11 @@
           <h2>Skills</h2>
           <div class="skills">
             <span>MongoDB</span><span>Express.js</span><span>React.js</span>
-            <span>Node.js</span><span>REST API</span><span>Git & GitHub</span>
-            <span>JWT Auth</span><span>Google OAuth</span><span>Mongoose</span>
+            <span>Node.js</span><span>TypeScript</span><span>MySQL</span>
+            <span>REST API</span><span>Git & GitHub</span><span>JWT Auth</span>
+            <span>Google OAuth</span><span>Mongoose</span>
           </div>
+          <p class="learning">🌱 Currently learning: <strong>TypeScript · MySQL (SQL)</strong></p>
         </section>
         <section>
           <h2>Projects</h2>
@@ -136,9 +147,32 @@
               "Foodie", 3 role-based apps (Customer / Admin / Delivery), real online payments, live
               order tracking and OTP-verified deliveries.
             </p>
-            <a href="https://foodhub-seven-gules.vercel.app" target="_blank" rel="noreferrer">
-              Live Demo ↗
-            </a>
+            <p class="tech">MongoDB · Express · React · Node.js · REST API · AI Chatbot</p>
+            <div class="links">
+              <a href="https://foodhub-seven-gules.vercel.app" target="_blank" rel="noreferrer">
+                Live Demo ↗
+              </a>
+              <a href="https://github.com/kavadrushi01-source/foodhub" target="_blank" rel="noreferrer">
+                Source Code ↗
+              </a>
+            </div>
+          </div>
+          <div class="proj">
+            <h3>Wanderlust — Airbnb-Style Rental Listing Platform</h3>
+            <p>
+              Full-stack rental listing platform where users list properties and others browse,
+              search and review them. Interactive Leaflet maps with 18 category filters, Cloudinary
+              image uploads, star-rating reviews and session-based authentication.
+            </p>
+            <p class="tech">Node.js · Express · MongoDB · EJS · Bootstrap · Leaflet · Cloudinary</p>
+            <div class="links">
+              <a href="https://wanderlustmajorproject-xr268asy.b4a.run" target="_blank" rel="noreferrer">
+                Live Demo ↗
+              </a>
+              <a href="https://github.com/kavadrushi01-source/wanderlust-major-project" target="_blank" rel="noreferrer">
+                Source Code ↗
+              </a>
+            </div>
           </div>
         </section>
       </main>
