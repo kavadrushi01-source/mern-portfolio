@@ -125,7 +125,6 @@ export default function Resume({ portfolio, projects }) {
 
         <div className="resume-card card">
           <div className="resume-head">
-            <div className="resume-avatar">{portfolio.name}</div>
             <div>
               <h3>{portfolio.name}</h3>
               <p>{portfolio.title} • Full-stack developer</p>
