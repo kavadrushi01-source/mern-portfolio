@@ -418,18 +418,6 @@ img {
   margin-top: 16px;
 }
 
-/* 🌱 "Currently learning" line under the full skill list (Explore section) */
-.skill-learning {
-  margin-top: 12px;
-  font-size: 14px;
-  color: var(--muted, #94a3b8);
-}
-
-.skill-learning strong {
-  color: #5eead4;
-  font-weight: 600;
-}
-
 .timeline {
   position: relative;
   padding-left: 22px;
