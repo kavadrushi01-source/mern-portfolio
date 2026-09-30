@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { sendContact } from "../api.js";
+import { sendContact, whatsappLink } from "../api.js";
+
+// "919328581846" -> "+91 93285 81846"
+function formatPhone(digits) {
+  const mobile = digits.slice(-10);
+  const cc = digits.slice(0, Math.max(0, digits.length - 10));
+  return `${cc ? `+${cc} ` : ""}${mobile.slice(0, 5)} ${mobile.slice(5)}`.trim();
+}
 
 const SOCIALS = [
   {
@@ -36,22 +43,49 @@ export default function Contact({ portfolio }) {
   const [status, setStatus] = useState(null);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
-  const whatsappHref = `https://wa.me/${portfolio.socials.whatsapp.replace(/[^0-9]/g, "")}`;
 
-  async function onSubmit(e) {
+  const whatsapp = portfolio.socials?.whatsapp || "";
+  const whatsappDigits = String(whatsapp).replace(/[^0-9]/g, "");
+  const whatsappHref = whatsappDigits ? `https://wa.me/${whatsappDigits}` : "#contact";
+
+  function onSubmit(e) {
     e.preventDefault();
-    setStatus({ kind: "loading", text: "Sending…" });
-    try {
-      const data = await sendContact({ ...form, to: portfolio.socials?.whatsapp });
-      window.open(data.whatsapp, "_blank");
-      setForm({ name: "", number: "", message: "" });
-      setStatus({
-        kind: "ok",
-        text: "Message opened in WhatsApp — just press send there to deliver it to me! 🎉"
-      });
-    } catch (err) {
-      setStatus({ kind: "err", text: err.message });
+    const clean = {
+      name: form.name.trim(),
+      number: form.number.trim(),
+      message: form.message.trim()
+    };
+    if (!clean.name || !clean.number || !clean.message) {
+      setStatus({ kind: "err", text: "Please add your name, number and a message." });
+      return;
     }
+
+    // The visitor's own WhatsApp delivers the message, so the link is built and
+    // opened synchronously - inside the click - and never waits on the network:
+    // a sleeping backend (or a popup blocker deciding after an await) can no
+    // longer swallow the message.
+    const link = whatsappLink({ ...clean, to: whatsapp });
+    if (!window.open(link, "_blank")) {
+      setStatus({
+        kind: "err",
+        link,
+        text: "Your browser blocked the WhatsApp window — open it from this link:"
+      });
+      return;
+    }
+
+    setForm({ name: "", number: "", message: "" });
+    setStatus({
+      kind: "ok",
+      link,
+      text: "Message ready in WhatsApp — just press send there to deliver it to me! 🎉"
+    });
+
+    // Store a backup copy on the server. Optional by design: if the backend is
+    // asleep or absent the message still reached WhatsApp above.
+    sendContact(clean).catch((err) => {
+      console.warn("[contact] backup save skipped:", err.message);
+    });
   }
 
   return (
@@ -97,14 +131,11 @@ export default function Contact({ portfolio }) {
               ))}
             </div>
 
-<div className="contact-quick">
-              <span>📱 {(() => {
-                const d = portfolio.socials.whatsapp.replace(/[^0-9]/g, "");
-                const cc = d.slice(0, d.length - 10);
-                const mobile = d.slice(-10);
-                return `+${cc} ${mobile.slice(0, 5)} ${mobile.slice(5)}`;
-              })()}</span>
-            </div>
+{whatsappDigits && (
+              <div className="contact-quick">
+                <span>📱 {formatPhone(whatsappDigits)}</span>
+              </div>
+            )}
           </div>
 
           <form className="contact-form-card" onSubmit={onSubmit}>
@@ -144,7 +175,19 @@ export default function Contact({ portfolio }) {
             <button type="submit" className="btn btn-primary btn-block">
               Send via WhatsApp 💬
             </button>
-            {status && <p className={`form-status ${status.kind}`}>{status.text}</p>}
+            {status && (
+              <p className={`form-status ${status.kind}`}>
+                {status.text}
+                {status.link && (
+                  <>
+                    {" "}
+                    <a href={status.link} target="_blank" rel="noreferrer">
+                      Open WhatsApp →
+                    </a>
+                  </>
+                )}
+              </p>
+            )}
           </form>
         </div>
       </div>

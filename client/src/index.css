@@ -1065,6 +1065,15 @@ img {
   border: 1px solid rgba(239, 68, 68, 0.3);
   color: #fca5a5;
 }
+.form-status.loading {
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.form-status a {
+  color: inherit;
+  text-decoration: underline;
+}
 
 /* ---------- Footer ---------- */
 .footer {

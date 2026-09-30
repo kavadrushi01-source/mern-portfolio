@@ -12,10 +12,18 @@ function buildWhatsAppLink(number, text) {
 }
 
 router.post("/", async (req, res) => {
-  const { name, number, message } = req.body || {};
+  const body = req.body || {};
+  // Only strings are accepted: objects/arrays/numbers would otherwise be stored
+  // as garbage or break the text that gets built for WhatsApp.
+  const name = typeof body.name === "string" ? body.name.trim() : "";
+  const number = typeof body.number === "string" ? body.number.trim() : "";
+  const message = typeof body.message === "string" ? body.message.trim() : "";
 
   if (!name || !number || !message) {
     return res.status(400).json({ success: false, error: "name, number and message are required" });
+  }
+  if (name.length > 120 || number.length > 40) {
+    return res.status(400).json({ success: false, error: "name or number is too long" });
   }
   if (message.length > 2000) {
     return res.status(400).json({ success: false, error: "Message is too long (max 2000 chars)" });

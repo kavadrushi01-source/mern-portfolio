@@ -32,12 +32,17 @@ npm run dev        # starts API (:4000) + frontend (:5173) together
 | GET    | `/api/portfolio`  | Name, title, about, education, skills, socials |
 | GET    | `/api/projects`   | Project list                             |
 | POST   | `/api/contact`    | `{name, number, message}` → saves message + returns WhatsApp link |
+| GET    | `/api/portfolio/health` | Health check (used by `render.yaml`) |
 
 ## Configuration (server/.env)
 
 - `MONGODB_URI` — set your MongoDB Atlas string to persist contact messages (empty = in-memory)
 - `WHATSAPP_NUMBER` — whose WhatsApp receives form messages (digits only, e.g. `919328581846`)
-- `GITHUB_URL`, `LINKEDIN_URL` — driven the contact buttons
+- `GITHUB_URL`, `LINKEDIN_URL` — drive the contact buttons
+- `PORTFOLIO_OWNER_NAME`, `PORTFOLIO_TITLE` — shown in the hero and footer
+- `PORT` — API port; must match the Vite dev proxy (`/api` → `:4000` in `client/vite.config.js`)
+- `CLIENT_ORIGIN` — origin allowed by CORS in dev
+- `CLIENT_DIST` — where the built client lives (relative to `server/` or absolute); default `../client/dist`
 
 ## Production build
 

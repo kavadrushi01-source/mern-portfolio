@@ -21,4 +21,18 @@ const FALLBACK = {
   }
 };
 
-export default FALLBACK;
+// The values above are defaults. Anything that differs per deployment can be
+// overridden with environment variables (see server/.env.example) - dotenv is
+// loaded in src/index.js before this module is evaluated.
+const PORTFOLIO = {
+  ...FALLBACK,
+  name: process.env.PORTFOLIO_OWNER_NAME || FALLBACK.name,
+  title: process.env.PORTFOLIO_TITLE || FALLBACK.title,
+  socials: {
+    github: process.env.GITHUB_URL || FALLBACK.socials.github,
+    linkedin: process.env.LINKEDIN_URL || FALLBACK.socials.linkedin,
+    whatsapp: process.env.WHATSAPP_NUMBER || FALLBACK.socials.whatsapp
+  }
+};
+
+export default PORTFOLIO;

@@ -19,6 +19,18 @@ async function getJSON(url) {
   return res.json();
 }
 
+// Builds the wa.me link that carries the message. Exported so the UI can open
+// WhatsApp synchronously, straight from the click (see Contact.jsx) - opening
+// it after an await gets swallowed by popup blockers.
+export function whatsappLink({ name, number, message, to } = {}) {
+  const text =
+    `New Portfolio Message\n` +
+    `----------------------\n` +
+    `Name: ${name ?? ""}\nNumber: ${number ?? ""}\n\nMessage:\n${message ?? ""}`;
+  const digits = String(to || OWNER_WHATSAPP).replace(/[^0-9]/g, "");
+  return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
+}
+
 export async function fetchPortfolio() {
   try {
     return await getJSON("/api/portfolio");
@@ -62,14 +74,9 @@ export async function sendContact({ name, number, message, to }) {
   // ...otherwise deliver directly: the visitor's own WhatsApp carries the
   // message, which was always the real delivery channel anyway (the
   // server only ever opened this same link for them).
-  const text =
-    `New Portfolio Message\n` +
-    `----------------------\n` +
-    `Name: ${clean.name}\nNumber: ${clean.number}\n\nMessage:\n${clean.message}`;
-  const digits = String(to || OWNER_WHATSAPP).replace(/[^0-9]/g, "");
   return {
     success: true,
     local: true,
-    whatsapp: `https://wa.me/${digits}?text=${encodeURIComponent(text)}`
+    whatsapp: whatsappLink({ ...clean, to })
   };
 }

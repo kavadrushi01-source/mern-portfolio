@@ -17,9 +17,16 @@ const PORT = process.env.PORT || 4000;
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || "*" }));
 app.use(express.json({ limit: "50kb" }));
 
-// Serve the built React app in production (optional)
-const clientDist = path.join(__dirname, "..", "..", "client", "dist");
+// Serve the built React app in production (optional). CLIENT_DIST may be
+// relative to this package (server/) or absolute; the default is the
+// repository's client/dist, where `npm run build` writes the bundle.
+const clientDist = process.env.CLIENT_DIST
+  ? path.resolve(__dirname, "..", process.env.CLIENT_DIST)
+  : path.join(__dirname, "..", "..", "client", "dist");
 const hasClient = fs.existsSync(clientDist);
+if (!hasClient && process.env.CLIENT_DIST) {
+  console.warn(`[server] CLIENT_DIST is set to ${clientDist}, which does not exist - serving the API only`);
+}
 if (hasClient) {
   app.use(express.static(clientDist));
 }
