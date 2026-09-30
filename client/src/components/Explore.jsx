@@ -44,11 +44,6 @@ export default function Explore({ portfolio }) {
                 </div>
               ))}
             </div>
-
-            <div className="edu-note">
-              <span>🎯</span>
-              Currently learning & building to deepen my full-stack skills while shipping real projects.
-            </div>
           </div>
         </div>
 
