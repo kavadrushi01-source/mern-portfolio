@@ -42,7 +42,7 @@ npm run dev        # starts API (:4000) + frontend (:5173) together
 ## Production build
 
 ```bash
-npm run build      # builds client -> client/dist
+npm run build      # builds client -> client/dist (and mirrors it to ./dist for Vercel)
 npm start          # Express serves API + built client together
 ```
 
@@ -57,14 +57,29 @@ The whole MERN app deploys as **one service** — Express serves the API and the
 3. Optional: in the service's **Environment** tab, add your `MONGODB_URI` (MongoDB Atlas). Without it the API runs on in-memory storage.
 4. Deploy → open `https://<your-app>.onrender.com`. This is your **API + site** URL.
 
-### Vercel (frontend) → points at Render
+### Vercel (frontend only, static)
+
+The client is backend-independent: `client/src/api.js` tries same-origin `/api/*`
+first and falls back to the bundled data in `client/src/data/fallback.js`, so the
+built Vite app can be hosted on its own.
 
 1. On Vercel → **Import Project**, pick the repo. Framework preset: **Vite**.
-2. **Build command** `npm run build`, **Output directory** `client/dist`.
-3. Or let `vercel.json` handle it automatically.
-4. In `vercel.json`, replace `YOUR-RENDER-URL` with your `https://<your-app>.onrender.com`.
-   - Alternative: instead of editing the file, add a Vercel env var `VITE_API_URL=https://<your-app>.onrender.com` (API calls go straight to Render).
-5. Deploy. Your portfolio is live on Vercel with `/api` backed by Render.
+2. **Root Directory** = `client` (this turns the repo into a client-root project,
+   which is what `client/vercel.json` is written for).
+3. Leave **Build command** `npm run build` and **Output directory** `dist`;
+   `client/vercel.json` pins both, and vercel.json settings win over the dashboard.
+4. Clear any **Production Override** warning at the top of *Settings → Build and
+   Deployment Settings*. A stale Output Directory override is the usual cause of
+   `Error: No Output Directory named "dist" found after the Build completed`.
+5. Deploy. To point the API at a live backend instead of the bundled fallback,
+   set the env var `VITE_API_URL=https://<your-app>.onrender.com`.
+
+> Which `vercel.json` is used?
+> - Root Directory = `client` → **`client/vercel.json`** (build `npm run build`, output `dist`).
+> - Root Directory = repository root → **`vercel.json`** (build `npm run build`, output `client/dist`).
+>
+> `client/scripts/emit-root-dist.mjs` mirrors the build to `<repo-root>/dist` after
+> every build, so the output directory resolves correctly under either setting.
 
 > Notes
 > - Contact-form messages save on the Render service (MongoDB/in-memory) and open in WhatsApp via `wa.me`.
