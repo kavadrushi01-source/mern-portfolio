@@ -48,9 +48,9 @@ const PROJECTS = [
       "Server-side validation",
       "Protected routes for owner-only actions"
     ],
-    note: "Built as a college major project. Uses OpenStreetMap + Leaflet for interactive maps and Cloudinary for image storage.",
+    note: "Built as a college major project. Uses OpenStreetMap + Leaflet for interactive maps and Cloudinary for image storage. Live on Back4App Containers - the old Render link is dead (its free web service was suspended); free containers can take ~30s to wake on first load.",
     tech: ["Node.js", "Express", "MongoDB", "EJS", "Bootstrap", "Leaflet", "Cloudinary"],
-    live: "https://wanderlust-major-project-e5gi.onrender.com",
+    live: "https://wanderlustmajorproject-xr268asy.b4a.run",
     github: "https://github.com/kavadrushi01-source/wanderlust-major-project",
     demoLogins: {
       rushi: "666",
