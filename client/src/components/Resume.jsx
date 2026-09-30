@@ -98,7 +98,8 @@ export default function Resume({ portfolio, projects }) {
         FoodHub: [234, 88, 12],
         Wanderlust: [37, 99, 235]
       };
-      projects.slice(0, 2).forEach((p) => {
+      const projectsShown = Math.min(projects.length, 2);
+      projects.slice(0, 2).forEach((p, idx) => {
         doc.setFont("helvetica", "bold");
         doc.setFontSize(12);
         const [tr, tg, tb] = TITLE_COLORS[p.title] || [15, 23, 42];
@@ -138,6 +139,14 @@ export default function Resume({ portfolio, projects }) {
           y += 16;
         }
         y += 8;
+        // Thin black divider between project blocks (after FoodHub) so the two
+        // entries read cleanly as separate sections.
+        if (idx < projectsShown - 1) {
+          doc.setDrawColor(17, 24, 39);
+          doc.setLineWidth(0.7);
+          doc.line(M, y, W - M, y);
+          y += 14;
+        }
       });
 
       doc.setTextColor(100, 116, 139);
