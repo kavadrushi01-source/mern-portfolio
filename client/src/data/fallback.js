@@ -96,9 +96,9 @@ export const FALLBACK_PROJECTS = [
       "Protected routes for owner-only actions"
     ],
     note:
-      "Built as a college major project. Uses OpenStreetMap + Leaflet for interactive maps and Cloudinary for image storage. Hosted on Back4App Containers - note that Back4App's free plan gives a temporary address that rotates, so if the link 404s it gets redeployed for a fresh one (the old Render link is dead for good).",
-    tech: ["Node.js", "Express", "MongoDB", "EJS", "Bootstrap", "Leaflet", "Cloudinary"],
-    live: "https://wanderlustmajorproject-kqhzf1gw.b4a.run",
+      "Built as a college major project. Uses OpenStreetMap + Leaflet for interactive maps and Cloudinary for image storage. Now hosted permanently on Vercel serverless (api/index.js + vercel.json, auto-redeploys from main) — the old Render service is deleted and the temporary Back4App addresses expired; the first request can take 10–30s while the function cold-starts.",
+    tech: ["Node.js", "Express", "MongoDB", "EJS", "Bootstrap", "Leaflet", "Cloudinary", "Vercel"],
+    live: "https://wanderlust-major-project-eta.vercel.app",
     github: "https://github.com/kavadrushi01-source/wanderlust-major-project",
     demoLogins: {
       rushi: "666",
