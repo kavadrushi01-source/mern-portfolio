@@ -6,7 +6,7 @@ const PROJECTS = [
       "Full-stack food delivery + e-commerce platform on the MERN stack — three role-based apps (Customer, Admin Dashboard, Delivery Partner) in one, plus the AI chatbot assistant 'Foodie'. Frontend and API both deployed on Vercel.",
     highlights: [
       "Customer — category browsing, full-text search, veg / non-veg / price filters, sorting, pagination, wishlist, persistent cart and demo coupons (WELCOME10, FLAT50, FOODIE20)",
-      "Demo-safe payments — Razorpay runs in TEST MODE and the server refuses live keys: test card 5267 3181 8797 5449 with any expiry / CVV, then either click Skip OTP or type any 6-digit code; Netbanking and Wallet use a mock Success / Failure page, UPI success@razorpay / failure@razorpay, and Cash on Delivery completes instantly",
+      "Payments — Razorpay integration covering Card, Netbanking, Wallet, UPI and Cash on Delivery, with a demo checkout that generates a simulated OTP exactly like the real gateway flow: test card 5267 3181 8797 5449 with any expiry / CVV, then either click Skip OTP or type any 6-digit code; Netbanking and Wallet show a Success / Failure confirmation page, and UPI accepts success@razorpay / failure@razorpay",
       "Delivery partner — assigned drop-offs, live status updates and earnings tracking, with the hand-off confirmed by the OTP issued by the admin",
       "AI chatbot \"Foodie\" — regex intent engine with 100+ hand-written intents (orders, delivery, payments, coupons, menu, even math), quick-suggestion buttons and a browsable FAQ panel, with no external API needed",
       "Admin dashboard — revenue, order-count and top-seller analytics with real charts, food / category / coupon CRUD, delivery-partner assignment, refunds, review moderation and store settings",
@@ -24,7 +24,7 @@ const PROJECTS = [
       "Role-based access control",
       "Winston structured logging"
     ],
-    note: "Payments are Razorpay TEST MODE enforced server-side — live keys are rejected, so no real money can ever be charged. Frontend and API both run on Vercel's free tier; the serverless API cold-starts in about 3–6 seconds after sitting idle.",
+    note: "Checkout runs on a Razorpay integration that generates a simulated OTP at the payment step, so the card, netbanking, wallet, UPI and cash-on-delivery flows can all be tried end to end. Frontend and API both run on Vercel's free tier; the serverless API cold-starts in about 3–6 seconds after sitting idle.",
     tech: ["React 18", "Vite", "Tailwind CSS", "Zustand", "React Router", "Framer Motion", "Node.js", "Express", "MongoDB", "JWT", "Zod", "Razorpay", "AI Chatbot", "Vercel"],
     live: "https://foodhub-seven-gules.vercel.app",
     api: "https://foodhub-pearl-tau.vercel.app",
