@@ -152,10 +152,12 @@
               Frontend and API both deployed on Vercel.
             </p>
             <ul>
-              <li>Built the customer app with category browsing, full-text search, veg / non-veg / price filters, sorting, pagination, wishlist, persistent cart and coupons.</li>
-              <li>Implemented checkout with saved delivery addresses and fully working Cash on Delivery, plus a Razorpay gateway order and payment-confirm flow.</li>
-              <li>Developed an admin dashboard with revenue, order-count and top-seller analytics on real charts, food / category / coupon CRUD, delivery-partner assignment, review moderation and store settings.</li>
-              <li>Hardened the platform with JWT access + refresh-token rotation in httpOnly cookies, bcrypt, Helmet, a CORS allow-list, rate limiting, mongo-sanitize and zod validation; added the "Foodie" chatbot with 100+ intents.</li>
+              <li>Built the customer app with category browsing, full-text search, veg / non-veg / price filters, sorting, pagination, wishlist, persistent cart and demo coupons (WELCOME10, FLAT50, FOODIE20).</li>
+              <li>Integrated Razorpay in <strong>TEST MODE</strong> — the server refuses live keys, so no real money can be charged: test card <strong>5267 3181 8797 5449</strong> with any expiry / CVV, then either click <strong>Skip OTP</strong> or type <strong>any 6-digit code</strong>; Netbanking and Wallet use a mock Success / Failure page, UPI uses success@razorpay, and Cash on Delivery completes instantly.</li>
+              <li>Built the delivery-partner app with assigned drop-offs, live status updates and earnings tracking, where the hand-off is confirmed by the OTP issued by the admin.</li>
+              <li>Added the "Foodie" AI chatbot — a regex intent engine with 100+ hand-written intents (orders, delivery, payments, coupons, menu, even math), quick-suggestion buttons and a browsable FAQ panel, running without any external API.</li>
+              <li>Developed an admin dashboard with revenue, order-count and top-seller analytics on real charts, food / category / coupon CRUD, delivery-partner assignment, refunds, review moderation and store settings.</li>
+              <li>Hardened the platform with JWT access + refresh-token rotation in httpOnly cookies, bcrypt, Helmet, a CORS allow-list, rate limiting, mongo-sanitize and zod validation.</li>
             </ul>
             <div class="links">
               <a href="https://foodhub-seven-gules.vercel.app/" target="_blank" rel="noreferrer">

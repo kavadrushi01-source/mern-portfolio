@@ -122,8 +122,9 @@ export default function Resume({ portfolio, projects }) {
         const lines = doc.splitTextToSize(p.description, W - M * 2);
         doc.text(lines, M, y + 10);
         y += lines.length * 13 + 6;
-        // Key highlights as bullets (capped so both projects fit one A4 page)
-        (p.highlights || []).slice(0, 3).forEach((h) => {
+        // Key highlights as bullets (first 4 so the payment/OTP + chatbot work
+        // lands on the PDF while both projects still fit one A4 page)
+        (p.highlights || []).slice(0, 4).forEach((h) => {
           const bl = doc.splitTextToSize(`•  ${h}`, W - M * 2 - 12);
           doc.text(bl, M + 12, y + 10);
           y += bl.length * 13 + 3;

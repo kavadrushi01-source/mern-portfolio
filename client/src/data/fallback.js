@@ -43,12 +43,13 @@ export const FALLBACK_PROJECTS = [
     description:
       "Full-stack food delivery + e-commerce platform on the MERN stack — three role-based apps (Customer, Admin Dashboard, Delivery Partner) in one, plus the AI chatbot assistant 'Foodie'. Frontend and API both deployed on Vercel.",
     highlights: [
-      "Customer — category browsing, full-text search, veg / non-veg / price filters, sorting, pagination, wishlist, persistent cart and coupons",
-      "Checkout with saved delivery addresses and fully working Cash on Delivery; Razorpay gateway order + payment-confirm flow wired end to end",
-      "Orders — live status timeline, invoice & payment summary, cancellations with automatic refunds",
-      "Admin — revenue, order-count and top-seller analytics with real charts, food / category / coupon CRUD, delivery-partner assignment, review moderation and store settings",
-      "Delivery — assigned deliveries, OTP-verified completion, earnings tracking and live status updates",
-      "AI chatbot 'Foodie' — regex intent engine with 100+ hand-written intents, quick-suggestion buttons and a browsable FAQ panel (no external API needed)"
+      "Customer — category browsing, full-text search, veg / non-veg / price filters, sorting, pagination, wishlist, persistent cart and demo coupons (WELCOME10, FLAT50, FOODIE20)",
+      "Demo-safe payments — Razorpay runs in TEST MODE and the server refuses live keys: test card 5267 3181 8797 5449 with any expiry / CVV, then either click Skip OTP or type any 6-digit code; Netbanking and Wallet use a mock Success / Failure page, UPI success@razorpay / failure@razorpay, and Cash on Delivery completes instantly",
+      "Delivery partner — assigned drop-offs, live status updates and earnings tracking, with the hand-off confirmed by the OTP issued by the admin",
+      "AI chatbot \"Foodie\" — regex intent engine with 100+ hand-written intents (orders, delivery, payments, coupons, menu, even math), quick-suggestion buttons and a browsable FAQ panel, with no external API needed",
+      "Admin dashboard — revenue, order-count and top-seller analytics with real charts, food / category / coupon CRUD, delivery-partner assignment, refunds, review moderation and store settings",
+      "Order pipeline — pending → confirmed → preparing → out for delivery → delivered, tracked per item, with cancellations and automatic refunds",
+      "Platform — premium mobile-first UI with dark / light mode, animations and skeleton loaders, deployed on Vercel's free tier with the API running as a serverless function"
     ],
     security: [
       "JWT access + refresh-token rotation",
@@ -62,7 +63,7 @@ export const FALLBACK_PROJECTS = [
       "Winston structured logging"
     ],
     note:
-      "Deployed end to end on Vercel — the React frontend and the Express API both run on the free tier, with the API as a serverless function. Cash on Delivery works fully; Razorpay is integrated at the architecture level and activates when gateway keys are configured.",
+      "Payments are Razorpay TEST MODE enforced server-side — live keys are rejected, so no real money can ever be charged. Frontend and API both run on Vercel's free tier; the serverless API cold-starts in about 3–6 seconds after sitting idle.",
     tech: ["React 18", "Vite", "Tailwind CSS", "Zustand", "React Router", "Framer Motion", "Node.js", "Express", "MongoDB", "JWT", "Zod", "Razorpay", "AI Chatbot", "Vercel"],
     live: "https://foodhub-seven-gules.vercel.app",
     api: "https://foodhub-pearl-tau.vercel.app",
