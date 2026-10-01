@@ -23,7 +23,7 @@ const PROJECTS = [
       "Role-based access control",
       "Winston structured logging"
     ],
-    note: "Checkout runs on a Razorpay integration with a simulated OTP step, so card, netbanking, wallet, UPI and cash-on-delivery flows can be demonstrated end to end. The site also ships the \"Foodie\" AI chatbot, which answers 100+ questions about orders, delivery, payments and the menu.",
+    note: "Payments run through a Razorpay integration covering card, netbanking, wallet, UPI and cash on delivery, and every delivery is confirmed with an OTP. A built-in AI chatbot called \"Foodie\" helps customers with orders, delivery, payments and the menu at any time.",
     tech: ["React 18", "Vite", "Tailwind CSS", "Zustand", "React Router", "Framer Motion", "Node.js", "Express", "MongoDB", "JWT", "Zod", "Razorpay", "AI Chatbot", "Vercel"],
     live: "https://foodhub-seven-gules.vercel.app",
     api: "https://foodhub-pearl-tau.vercel.app",

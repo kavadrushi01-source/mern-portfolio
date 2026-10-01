@@ -48,6 +48,17 @@ export default function Resume({ portfolio, projects }) {
         y += 20;
       };
 
+      // Keep content clear of the footer: start a fresh page instead of letting
+      // a long project block run into it.
+      const PAGE_H = doc.internal.pageSize.getHeight();
+      const BOTTOM = PAGE_H - 62;
+      const ensureRoom = (needed) => {
+        if (y + needed > BOTTOM) {
+          doc.addPage();
+          y = 60;
+        }
+      };
+
       y = 130;
       doc.setFont("helvetica", "bold");
       doc.setFontSize(12);
@@ -75,16 +86,11 @@ export default function Resume({ portfolio, projects }) {
         y += 34;
       });
 
-      doc.setFont("helvetica", "bold");
-      doc.text("Skills", M, y);
-      doc.setTextColor(20, 184, 166);
-      doc.setLineWidth(2);
-      doc.line(M, y + 6, M + 100, y + 6);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(11);
+      // Uses the same heading + spacing as every other section (the old inline
+      // version drew "Skills" straight on top of the education line).
+      section("Skills");
       doc.setTextColor(50, 60, 80);
-      y += 22;
-      // Wrap instead of one long line - with 11+ skills a single line would
+      // Wrap instead of one long line - with 12 skills a single line would
       // run off the right edge of the A4 page.
       const skillLines = doc.splitTextToSize(portfolio.skills.join("  •  "), W - M * 2);
       doc.text(skillLines, M, y);
@@ -100,6 +106,7 @@ export default function Resume({ portfolio, projects }) {
       };
       const projectsShown = Math.min(projects.length, 2);
       projects.slice(0, 2).forEach((p, idx) => {
+        ensureRoom(200); // whole project block on one page when possible
         doc.setFont("helvetica", "bold");
         doc.setFontSize(12);
         const [tr, tg, tb] = TITLE_COLORS[p.title] || [15, 23, 42];
@@ -125,6 +132,7 @@ export default function Resume({ portfolio, projects }) {
         // Key highlights as bullets (first 4 so the payment/OTP + chatbot work
         // lands on the PDF while both projects still fit one A4 page)
         (p.highlights || []).slice(0, 4).forEach((h) => {
+          ensureRoom(34);
           const bl = doc.splitTextToSize(`•  ${h}`, W - M * 2 - 12);
           doc.text(bl, M + 12, y + 10);
           y += bl.length * 13 + 3;
@@ -132,6 +140,7 @@ export default function Resume({ portfolio, projects }) {
         // Live link so recruiters can open the project straight from the PDF -
         // rendered in a vivid link-blue + bold so it pops against the grey body text
         if (p.live) {
+          ensureRoom(26);
           const liveText = `Live: ${p.live.replace(/^https?:\/\//, "")}`;
           doc.setFont("helvetica", "bold");
           doc.setTextColor(2, 132, 199);
