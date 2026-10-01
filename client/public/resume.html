@@ -145,20 +145,24 @@
           <h2>Featured Projects</h2>
           <div class="proj">
             <h3><span class="pj-foodhub">FoodHub</span> — Food Delivery &amp; E-Commerce Platform</h3>
-            <p class="tech">MongoDB · Express · React.js · Node.js · REST API · AI Chatbot</p>
+            <p class="tech">React 18 · Vite · Tailwind CSS · Zustand · React Router · Node.js · Express · MongoDB · JWT · Razorpay</p>
             <p>
-              Full-stack food ordering &amp; delivery platform with 3 role-based applications
-              (Customer, Admin, Delivery), real online payments and live order tracking.
+              Full-stack food delivery + e-commerce platform with three role-based apps (Customer,
+              Admin Dashboard, Delivery Partner) in one, plus the AI chatbot assistant "Foodie".
+              Frontend and API both deployed on Vercel.
             </p>
             <ul>
-              <li>Built the customer app with menu search &amp; filtering, cart, coupons and secure checkout supporting COD / UPI / Card through a real payment gateway.</li>
-              <li>Developed an admin analytics dashboard with food, category and coupon management, order handling, refunds and role-based user management.</li>
-              <li>Shipped a delivery app with assigned orders, OTP-verified drop-offs and earnings tracking, plus live order status for customers.</li>
-              <li>Secured the platform with JWT authentication, bcrypt hashing, Zod validation, email verification and Google OAuth; added an AI chatbot "Foodie" for support.</li>
+              <li>Built the customer app with category browsing, full-text search, veg / non-veg / price filters, sorting, pagination, wishlist, persistent cart and coupons.</li>
+              <li>Implemented checkout with saved delivery addresses and fully working Cash on Delivery, plus a Razorpay gateway order and payment-confirm flow.</li>
+              <li>Developed an admin dashboard with revenue, order-count and top-seller analytics on real charts, food / category / coupon CRUD, delivery-partner assignment, review moderation and store settings.</li>
+              <li>Hardened the platform with JWT access + refresh-token rotation in httpOnly cookies, bcrypt, Helmet, a CORS allow-list, rate limiting, mongo-sanitize and zod validation; added the "Foodie" chatbot with 100+ intents.</li>
             </ul>
             <div class="links">
               <a href="https://foodhub-seven-gules.vercel.app/" target="_blank" rel="noreferrer">
                 Live Demo ↗
+              </a>
+              <a href="https://foodhub-pearl-tau.vercel.app" target="_blank" rel="noreferrer">
+                Live API ↗
               </a>
               <a href="https://github.com/kavadrushi01-source/foodhub" target="_blank" rel="noreferrer">
                 Source Code ↗

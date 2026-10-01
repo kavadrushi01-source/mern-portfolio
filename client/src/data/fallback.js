@@ -41,23 +41,31 @@ export const FALLBACK_PROJECTS = [
     title: "FoodHub",
     subtitle: "Food Delivery & E-Commerce Platform",
     description:
-      "Full-stack food ordering & delivery management app with an AI chatbot 'Foodie'. 3 role-based apps — Customer, Admin, and Delivery — with live order tracking, OTP-verified drop-offs and secure checkouts.",
+      "Full-stack food delivery + e-commerce platform on the MERN stack — three role-based apps (Customer, Admin Dashboard, Delivery Partner) in one, plus the AI chatbot assistant 'Foodie'. Frontend and API both deployed on Vercel.",
     highlights: [
-      "Customer — search/filter menu, cart, coupons, checkout (COD / UPI / Card), live order tracking",
-      "Admin — analytics dashboard, food/category/coupon management, orders, refunds, user & role management",
-      "Delivery — assigned orders, OTP-verified drop-offs & earnings"
+      "Customer — category browsing, full-text search, veg / non-veg / price filters, sorting, pagination, wishlist, persistent cart and coupons",
+      "Checkout with saved delivery addresses and fully working Cash on Delivery; Razorpay gateway order + payment-confirm flow wired end to end",
+      "Orders — live status timeline, invoice & payment summary, cancellations with automatic refunds",
+      "Admin — revenue, order-count and top-seller analytics with real charts, food / category / coupon CRUD, delivery-partner assignment, review moderation and store settings",
+      "Delivery — assigned deliveries, OTP-verified completion, earnings tracking and live status updates",
+      "AI chatbot 'Foodie' — regex intent engine with 100+ hand-written intents, quick-suggestion buttons and a browsable FAQ panel (no external API needed)"
     ],
     security: [
-      "JWT authentication",
+      "JWT access + refresh-token rotation",
+      "httpOnly / sameSite cookies",
       "bcrypt password hashing",
-      "Zod validation",
-      "Email verification",
-      "Google OAuth"
+      "Helmet + CORS allow-list",
+      "Rate limiting (global + auth)",
+      "mongo-sanitize (NoSQL-injection guard)",
+      "Zod validation on every write",
+      "Role-based access control",
+      "Winston structured logging"
     ],
     note:
-      "Online payments are real — UPI & Card payments process live transactions through a real payment gateway.",
-    tech: ["MongoDB", "Express", "React", "Node.js", "REST API", "AI Chatbot"],
+      "Deployed end to end on Vercel — the React frontend and the Express API both run on the free tier, with the API as a serverless function. Cash on Delivery works fully; Razorpay is integrated at the architecture level and activates when gateway keys are configured.",
+    tech: ["React 18", "Vite", "Tailwind CSS", "Zustand", "React Router", "Framer Motion", "Node.js", "Express", "MongoDB", "JWT", "Zod", "Razorpay", "AI Chatbot", "Vercel"],
     live: "https://foodhub-seven-gules.vercel.app",
+    api: "https://foodhub-pearl-tau.vercel.app",
     github: "https://github.com/kavadrushi01-source/foodhub",
     demoLogins: {
       admin: "admin@foodhub.com / ********",
