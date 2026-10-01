@@ -152,9 +152,8 @@
               Frontend and API both deployed on Vercel.
             </p>
             <ul>
-              <li>Built the customer app with category browsing, full-text search, veg / non-veg / price filters, sorting, pagination, wishlist, persistent cart and demo coupons (WELCOME10, FLAT50, FOODIE20).</li>
-              <li>Integrated <strong>Razorpay</strong> for Card, Netbanking, Wallet and UPI payments alongside Cash on Delivery, with a checkout that generates a simulated OTP exactly like the real gateway flow — test card <strong>5267 3181 8797 5449</strong> with any expiry / CVV, then click <strong>Skip OTP</strong> or type <strong>any 6-digit code</strong>; Netbanking and Wallet show a Success / Failure page, and UPI accepts success@razorpay.</li>
-              <li>Built the delivery-partner app with assigned drop-offs, live status updates and earnings tracking, where the hand-off is confirmed by the OTP issued by the admin.</li>
+              <li>Integrated <strong>Razorpay</strong> for Card, Netbanking, Wallet, UPI and Cash on Delivery, reproducing the live gateway flow in checkout — pay with test card <strong>5267 3181 8797 5449</strong> (any expiry, any CVV) and the app raises a simulated OTP step, which can be skipped or confirmed with <strong>any 6-digit number</strong>; Netbanking and Wallet open a success / failure screen, and UPI accepts success@razorpay.</li>
+              <li>Built the delivery-partner app with assigned drop-offs, live status updates and earnings tracking, where the admin issues an OTP for every order and the hand-off only completes once the partner confirms it.</li>
               <li>Added the "Foodie" AI chatbot — a regex intent engine with 100+ hand-written intents (orders, delivery, payments, coupons, menu, even math), quick-suggestion buttons and a browsable FAQ panel, running without any external API.</li>
               <li>Developed an admin dashboard with revenue, order-count and top-seller analytics on real charts, food / category / coupon CRUD, delivery-partner assignment, refunds, review moderation and store settings.</li>
               <li>Hardened the platform with JWT access + refresh-token rotation in httpOnly cookies, bcrypt, Helmet, a CORS allow-list, rate limiting, mongo-sanitize and zod validation.</li>
