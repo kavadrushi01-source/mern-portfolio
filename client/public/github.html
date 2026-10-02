@@ -30,6 +30,13 @@
     <link rel="canonical" href="https://github.com/kavadrushi01-source" />
     <meta http-equiv="refresh" content="0; url=https://github.com/kavadrushi01-source" />
 
+    <!-- Redirect FIRST, before the body parses, so the browser navigates
+         immediately instead of downloading the preview image. This script is
+         inline in <head> and does not block on the PNG below. -->
+    <script>
+      window.location.replace("https://github.com/kavadrushi01-source");
+    </script>
+
     <style>
       html, body { height: 100%; margin: 0; }
       body {
@@ -39,19 +46,22 @@
         text-align: center; padding: 24px;
       }
       .card { max-width: 460px; }
-      .card img { width: 100%; border-radius: 12px; display: block; }
+      /* Inline placeholder keeps the box sized before the image arrives; the
+         image itself is lazy so it never delays the redirect. */
+      .card .thumb {
+        width: 100%; aspect-ratio: 1200 / 630; border-radius: 12px;
+        display: block; background: #161b22;
+      }
       .card a { color: #2dd4bf; font-weight: 600; }
       p { color: #9aa5b1; font-size: 15px; }
     </style>
   </head>
   <body>
     <div class="card">
-      <img src="/github-og.png" alt="Kavad Rushi - MERN Stack Developer on GitHub" />
+      <img class="thumb" src="/github-og.png" alt="Kavad Rushi - MERN Stack Developer on GitHub"
+           width="1200" height="630" loading="lazy" decoding="async" fetchpriority="low" />
       <p>Redirecting to your GitHub profile&hellip;</p>
       <p><a href="https://github.com/kavadrushi01-source">github.com/kavadrushi01-source</a></p>
     </div>
-    <script>
-      window.location.replace("https://github.com/kavadrushi01-source");
-    </script>
   </body>
 </html>
