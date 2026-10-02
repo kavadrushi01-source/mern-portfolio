@@ -375,19 +375,15 @@ img {
   animation: cur3dBob 5s ease-in-out infinite;
 }
 .cur3d-core-label {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.6px;
   color: #ffffff;
   text-shadow: 0 2px 12px rgba(2, 30, 60, 0.7);
   line-height: 1;
-}
-.cur3d-core-sub {
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 6px rgba(2, 30, 60, 0.7);
+  /* "WebDev" is wider than the previous "BCA" label, so keep it inside the
+     124px circle with a little breathing room on each side. */
+  white-space: nowrap;
 }
 
 /* The tilted orbit plane: this is what turns the circle into an ellipse and
@@ -1362,10 +1358,7 @@ img {
     inset: -18px;
   }
   .cur3d-core-label {
-    font-size: 1.24rem;
-  }
-  .cur3d-core-sub {
-    font-size: 0.5rem;
+    font-size: 0.95rem;
   }
   .cur3d-chip {
     font-size: 0.66rem;

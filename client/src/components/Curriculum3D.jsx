@@ -43,12 +43,11 @@ export default function Curriculum3D({ name, title, skills = [] }) {
         {/* Soft elliptical glow beneath the orbit, grounding the composition */}
         <div className="cur3d-glow" aria-hidden="true" />
 
-        {/* Central core - the BCA course the skills orbit around */}
+        {/* Central core - web development, the focus the skills orbit around */}
         <div className="cur3d-core" aria-hidden="true">
           <span className="cur3d-core-halo" />
           <div className="cur3d-core-body">
-            <span className="cur3d-core-label">BCA</span>
-            <span className="cur3d-core-sub">2023 — 2026</span>
+            <span className="cur3d-core-label">WebDev</span>
           </div>
         </div>
 
