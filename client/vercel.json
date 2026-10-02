@@ -5,6 +5,10 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/github",
+      "destination": "/github.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
