@@ -268,7 +268,9 @@ img {
   justify-content: center;
 }
 
-/* Panel that hosts the 3D curriculum scene (replaces the old avatar frame). */
+/* Panel that hosts the 3D curriculum scene (replaces the old avatar frame).
+   overflow stays visible so chips at the left/right of the orbit are not
+   clipped by the panel edges. */
 .hero-panel {
   position: relative;
   z-index: 1;
@@ -278,49 +280,46 @@ img {
     radial-gradient(420px 320px at 50% 18%, rgba(20, 184, 166, 0.14), transparent 65%),
     linear-gradient(180deg, var(--card), #071120);
   box-shadow: var(--shadow);
-  overflow: hidden;
-  padding: 18px 16px 14px;
+  padding: 20px 24px;
 }
 /* ---------- 3D animated curriculum ---------- */
 .cur3d {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
 }
 
-/* Establishes the perspective. rotateX tilts the whole scene slightly towards
-   the viewer so the orbit reads as a ring lying in 3D space, not a flat circle.
-   --cur3d-r drives the ring radius, and the chip scale is derived from it so
-   labels always clear their neighbours as the scene shrinks. */
+/* Registering --cur3d-spin as an <angle> is what lets a single CSS animation
+   drive every chip. Without @property the browser cannot interpolate it and
+   the whole wheel would jump instead of spin. */
+@property --cur3d-spin {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
 .cur3d-scene {
-  --cur3d-r: 132px;
+  --cur3d-r: 134px;   /* orbit radius */
+  --cur3d-spin: 0deg;
   position: relative;
-  width: 300px;
-  height: 300px;
-  perspective: 900px;
-  perspective-origin: 50% 46%;
-  transform: rotateX(14deg);
+  width: 380px;
+  height: 380px;
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
   transform-style: preserve-3d;
+  animation: cur3dSpin 26s linear infinite;
 }
 
-/* Receding floor grid for depth */
-.cur3d-floor {
+/* Faint dashed guide showing the circular path */
+.cur3d-track {
   position: absolute;
-  left: -30%;
-  right: -30%;
-  bottom: -6%;
-  height: 62%;
-  transform: rotateX(72deg);
-  transform-origin: 50% 100%;
-  background-image:
-    linear-gradient(rgba(20, 184, 166, 0.22) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(20, 184, 166, 0.22) 1px, transparent 1px);
-  background-size: 34px 34px;
-  mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 72%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 72%);
-  animation: cur3dGrid 5s ease-in-out infinite;
-  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--cur3d-r) * 2);
+  height: calc(var(--cur3d-r) * 2);
+  margin: calc(var(--cur3d-r) * -1) 0 0 calc(var(--cur3d-r) * -1);
+  border-radius: 50%;
+  border: 1.5px dashed rgba(94, 234, 212, 0.22);
 }
 
 /* Central glowing core */
@@ -328,19 +327,18 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 128px;
-  height: 128px;
-  margin: -64px 0 0 -64px;
+  width: 116px;
+  height: 116px;
+  margin: -58px 0 0 -58px;
   display: grid;
   place-items: center;
-  transform-style: preserve-3d;
 }
 .cur3d-core-ring {
   position: absolute;
-  inset: 0;
+  inset: -14px;
   border-radius: 50%;
-  border: 1.5px dashed rgba(94, 234, 212, 0.45);
-  animation: spin 18s linear infinite;
+  border: 1.5px dashed rgba(94, 234, 212, 0.4);
+  animation: spin 20s linear infinite;
 }
 .cur3d-core-body {
   position: relative;
@@ -354,13 +352,13 @@ img {
   gap: 2px;
   background: radial-gradient(circle at 32% 28%, #2dd4bf, #0ea5e9 58%, #2563eb);
   box-shadow:
-    0 0 0 6px rgba(20, 184, 166, 0.08),
-    0 0 42px rgba(20, 184, 166, 0.45),
+    0 0 0 7px rgba(20, 184, 166, 0.07),
+    0 0 46px rgba(20, 184, 166, 0.4),
     inset 0 -10px 26px rgba(2, 44, 68, 0.55);
   animation: cur3dBob 4.5s ease-in-out infinite;
 }
 .cur3d-core-label {
-  font-size: 1.5rem;
+  font-size: 1.42rem;
   font-weight: 800;
   letter-spacing: 0.5px;
   color: #ffffff;
@@ -368,36 +366,34 @@ img {
   line-height: 1;
 }
 .cur3d-core-sub {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.4px;
   color: rgba(255, 255, 255, 0.88);
 }
 
-/* The spinning ring that carries the chips */
-.cur3d-ring {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  animation: cur3dSpin 24s linear infinite;
-}
-
-/* Each slot is rotated by its share of 360deg and pushed out to the radius. */
+/* Slot: rotate to the chip's angle around the circle, then push it out to the
+   orbit radius. --ang already includes the shared spin, so this one transform
+   places every chip correctly with no extra ring wrapper. */
 .cur3d-slot {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 0;
   height: 0;
-  transform: rotateY(calc(360deg / var(--n) * var(--i)))
-    translateZ(var(--cur3d-r));
-  transform-style: preserve-3d;
+  transform: rotate(var(--ang)) translateX(var(--cur3d-r));
 }
 
-/* Counter-rotate so each label keeps facing the viewer as the ring turns. */
+/* Counter-rotate by the SAME --ang so the label always faces the viewer.
+   (Using only the spin here is what previously mirrored the back-facing
+   chips.) Depth is faked with sin() of the angle: chips at the front of the
+   orbit (sin = 1) sit larger and brighter, chips behind it recede. */
 .cur3d-chip {
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%)
+    rotate(calc(-1 * var(--ang)))
+    scale(calc(0.72 + 0.28 * (1 + sin(var(--ang)))));
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -410,7 +406,7 @@ img {
   background: linear-gradient(180deg, rgba(15, 42, 62, 0.96), rgba(9, 26, 42, 0.96));
   border: 1px solid rgba(94, 234, 212, 0.34);
   box-shadow: 0 8px 22px rgba(2, 12, 27, 0.6);
-  animation: cur3dSpin 24s linear infinite reverse;
+  opacity: calc(0.42 + 0.58 * (1 + sin(var(--ang))) / 2);
 }
 .cur3d-chip-dot {
   width: 6px;
@@ -421,37 +417,13 @@ img {
   flex: none;
 }
 
-.cur3d-caption {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  text-align: center;
-}
-.cur3d-caption strong {
-  font-size: 1.02rem;
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1.2;
-}
-.cur3d-caption span {
-  font-size: 0.74rem;
-  color: var(--muted);
-}
-
 @keyframes cur3dSpin {
-  from { transform: rotateY(0deg); }
-  to { transform: rotateY(360deg); }
+  from { --cur3d-spin: 0deg; }
+  to { --cur3d-spin: 360deg; }
 }
 @keyframes cur3dBob {
   0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-7px) scale(1.03); }
-}
-@keyframes cur3dGrid {
-  0%, 100% { opacity: 0.5; background-position: 0 0; }
-  50% { opacity: 0.95; background-position: 0 17px; }
+  50% { transform: translateY(-6px) scale(1.03); }
 }
 
 .ring {
@@ -460,23 +432,23 @@ img {
   border: 1.5px dashed rgba(20, 184, 166, 0.4);
   pointer-events: none;
 }
-/* Decorative dashed rings that frame the 3D scene. Sized to enclose the new
-   panel (300px scene + caption + padding) rather than the old avatar. */
+/* Decorative dashed rings framing the 3D scene. Sized to enclose the panel
+   (380px scene + padding) without touching the orbiting chips. */
 .ring-1 {
-  width: 380px;
-  height: 400px;
-  top: -14px;
+  width: 424px;
+  height: 424px;
+  top: -22px;
   left: 50%;
   transform: translateX(-50%);
   animation: spin 30s linear infinite;
 }
 .ring-2 {
-  width: 420px;
-  height: 444px;
-  top: -30px;
+  width: 470px;
+  height: 470px;
+  top: -45px;
   left: 50%;
   transform: translateX(-50%) rotate(45deg);
-  border-color: rgba(34, 211, 238, 0.2);
+  border-color: rgba(34, 211, 238, 0.18);
   animation: spin 45s linear infinite reverse;
 }
 
@@ -1249,16 +1221,27 @@ img {
   color: var(--primary);
 }
 
-/* Respect users who ask for less motion: freeze the 3D scene in a readable
-   state instead of leaving it spinning. */
+/* Respect users who ask for less motion: park the wheel at a fixed angle so
+   every chip stays readable instead of leaving it spinning. */
 @media (prefers-reduced-motion: reduce) {
-  .cur3d-ring,
-  .cur3d-chip,
+  .cur3d-scene,
   .cur3d-core-ring,
-  .cur3d-core-body,
-  .cur3d-floor {
+  .cur3d-core-body {
     animation: none !important;
   }
+}
+
+/* Visually hidden but available to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 
@@ -1284,28 +1267,35 @@ img {
   .hero-visual {
     order: -1;
   }
-  /* Scale the 3D scene down on stacked layouts so the orbit never overflows.
-     Chips shrink with the radius so neighbour spacing stays proportional. */
+  /* Scale the 3D scene down on stacked layouts. Geometry is re-derived here:
+     r=110 with a 96px core and ~90px chips keeps ~17px core clearance and a
+     110px neighbour chord, and fits inside the 300px scene box. */
   .cur3d-scene {
-    --cur3d-r: 108px;
-    width: 240px;
-    height: 240px;
+    --cur3d-r: 110px;
+    width: 300px;
+    height: 300px;
+  }
+  .hero-panel {
+    padding: 16px 10px;
   }
   .cur3d-core {
-    width: 100px;
-    height: 100px;
-    margin: -50px 0 0 -50px;
+    width: 96px;
+    height: 96px;
+    margin: -48px 0 0 -48px;
+  }
+  .cur3d-core-ring {
+    inset: -10px;
   }
   .cur3d-core-label {
-    font-size: 1.24rem;
+    font-size: 1.2rem;
   }
   .cur3d-core-sub {
-    font-size: 0.56rem;
+    font-size: 0.54rem;
   }
   .cur3d-chip {
-    font-size: 0.66rem;
+    font-size: 0.64rem;
     padding: 6px 10px;
-    gap: 6px;
+    gap: 5px;
   }
   .explore-grid,
   .contact-grid {

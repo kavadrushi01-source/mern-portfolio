@@ -1,8 +1,10 @@
-// Pure-CSS 3D "curriculum" visual for the hero. Replaces the old hand-drawn
-// avatar: a perspective scene where skill chips orbit a glowing core on a
-// continuously spinning 3D ring, with a receding floor grid for depth.
-// No animation libraries and no images - everything is CSS 3D transforms, so
-// it stays cheap to render and needs no asset loading.
+// Pure-CSS 3D "curriculum" visual for the hero: skill chips orbit a glowing BCA
+// core on a circular track, continuously spinning, while each chip stays
+// readable by counter-rotating against its own angle.
+//
+// Everything is CSS: a registered custom property (--cur3d-spin) is animated
+// once on the scene and inherited by every slot, so each chip derives its
+// position and facing from the same clock. No libraries, no images.
 const FALLBACK_SKILLS = [
   "React.js",
   "TypeScript",
@@ -12,9 +14,8 @@ const FALLBACK_SKILLS = [
   "MySQL",
 ];
 
-// Six chips is the sweet spot for the ring geometry: at a 132px radius, 60deg
-// spacing gives a ~132px chord between neighbours, which comfortably fits a
-// label. Eight would drop to ~101px and make adjacent chips collide.
+// Six chips keeps the spacing comfortable: on a 126px track, 60deg between
+// neighbours is a 126px chord, which fits a label without collisions.
 const MAX_CHIPS = 6;
 
 export default function Curriculum3D({ name, title, skills = [] }) {
@@ -22,6 +23,7 @@ export default function Curriculum3D({ name, title, skills = [] }) {
     .filter(Boolean)
     .slice(0, MAX_CHIPS);
   const items = orbit.length ? orbit : FALLBACK_SKILLS;
+  const n = items.length;
 
   return (
     <div
@@ -30,8 +32,8 @@ export default function Curriculum3D({ name, title, skills = [] }) {
       aria-label={`Animated 3D curriculum wheel showing ${items.join(", ")}`}
     >
       <div className="cur3d-scene">
-        {/* Floor grid - sells the depth/perspective of the scene */}
-        <div className="cur3d-floor" aria-hidden="true" />
+        {/* Faint dashed circle showing the path the chips travel along */}
+        <div className="cur3d-track" aria-hidden="true" />
 
         {/* Central core - the BCA course the chips orbit around */}
         <div className="cur3d-core" aria-hidden="true">
@@ -42,15 +44,17 @@ export default function Curriculum3D({ name, title, skills = [] }) {
           </div>
         </div>
 
-        {/* Spinning ring of chips. Each slot is rotated around the Y axis and
-            pushed out to the ring radius; the chip inside counter-rotates so
-            its label always faces the viewer. */}
-        <div className="cur3d-ring" aria-hidden="true">
+        {/* Orbiting chips. --a is the slot's fixed offset around the circle;
+            --ang adds the shared spin so every chip reads the same clock. */}
+        <div className="cur3d-orbit" aria-hidden="true">
           {items.map((s, i) => (
             <div
               key={s}
               className="cur3d-slot"
-              style={{ "--i": i, "--n": items.length }}
+              style={{
+                "--a": `calc(360deg / ${n} * ${i})`,
+                "--ang": `calc(var(--cur3d-spin) + ${i} * (360deg / ${n}))`,
+              }}
             >
               <div className="cur3d-chip">
                 <span className="cur3d-chip-dot" />
@@ -61,11 +65,10 @@ export default function Curriculum3D({ name, title, skills = [] }) {
         </div>
       </div>
 
-      {/* Caption under the scene, mirroring the old avatar's text role */}
-      <div className="cur3d-caption">
-        <strong>{name}</strong>
-        <span>{title}</span>
-      </div>
+      {/* Accessible text equivalent of the animated scene */}
+      <span className="sr-only">
+        {name} — {title}. Curriculum: {items.join(", ")}.
+      </span>
     </div>
   );
 }
