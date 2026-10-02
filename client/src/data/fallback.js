@@ -4,8 +4,8 @@ export const FALLBACK_PORTFOLIO = {
   tagline:
     "Building fast, secure, full-stack web apps with MongoDB, Express, React & Node.js.",
   about: [
-    "Hi, I'm Kavad Rushi — a passionate MERN stack developer who loves turning ideas into real, working products. From pixel-perfect React frontends to complete Node.js + Express + MongoDB backends, I build full applications end to end.",
-    "I focus on clean code, real security (JWT, bcrypt, validation) and developer-friendly architecture. I also enjoy integrating live features like payment gateways, chatbots and Google OAuth into the apps I ship."
+    "I'm a MERN Stack Developer who builds full-stack web apps that actually go live — payments, authentication, dashboards and deployment included, not just UI screens. I work across the whole stack: React frontends, Node.js + Express APIs, MongoDB and MySQL data modelling, and the deployment work that keeps it running.",
+    "I care about the parts most projects skip — clean readable code, real security (hashing, validation, rate limiting, role-based access) and a UI that still feels good on a phone. My work so far includes FoodHub, a three-role food delivery platform with Razorpay payments, OTP-confirmed delivery and an AI chatbot, and Wanderlust, an Airbnb-style rental platform with interactive maps."
   ],
   education: [
     {
