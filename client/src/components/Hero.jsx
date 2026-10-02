@@ -1,4 +1,4 @@
-import Avatar from "./Avatar.jsx";
+import Curriculum3D from "./Curriculum3D.jsx";
 
 export default function Hero({ portfolio }) {
   return (
@@ -39,8 +39,12 @@ export default function Hero({ portfolio }) {
         <div className="hero-visual">
           <div className="ring ring-1" aria-hidden="true" />
           <div className="ring ring-2" aria-hidden="true" />
-          <div className="avatar-frame">
-            <Avatar size={300} />
+          <div className="hero-panel">
+            <Curriculum3D
+              name={portfolio.name}
+              title={portfolio.title}
+              skills={portfolio.skills}
+            />
           </div>
           <div className="hero-badge float-a">
             <strong>MERN</strong>
