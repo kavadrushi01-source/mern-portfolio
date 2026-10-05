@@ -128,7 +128,7 @@ export default function Resume({ portfolio, projects }) {
       doc.setTextColor(50, 60, 80);
       doc.setFontSize(10);
       // Concatenate into one paragraph: some parsers split a multi-paragraph
-      * summary into unrelated fields.
+      // summary into unrelated fields.
       const summary = ascii(portfolio.about.join(" "));
       const sumLines = doc.splitTextToSize(summary, W - M * 2);
       doc.text(sumLines, M, y);
