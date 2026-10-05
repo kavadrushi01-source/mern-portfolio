@@ -3,13 +3,15 @@ const PROJECTS = [
     title: "FoodHub",
     subtitle: "Food Delivery & E-Commerce Platform",
     description:
-      "Full-stack food delivery + e-commerce platform on the MERN stack — three role-based apps (Customer, Admin Dashboard, Delivery Partner) in one, plus the AI chatbot assistant 'Foodie'. Frontend and API both deployed on Vercel.",
+      "Full-stack food delivery + e-commerce platform on the MERN stack — three role-based apps (Customer, Admin Dashboard, Delivery Partner) in one, live map-based delivery tracking and an AI chatbot assistant 'Foodie'. Frontend and API both deployed on Vercel.",
     highlights: [
+      "Live delivery tracking, 100% free — customers watch the rider move on a live map with a real road route, distance and ETA, while the delivery partner shares GPS from the partner app",
+      "Maps & routing with no paid keys — Leaflet + OpenStreetMap tiles, Nominatim search and reverse-geocoding, and OSRM road routing (distance, duration, route polyline) with a haversine straight-line fallback when routing is unavailable",
+      "Map-based checkout address — search a place or drop a pin and the address auto-fills from the dropped pin, with saved-address management: set default, delete (confirmed) and duplicate detection",
       "Payments — Razorpay integration supporting Card, Netbanking, Wallet, UPI and Cash on Delivery, with a checkout that reproduces the live gateway flow: pay with test card 5267 3181 8797 5449 (any expiry, any CVV) and the app raises a simulated OTP step — skip it or type any 6-digit number to confirm the payment. Netbanking and Wallet open a success / failure screen so both outcomes can be demonstrated, and UPI accepts success@razorpay or failure@razorpay",
       "Delivery partner — a dedicated partner app with assigned drop-offs, live status updates and earnings tracking, where the admin issues an OTP for every order and the hand-off only completes once the partner confirms that OTP",
       "AI chatbot \"Foodie\" — regex intent engine with 100+ hand-written intents (orders, delivery, payments, coupons, menu, even math), quick-suggestion buttons and a browsable FAQ panel, with no external API needed",
       "Admin dashboard — revenue, order-count and top-seller analytics with real charts, food / category / coupon CRUD, delivery-partner assignment, refunds, review moderation and store settings",
-      "Order pipeline — pending → confirmed → preparing → out for delivery → delivered, tracked per item, with cancellations and automatic refunds",
       "Platform — premium mobile-first UI with dark / light mode, animations and skeleton loaders, deployed on Vercel's free tier with the API running as a serverless function"
     ],
     security: [
@@ -23,8 +25,8 @@ const PROJECTS = [
       "Role-based access control",
       "Winston structured logging"
     ],
-    note: "Payments run through a Razorpay integration covering card, netbanking, wallet, UPI and cash on delivery, and every delivery is confirmed with an OTP. A built-in AI chatbot called \"Foodie\" helps customers with orders, delivery, payments and the menu at any time.",
-    tech: ["React 18", "Vite", "Tailwind CSS", "Zustand", "React Router", "Framer Motion", "Node.js", "Express", "MongoDB", "JWT", "Zod", "Razorpay", "AI Chatbot", "Vercel"],
+    note: "Payments run through a Razorpay integration covering card, netbanking, wallet, UPI and cash on delivery, and every delivery is confirmed with an OTP. Delivery tracking and address entry run on Leaflet + OpenStreetMap with Nominatim geocoding and OSRM road routing — no paid map API keys. A built-in AI chatbot called \"Foodie\" helps customers with orders, delivery, payments and the menu at any time.",
+    tech: ["React 18", "Vite", "Tailwind CSS", "Zustand", "React Router", "Framer Motion", "Node.js", "Express", "MongoDB", "JWT", "Zod", "Razorpay", "Leaflet", "OpenStreetMap", "Nominatim", "OSRM", "AI Chatbot", "Vercel"],
     live: "https://foodhub-seven-gules.vercel.app",
     api: "https://foodhub-pearl-tau.vercel.app",
     github: "https://github.com/kavadrushi01-source/foodhub",

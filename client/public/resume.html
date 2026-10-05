@@ -145,13 +145,16 @@
           <h2>Featured Projects</h2>
           <div class="proj">
             <h3><span class="pj-foodhub">FoodHub</span> — Food Delivery &amp; E-Commerce Platform</h3>
-            <p class="tech">React 18 · Vite · Tailwind CSS · Zustand · React Router · Node.js · Express · MongoDB · JWT · Razorpay</p>
+            <p class="tech">React 18 · Vite · Tailwind CSS · Zustand · React Router · Leaflet · OpenStreetMap · Node.js · Express · MongoDB · JWT · Razorpay</p>
             <p>
               Full-stack food delivery + e-commerce platform with three role-based apps (Customer,
-              Admin Dashboard, Delivery Partner) in one, plus the AI chatbot assistant "Foodie".
-              Frontend and API both deployed on Vercel.
+              Admin Dashboard, Delivery Partner) in one, live map-based delivery tracking and the AI
+              chatbot assistant "Foodie". Frontend and API both deployed on Vercel.
             </p>
             <ul>
+              <li>Built <strong>live delivery tracking at no extra cost</strong> — customers follow the rider on a map with the real road route, distance and ETA, while the partner app shares live GPS.</li>
+              <li>Implemented maps and routing with <strong>no paid API keys</strong>: Leaflet + OpenStreetMap tiles, Nominatim search / reverse-geocoding, and OSRM road routing (route line, distance, duration) with a haversine fallback when routing is unavailable.</li>
+              <li>Added a map-based checkout address — search a place or drop a pin and the address auto-fills, plus saved-address management (set default, delete, duplicate detection).</li>
               <li>Integrated <strong>Razorpay</strong> for Card, Netbanking, Wallet, UPI and Cash on Delivery, reproducing the live gateway flow in checkout — pay with test card <strong>5267 3181 8797 5449</strong> (any expiry, any CVV) and the app raises a simulated OTP step, which can be skipped or confirmed with <strong>any 6-digit number</strong>; Netbanking and Wallet open a success / failure screen, and UPI accepts success@razorpay.</li>
               <li>Built the delivery-partner app with assigned drop-offs, live status updates and earnings tracking, where the admin issues an OTP for every order and the hand-off only completes once the partner confirms it.</li>
               <li>Added the "Foodie" AI chatbot — a regex intent engine with 100+ hand-written intents (orders, delivery, payments, coupons, menu, even math), quick-suggestion buttons and a browsable FAQ panel, running without any external API.</li>

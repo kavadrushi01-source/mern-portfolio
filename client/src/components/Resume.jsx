@@ -129,9 +129,12 @@ export default function Resume({ portfolio, projects }) {
         const lines = doc.splitTextToSize(p.description, W - M * 2);
         doc.text(lines, M, y + 10);
         y += lines.length * 13 + 6;
-        // Key highlights as bullets (first 4 so the payment/OTP + chatbot work
-        // lands on the PDF while both projects still fit one A4 page)
-        (p.highlights || []).slice(0, 4).forEach((h) => {
+        // Key highlights as bullets. The live map work (tracking, routing and
+        // map-based address) is listed first in the project data, so it leads
+        // the PDF alongside the payment/OTP and chatbot work. 5 is the cap that
+        // still lets both projects stay close to one A4 page; ensureRoom below
+        // starts a new page rather than clipping if a block runs long.
+        (p.highlights || []).slice(0, 5).forEach((h) => {
           ensureRoom(34);
           const bl = doc.splitTextToSize(`•  ${h}`, W - M * 2 - 12);
           doc.text(bl, M + 12, y + 10);

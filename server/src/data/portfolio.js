@@ -4,7 +4,7 @@ const FALLBACK = {
   tagline: "Building fast, secure, full-stack web apps with MongoDB, Express, React & Node.js.",
   about: [
     "I'm a MERN Stack Developer who builds full-stack web apps that actually go live — payments, authentication, dashboards and deployment included, not just UI screens. I work across the whole stack: React frontends, Node.js + Express APIs, MongoDB and MySQL data modelling, and the deployment work that keeps it running.",
-    "I care about the parts most projects skip — clean readable code, real security (hashing, validation, rate limiting, role-based access) and a UI that still feels good on a phone. My work so far includes FoodHub, a three-role food delivery platform with Razorpay payments, OTP-confirmed delivery and an AI chatbot, and Wanderlust, an Airbnb-style rental platform with interactive maps."
+    "I care about the parts most projects skip — clean readable code, real security (hashing, validation, rate limiting, role-based access) and a UI that still feels good on a phone. My work so far includes FoodHub, a three-role food delivery platform with Razorpay payments, OTP-confirmed delivery, live rider tracking on OpenStreetMap maps and an AI chatbot, and Wanderlust, an Airbnb-style rental platform with interactive maps."
   ],
   education: [
     {
