@@ -149,7 +149,6 @@
   <body>
     <div class="toolbar">
       <button onclick="window.print()">Print / Save as PDF</button>
-      <button onclick="downloadTxt()">Download plain text (ATS)</button>
       <button onclick="history.length > 1 ? history.back() : (location.href = '/')">Back to portfolio</button>
     </div>
     <div class="page">
@@ -241,14 +240,6 @@
           </div>
         </section>
 
-        <section>
-          <h2>Additional Projects</h2>
-          <ul>
-            <li><strong>MERN Portfolio Website</strong> - Full-stack personal portfolio with an Express REST API, MongoDB, React frontend and an animated CSS 3D skills orbit. <a href="https://github.com/kavadrushi01-source/mern-portfolio" target="_blank" rel="noreferrer">github.com/kavadrushi01-source/mern-portfolio</a></li>
-            <li><strong>JavaScript Projects</strong> - Collection of JavaScript mini projects covering DOM manipulation, events, asynchronous JavaScript and core programming logic.</li>
-          </ul>
-        </section>
-
         <section class="edu">
           <h2>Education</h2>
           <h3>Bachelor of Computer Applications (BCA)</h3>
@@ -257,51 +248,5 @@
         </section>
       </main>
     </div>
-
-    <script>
-      /*
-       * Plain-text (.txt) export - the most reliably parsed resume format an
-       * Applicant Tracking System can ingest, since it carries no layout,
-       * styling or markup at all. Built by walking the rendered document so
-       * the text version can never drift from what is shown on the page.
-       */
-      function downloadTxt() {
-        var lines = [];
-        var push = function (t) {
-          var s = (t || "").replace(/\s+/g, " ").trim();
-          if (s) lines.push(s);
-        };
-
-        var h1 = document.querySelector("header h1");
-        if (h1) push(h1.textContent);
-
-        document.querySelectorAll("header .role, header .contact div").forEach(function (el) {
-          push(el.textContent);
-        });
-
-        document.querySelectorAll("main section").forEach(function (section) {
-          var h2 = section.querySelector("h2");
-          lines.push("");
-          push(h2 ? h2.textContent : "");
-
-          section.querySelectorAll("h3, p, li").forEach(function (el) {
-            var text = el.textContent.replace(/\s+/g, " ").trim();
-            if (!text) return;
-            if (el.tagName === "LI") push("- " + text);
-            else push(text);
-          });
-        });
-
-        var blob = new Blob([lines.join("\n") + "\n"], { type: "text/plain;charset=utf-8" });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement("a");
-        a.href = url;
-        a.download = "Kavad_Rushi_Resume.txt";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }
-    </script>
   </body>
 </html>

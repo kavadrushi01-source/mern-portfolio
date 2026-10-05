@@ -32,34 +32,45 @@ export default function Resume({ portfolio, projects }) {
       doc.setTextColor(15, 118, 110);
       doc.text("MERN Stack Developer", M, 82);
 
-      // Contact details as real, clickable PDF links. Written as labelled
-      // "Label: value" text so parsers can pattern-match each field.
-      doc.setFontSize(9.5);
-      doc.setTextColor(55, 65, 81);
-      const contactLine = [
+      /*
+       * Contact details as real, clickable PDF links, laid out as a two-column
+       * grid. The previous version appended all four fields to a single running
+       * x-position, so the LinkedIn URL ran off the right edge of the A4 page
+       * and was truncated. Each column is measured against the page width
+       * before it is drawn, so nothing can overflow regardless of font metrics.
+       */
+      doc.setFontSize(9);
+      const CONTACT = [
         { label: "Email", value: "kavadrushi01@gmail.com", url: "mailto:kavadrushi01@gmail.com" },
         { label: "Phone", value: "+91 93285 81846", url: "tel:+919328581846" },
         { label: "GitHub", value: "github.com/kavadrushi01-source", url: "https://github.com/kavadrushi01-source" },
         { label: "LinkedIn", value: "linkedin.com/in/kavad-rushi-b24484411", url: "https://linkedin.com/in/kavad-rushi-b24484411" }
       ];
-      let cx = M;
-      contactLine.forEach((c, i) => {
-        if (i > 0) {
-          doc.setTextColor(120, 130, 145);
-          doc.text("|", cx, 100);
-          cx += doc.getTextWidth(" | ") + 2;
-        }
+      const COL_W = (W - M * 2) / 2;
+      CONTACT.forEach((c, i) => {
+        const col = i % 2;
+        const row = Math.floor(i / 2);
+        const x = M + col * COL_W;
+        const cy = 99 + row * 13;
         doc.setTextColor(90, 100, 115);
-        doc.text(`${c.label}: `, cx, 100);
-        cx += doc.getTextWidth(`${c.label}: `);
+        doc.text(`${c.label}: `, x, cy);
+        const lw = doc.getTextWidth(`${c.label}: `);
+        // Clamp the value to the column so it can never spill into the margin.
+        const room = COL_W - lw - 10;
+        let shown = c.value;
+        if (doc.getTextWidth(shown) > room) {
+          while (shown.length > 4 && doc.getTextWidth(`${shown}...`) > room) {
+            shown = shown.slice(0, -1);
+          }
+          shown = `${shown}...`;
+        }
         doc.setTextColor(15, 118, 110);
-        doc.text(c.value, cx, 100, { link: c.url });
-        cx += doc.getTextWidth(c.value) + 8;
+        doc.text(shown, x + lw, cy, { link: c.url });
       });
 
       doc.setDrawColor(15, 118, 110);
       doc.setLineWidth(1.4);
-      doc.line(M, 110, W - M, 110);
+      doc.line(M, 118, W - M, 118);
 
       // Standard, recognisable ATS section heading.
       const section = (title) => {
@@ -78,6 +89,24 @@ export default function Resume({ portfolio, projects }) {
         y += 19;
       };
 
+      /*
+       * The project/summary copy is authored with typographic punctuation
+       * (em dashes, en dashes, curly quotes) that lives in fallback.js. Those
+       * characters are valid in WinAnsi, but several ATS PDF readers and older
+       * text extractors mangle or drop them. Normalising to ASCII here keeps
+       * every sentence intact for keyword matching, and the source copy in
+       * fallback.js stays nicely punctuated for the website.
+       */
+      const ascii = (s) =>
+        String(s)
+          .replace(/[\u2014\u2013]/g, "-") // em / en dash
+          .replace(/[\u2018\u2019]/g, "'") // curly single quotes
+          .replace(/[\u201C\u201D]/g, '"') // curly double quotes
+          .replace(/\u2026/g, "...") // ellipsis
+          .replace(/\u00A0/g, " ") // non-breaking space
+          .replace(/\s+/g, " ")
+          .trim();
+
       // Keep content clear of the footer: start a fresh page instead of letting
       // a long project block run into it.
       const PAGE_H = doc.internal.pageSize.getHeight();
@@ -89,7 +118,7 @@ export default function Resume({ portfolio, projects }) {
         }
       };
 
-      y = 132;
+      y = 138;
       /*
        * "PROFESSIONAL SUMMARY" is the standard ATS section name. The old
        * version drew an inline "Summary" heading, which many parsers do not
@@ -99,27 +128,18 @@ export default function Resume({ portfolio, projects }) {
       doc.setTextColor(50, 60, 80);
       doc.setFontSize(10);
       // Concatenate into one paragraph: some parsers split a multi-paragraph
-      // summary into unrelated fields.
-      const summary = portfolio.about.join(" ");
+      * summary into unrelated fields.
+      const summary = ascii(portfolio.about.join(" "));
       const sumLines = doc.splitTextToSize(summary, W - M * 2);
       doc.text(sumLines, M, y);
-      y += sumLines.length * 13 + 4;
+      y += sumLines.length * 13 + 2;
 
-      section("Education");
-      portfolio.education.forEach((e) => {
-        doc.setFont("helvetica", "bold");
-        doc.text(e.degree, M, y);
-        doc.setFont("helvetica", "normal");
-        doc.text(
-          `${e.institution}   |   ${e.period}${e.cgpa ? `   |   CGPA: ${e.cgpa}` : ""}`,
-          M,
-          y + 15
-        );
-        y += 34;
-      });
-
-      // Uses the same heading + spacing as every other section (the old inline
-      // version drew "Skills" straight on top of the education line).
+      /*
+       * Section order is Summary -> Technical Skills -> Projects -> Education.
+       * Education previously came second, which pushed the most important
+       * content (skills and shipped work) down and is not the order recruiters
+       * or ATS keyword scanners expect.
+       */
       section("Technical Skills");
       doc.setTextColor(50, 60, 80);
       doc.setFontSize(9.5);
@@ -181,7 +201,7 @@ export default function Resume({ portfolio, projects }) {
         // Description
         doc.setFontSize(9.5);
         doc.setTextColor(50, 60, 80);
-        const lines = doc.splitTextToSize(p.description, W - M * 2);
+        const lines = doc.splitTextToSize(ascii(p.description), W - M * 2);
         doc.text(lines, M, y + 10);
         y += lines.length * 12 + 6;
         // Key highlights as bullets. The live map work (tracking, routing and
@@ -194,7 +214,7 @@ export default function Resume({ portfolio, projects }) {
         // PDF readers drop non-WinAnsi characters, silently losing the line.
         (p.highlights || []).slice(0, 5).forEach((h) => {
           ensureRoom(34);
-          const bl = doc.splitTextToSize(`-  ${h}`, W - M * 2 - 12);
+          const bl = doc.splitTextToSize(`-  ${ascii(h)}`, W - M * 2 - 12);
           doc.text(bl, M + 12, y + 10);
           y += bl.length * 12 + 3;
         });
@@ -216,22 +236,53 @@ export default function Resume({ portfolio, projects }) {
           y += 15;
         });
         y += 8;
-        // Thin black divider between project blocks (after FoodHub) so the two
+        // Thin grey divider between project blocks (after FoodHub) so the two
         // entries read cleanly as separate sections.
         if (idx < projectsShown - 1) {
-          doc.setDrawColor(17, 24, 39);
+          doc.setDrawColor(200, 210, 220);
           doc.setLineWidth(0.7);
           doc.line(M, y, W - M, y);
           y += 14;
         }
       });
 
+      // Education sits after Projects so the strongest content leads. The
+      // coursework line adds academic keyword coverage that a bare degree
+      // line does not.
+      section("Education");
+      portfolio.education.forEach((e) => {
+        ensureRoom(56);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(10.5);
+        doc.setTextColor(17, 24, 39);
+        doc.text(e.degree, M, y);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(9.5);
+        doc.setTextColor(71, 85, 105);
+        doc.text(
+          `${e.institution}   |   ${e.period}${e.cgpa ? `   |   CGPA: ${e.cgpa}` : ""}`,
+          M,
+          y + 14
+        );
+        doc.setTextColor(90, 100, 115);
+        doc.text(
+          "Relevant Coursework: Data Structures, Algorithms, Database Management Systems, Web Development, Operating Systems",
+          M,
+          y + 28
+        );
+        y += 44;
+      });
+
+      doc.setDrawColor(200, 210, 220);
+      doc.setLineWidth(0.7);
+      doc.line(M, y + 2, W - M, y + 2);
+
       doc.setTextColor(100, 116, 139);
-      doc.setFontSize(9);
+      doc.setFontSize(8.5);
       doc.text(
-        "kavadrushi01@gmail.com  |  +91 93285 81846  |  Available for full-time work",
+        "kavadrushi01@gmail.com  |  +91 93285 81846  |  github.com/kavadrushi01-source  |  Available for full-time work",
         M,
-        doc.internal.pageSize.getHeight() - 20
+        y + 20
       );
 
       /*

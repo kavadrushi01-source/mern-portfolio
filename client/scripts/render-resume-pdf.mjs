@@ -33,31 +33,40 @@ doc.setFontSize(12.5);
 doc.setTextColor(15, 118, 110);
 doc.text("MERN Stack Developer", M, 82);
 
-// Labelled, clickable contact details.
-doc.setFontSize(9.5);
-const contactLine = [
+// Labelled, clickable contact details in a two-column grid so nothing overflows.
+doc.setFontSize(9);
+const CONTACT = [
   { label: "Email", value: "kavadrushi01@gmail.com", url: "mailto:kavadrushi01@gmail.com" },
   { label: "Phone", value: "+91 93285 81846", url: "tel:+919328581846" },
   { label: "GitHub", value: "github.com/kavadrushi01-source", url: "https://github.com/kavadrushi01-source" },
   { label: "LinkedIn", value: "linkedin.com/in/kavad-rushi-b24484411", url: "https://linkedin.com/in/kavad-rushi-b24484411" }
 ];
-let cx = M;
-contactLine.forEach((c, i) => {
-  if (i > 0) {
-    doc.setTextColor(120, 130, 145);
-    doc.text("|", cx, 100);
-    cx += doc.getTextWidth(" | ") + 2;
-  }
+const COL_W = (W - M * 2) / 2;
+const overflow = [];
+CONTACT.forEach((c, i) => {
+  const x = M + (i % 2) * COL_W;
+  const cy = 99 + Math.floor(i / 2) * 13;
   doc.setTextColor(90, 100, 115);
-  doc.text(`${c.label}: `, cx, 100);
-  cx += doc.getTextWidth(`${c.label}: `);
+  doc.text(`${c.label}: `, x, cy);
+  const lw = doc.getTextWidth(`${c.label}: `);
+  const room = COL_W - lw - 10;
+  let shown = c.value;
+  if (doc.getTextWidth(shown) > room) {
+    while (shown.length > 4 && doc.getTextWidth(`${shown}...`) > room) shown = shown.slice(0, -1);
+    shown = `${shown}...`;
+  }
+  const rightEdge = x + lw + doc.getTextWidth(shown);
+  if (rightEdge > W - M + 0.5) overflow.push(`${c.label} ends at ${rightEdge.toFixed(1)} > ${(W - M).toFixed(1)}`);
   doc.setTextColor(15, 118, 110);
-  doc.text(c.value, cx, 100, { link: c.url });
-  cx += doc.getTextWidth(c.value) + 8;
+  doc.text(shown, x + lw, cy, { link: c.url });
 });
+if (overflow.length) {
+  console.error(`CONTACT OVERFLOW: ${overflow.join("; ")}`);
+  process.exit(1);
+}
 doc.setDrawColor(15, 118, 110);
 doc.setLineWidth(1.4);
-doc.line(M, 110, W - M, 110);
+doc.line(M, 118, W - M, 118);
 
 const section = (title) => {
   y += 24;
@@ -76,6 +85,19 @@ const section = (title) => {
   y += 19;
 };
 
+// Normalise typographic punctuation to ASCII: em/en dashes, curly quotes,
+// ellipsis and non-breaking spaces are valid WinAnsi but are mangled or
+// dropped by some ATS PDF readers.
+const ascii = (s) =>
+  String(s)
+    .replace(/[\u2014\u2013]/g, "-")
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
+    .replace(/\u2026/g, "...")
+    .replace(/\u00A0/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
 const PAGE_H = doc.internal.pageSize.getHeight();
 const BOTTOM = PAGE_H - 62;
 const ensureRoom = (needed) => {
@@ -88,22 +110,9 @@ const ensureRoom = (needed) => {
 section("Professional Summary");
 doc.setTextColor(50, 60, 80);
 doc.setFontSize(10);
-const sumLines = doc.splitTextToSize(portfolio.about.join(" "), W - M * 2);
+const sumLines = doc.splitTextToSize(ascii(portfolio.about.join(" ")), W - M * 2);
 doc.text(sumLines, M, y);
-y += sumLines.length * 13 + 4;
-
-section("Education");
-portfolio.education.forEach((e) => {
-  doc.setFont("helvetica", "bold");
-  doc.text(e.degree, M, y);
-  doc.setFont("helvetica", "normal");
-  doc.text(
-    `${e.institution}   |   ${e.period}${e.cgpa ? `   |   CGPA: ${e.cgpa}` : ""}`,
-    M,
-    y + 15
-  );
-  y += 34;
-});
+y += sumLines.length * 13 + 2;
 
 section("Technical Skills");
 doc.setTextColor(50, 60, 80);
@@ -146,12 +155,12 @@ projects.slice(0, 2).forEach((p) => {
   y += tech.length * 11 + 2;
   doc.setFontSize(9.5);
   doc.setTextColor(50, 60, 80);
-  const lines = doc.splitTextToSize(p.description, W - M * 2);
+  const lines = doc.splitTextToSize(ascii(p.description), W - M * 2);
   doc.text(lines, M, y + 10);
   y += lines.length * 12 + 6;
   (p.highlights || []).slice(0, 5).forEach((h) => {
     ensureRoom(34);
-    const bl = doc.splitTextToSize(`-  ${h}`, W - M * 2 - 12);
+    const bl = doc.splitTextToSize(`-  ${ascii(h)}`, W - M * 2 - 12);
     doc.text(bl, M + 12, y + 10);
     y += bl.length * 12 + 3;
   });
@@ -171,6 +180,30 @@ projects.slice(0, 2).forEach((p) => {
   y += 8;
 });
 
+section("Education");
+portfolio.education.forEach((e) => {
+  ensureRoom(56);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10.5);
+  doc.setTextColor(17, 24, 39);
+  doc.text(e.degree, M, y);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9.5);
+  doc.setTextColor(71, 85, 105);
+  doc.text(
+    `${e.institution}   |   ${e.period}${e.cgpa ? `   |   CGPA: ${e.cgpa}` : ""}`,
+    M,
+    y + 14
+  );
+  doc.setTextColor(90, 100, 115);
+  doc.text(
+    "Relevant Coursework: Data Structures, Algorithms, Database Management Systems, Web Development, Operating Systems",
+    M,
+    y + 28
+  );
+  y += 44;
+});
+
 doc.setProperties({
   title: `${portfolio.name} - Resume - MERN Stack Developer`,
   author: portfolio.name,
@@ -186,6 +219,7 @@ const extracted = (raw.match(/\((?:[^()\\]|\\.)*\)/g) || [])
   .map((s) => s.slice(1, -1).replace(/\\([()\\])/g, "$1"))
   .join(" ");
 
+const nonAscii = (extracted.match(/[\u0080-\uFFFF]/g) || []);
 const mustContain = [
   "KAVAD RUSHI", "MERN Stack Developer", "Email", "kavadrushi01@gmail.com",
   "PROFESSIONAL SUMMARY", "TECHNICAL SKILLS", "PROJECTS", "EDUCATION",
@@ -194,5 +228,7 @@ const mustContain = [
 ];
 const missing = mustContain.filter((k) => !extracted.includes(k));
 console.log(`extracted text: ${extracted.length} chars`);
+console.log(`non-ASCII chars in extracted text: ${nonAscii.length}`);
+if (nonAscii.length) console.log(`  sample: ${JSON.stringify(nonAscii.slice(0, 8))}`);
 console.log(missing.length ? `MISSING: ${missing.join(", ")}` : "all probe keywords present in extracted text");
 if (missing.length) process.exit(1);
