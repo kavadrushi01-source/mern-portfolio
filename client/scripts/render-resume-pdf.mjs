@@ -158,7 +158,12 @@ projects.slice(0, 2).forEach((p) => {
   const lines = doc.splitTextToSize(ascii(p.description), W - M * 2);
   doc.text(lines, M, y + 10);
   y += lines.length * 12 + 6;
-  (p.highlights || []).slice(0, 5).forEach((h) => {
+  // Mirror the resume's filter: drop the maps bullet so the chatbot
+  // highlight fits inside the 5-bullet cap (see Resume.jsx).
+  (p.highlights || [])
+    .filter((h) => !h.startsWith("Maps & routing with no paid keys"))
+    .slice(0, 5)
+    .forEach((h) => {
     ensureRoom(34);
     const bl = doc.splitTextToSize(`-  ${ascii(h)}`, W - M * 2 - 12);
     doc.text(bl, M + 12, y + 10);
@@ -227,8 +232,16 @@ const mustContain = [
   "Bachelor of Computer Applications", "FoodHub", "Wanderlust"
 ];
 const missing = mustContain.filter((k) => !extracted.includes(k));
+// The resume deliberately drops the long maps bullet; the extracted text
+// must prove both that it is gone and that the chatbot line made it in.
+const mustNotContain = ["Maps & routing with no paid keys"];
+const mustAlsoContain = ["Foodie", "100+ hand-written intents"];
+const unwanted = mustNotContain.filter((k) => extracted.includes(k));
+const missing2 = mustAlsoContain.filter((k) => !extracted.includes(k));
 console.log(`extracted text: ${extracted.length} chars`);
 console.log(`non-ASCII chars in extracted text: ${nonAscii.length}`);
 if (nonAscii.length) console.log(`  sample: ${JSON.stringify(nonAscii.slice(0, 8))}`);
 console.log(missing.length ? `MISSING: ${missing.join(", ")}` : "all probe keywords present in extracted text");
-if (missing.length) process.exit(1);
+console.log(unwanted.length ? `UNWANTED: ${unwanted.join(", ")}` : "maps bullet absent from extracted text");
+console.log(missing2.length ? `MISSING: ${missing2.join(", ")}` : "chatbot line present in extracted text");
+if (missing.length || unwanted.length || missing2.length) process.exit(1);

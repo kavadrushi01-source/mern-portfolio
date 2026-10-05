@@ -4,6 +4,7 @@ $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
 $html = Get-Content (Join-Path $root "public\resume.html") -Raw
 $jsx = Get-Content (Join-Path $root "src\components\Resume.jsx") -Raw
+$fallback = Get-Content (Join-Path $root "src\data\fallback.js") -Raw
 $pass = 0; $fail = 0
 function Check($name, $ok) {
   if ($ok) { $script:pass++; Write-Output ("  PASS  {0}" -f $name) }
@@ -40,6 +41,8 @@ Check "coursework line"                $jsx.Contains("Relevant Coursework")
 Check "PDF metadata keywords"          $jsx.Contains("setProperties")
 Check "core PDF fonts only"             $jsx.Contains('doc.setFont("helvetica"')
 Check "clickable project links"        $jsx.Contains("[p.live, p.github]")
+Check "maps bullet dropped from PDF"   $jsx.Contains('h.startsWith("Maps & routing with no paid keys")')
+Check "chatbot work in PDF source"     $jsx.Contains("Foodie") -and $fallback.Contains("Foodie")
 
 Write-Output ("`n{0} passed, {1} failed" -f $pass, $fail)
 if ($fail -gt 0) { exit 1 }

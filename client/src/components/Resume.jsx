@@ -204,15 +204,22 @@ export default function Resume({ portfolio, projects }) {
         const lines = doc.splitTextToSize(ascii(p.description), W - M * 2);
         doc.text(lines, M, y + 10);
         y += lines.length * 12 + 6;
-        // Key highlights as bullets. The live map work (tracking, routing and
-        // map-based address) is listed first in the project data, so it leads
-        // the PDF alongside the payment/OTP and chatbot work. 5 is the cap that
-        // still lets both projects stay close to one A4 page; ensureRoom below
-        // starts a new page rather than clipping if a block runs long.
+        // Key highlights as bullets. The "Maps & routing with no paid keys"
+        // bullet is deliberately filtered out of the PDF: it is long, repeats
+        // the live-tracking bullet, and pushes the AI chatbot work past the
+        // 5-bullet cap. The website keeps the full list; only the resume
+        // trims it. With the maps line gone, the "Foodie" chatbot highlight
+        // lands inside the cap.
+        // 5 is the cap that still lets both projects stay close to one A4 page;
+        // ensureRoom below starts a new page rather than clipping if a block
+        // runs long.
         //
         // A real hyphen-minus is used instead of the bullet glyph: some ATS
         // PDF readers drop non-WinAnsi characters, silently losing the line.
-        (p.highlights || []).slice(0, 5).forEach((h) => {
+        (p.highlights || [])
+          .filter((h) => !h.startsWith("Maps & routing with no paid keys"))
+          .slice(0, 5)
+          .forEach((h) => {
           ensureRoom(34);
           const bl = doc.splitTextToSize(`-  ${ascii(h)}`, W - M * 2 - 12);
           doc.text(bl, M + 12, y + 10);
