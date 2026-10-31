@@ -98,7 +98,7 @@ const PROJECTS = [
     note:
       "Built from scratch as a production-grade portfolio project, not a toy. Two seeded demo schools (School of Science — Ahmedabad, PREMIUM plan; Ramakrishna School — Rajkot, STANDARD plan) prove tenant isolation: log in as one school's admin and the other school's data is simply not there. Razorpay runs in TEST MODE only — real integration, zero real money.",
     tech: ["Next.js 16", "React 19", "TypeScript", "Express", "Prisma", "MySQL", "Tailwind CSS", "Socket.io", "Razorpay", "Cloudinary", "Groq AI", "Vitest", "Playwright", "Vercel"],
-    live: null,
+    live: "https://studyfy-web.vercel.app",
     api: null,
     github: "https://github.com/kavadrushi01-source/Studyfy-Web",
     demoLogins: null,
