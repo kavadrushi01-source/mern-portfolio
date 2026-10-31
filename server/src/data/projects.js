@@ -69,6 +69,42 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%)",
     icon: "🏡",
     image: "/projects/wanderlust.png"
+  },
+  {
+    title: "Studyfy",
+    subtitle: "Multi-tenant School Management System (SaaS)",
+    description:
+      "Multi-tenant cloud-based School Management System (school ERP) — one deployment serving many independent schools on paid subscriptions. Attendance, fees, exams, timetable, homework and parent communication in one place. Role-based access for students, parents, teachers, admins and more, with Razorpay test-mode fee payments, Groq AI assistance and real-time Socket.io updates.",
+    highlights: [
+      "Multi-tenant SaaS architecture — one deployment, many isolated schools with tenant-scoped queries and cross-tenant regression tests",
+      "Role-based access control — Student, Parent, Teacher, Accountant, Librarian, Transport Manager, Admin and Platform Owner with row-level data scoping",
+      "Attendance, fees, exams, timetable, homework and notices modules per school, each with full CRUD",
+      "Razorpay test-mode fee payments — real Razorpay integration running in test mode, zero real money involved",
+      "Groq AI assistant — free, no credit card, does not train on your data",
+      "Real-time updates with Socket.io across the dashboard",
+      "JWT auth (15-minute access + 7-day refresh, httpOnly cookies), bcrypt hashing, Helmet, CORS allow-list and rate limiting",
+      "Audit logs, append-only data export and audited read-only impersonation controls"
+    ],
+    security: [
+      "Tenant-scoped queries with cross-tenant regression tests",
+      "JWT access + refresh-token rotation",
+      "httpOnly / sameSite cookies",
+      "bcrypt password hashing (cost >= 10)",
+      "Helmet + CORS allow-list",
+      "Rate limiting on auth and public endpoints",
+      "Role-based access control",
+      "Append-only audit logs"
+    ],
+    note:
+      "Built from scratch as a production-grade portfolio project, not a toy. Two seeded demo schools (School of Science — Ahmedabad, PREMIUM plan; Ramakrishna School — Rajkot, STANDARD plan) prove tenant isolation: log in as one school's admin and the other school's data is simply not there. Razorpay runs in TEST MODE only — real integration, zero real money.",
+    tech: ["Next.js 16", "React 19", "TypeScript", "Express", "Prisma", "MySQL", "Tailwind CSS", "Socket.io", "Razorpay", "Cloudinary", "Groq AI", "Vitest", "Playwright", "Vercel"],
+    live: null,
+    api: null,
+    github: "https://github.com/kavadrushi01-source/Studyfy-Web",
+    demoLogins: null,
+    gradient: "linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #0891b2 100%)",
+    icon: "🎓",
+    image: "/projects/studyfy.png"
   }
 ];
 

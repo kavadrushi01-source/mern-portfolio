@@ -83,12 +83,14 @@ function ProjectModal({ project, onClose }) {
           </div>
 
           <div className="modal-actions">
-            <a className="btn btn-primary" href={project.live} target="_blank" rel="noreferrer">
+            {project.live && (
+              <a className="btn btn-primary" href={project.live} target="_blank" rel="noreferrer">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
               Live Demo
             </a>
+            )}
             {project.api && (
               <a className="btn btn-outline" href={project.api} target="_blank" rel="noreferrer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
