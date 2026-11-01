@@ -5,7 +5,7 @@ export const FALLBACK_PORTFOLIO = {
     "Building fast, secure, full-stack web apps with MongoDB, Express, React & Node.js.",
   about: [
     "I'm a MERN Stack Developer who builds full-stack web apps that actually go live — payments, authentication, dashboards and deployment included, not just UI screens. I work across the whole stack: React frontends, Node.js + Express APIs, MongoDB and MySQL data modelling, and the deployment work that keeps it running.",
-    "I care about the parts most projects skip — clean readable code, real security (hashing, validation, rate limiting, role-based access) and a UI that still feels good on a phone. My work so far includes FoodHub, a three-role food delivery platform with Razorpay payments, OTP-confirmed delivery, live rider tracking on OpenStreetMap maps and an AI chatbot, and Wanderlust, an Airbnb-style rental platform with interactive maps."
+    "I care about the parts most projects skip — clean readable code, real security (hashing, validation, rate limiting, role-based access) and a UI that still feels good on a phone. My work so far includes FoodHub, a three-role food delivery platform with Razorpay payments, OTP-confirmed delivery, live rider tracking on OpenStreetMap maps and an AI chatbot; Wanderlust, an Airbnb-style rental platform with interactive maps; and Studyfy, a multi-tenant School Management System (school ERP) with tenant isolation, RBAC, Razorpay test-mode payments and Groq AI assistance."
   ],
   education: [
     {
@@ -114,29 +114,29 @@ export const FALLBACK_PROJECTS = [
     title: "Studyfy",
     subtitle: "Multi-tenant School Management System (SaaS)",
     description:
-      "Multi-tenant cloud-based School Management System (school ERP) — one deployment serving many independent schools on paid subscriptions. Attendance, fees, exams, timetable, homework and parent communication in one place. Role-based access for students, parents, teachers, admins and more, with Razorpay test-mode fee payments, Groq AI assistance and real-time Socket.io updates.",
+      "Multi-tenant cloud-based School Management System (school ERP) built from scratch as a production-grade portfolio project. One deployment serves many independent schools on paid subscriptions — attendance, fees, exams, timetable, homework, and parent communication in one place. Role-based access for students, parents, teachers, accountants, librarians, transport managers, school admins and the platform owner, with tenant isolation enforced at the database layer. Razorpay test-mode fee payments, Groq AI assistance, real-time Socket.io updates, and PDF receipts/report cards included.",
     highlights: [
-      "Multi-tenant SaaS architecture — one deployment, many isolated schools with tenant-scoped queries and cross-tenant regression tests",
-      "Role-based access control — Student, Parent, Teacher, Accountant, Librarian, Transport Manager, Admin and Platform Owner with row-level data scoping",
-      "Attendance, fees, exams, timetable, homework and notices modules per school, each with full CRUD",
-      "Razorpay test-mode fee payments — real Razorpay integration running in test mode, zero real money involved",
-      "Groq AI assistant — free, no credit card, does not train on your data",
-      "Real-time updates with Socket.io across the dashboard",
-      "JWT auth (15-minute access + 7-day refresh, httpOnly cookies), bcrypt hashing, Helmet, CORS allow-list and rate limiting",
-      "Audit logs, append-only data export and audited read-only impersonation controls"
+      "Multi-tenant SaaS architecture — one deployment, many isolated schools with tenant-scoped queries enforced via Prisma client extension, plus cross-tenant regression tests proving data never leaks between schools",
+      "Role-based access control — Platform Owner, School Admin, Teacher, Accountant, Student, Parent, Librarian and Transport Manager, each with row-level data scoping; Platform Owner sits outside the tenant model entirely",
+      "Phase 1 MVP modules — Student Information System, daily attendance with absentee alerts, fee structures/invoices/receipts, exams & gradebook with auto rank, conflict-free timetable, homework submission, notice board, parent-teacher messaging (Socket.io, scoped for minors)",
+      "Razorpay test-mode fee payments — real Razorpay integration with signature verification and webhook idempotency, running on free test keys (zero real money)",
+      "Groq AI assistant — report-card remarks and attendance anomaly detection on Groq's free tier (no card, no training on your data)",
+      "JWT auth (15-minute access + 7-day refresh, httpOnly cookies), bcrypt password hashing, Helmet, CORS allow-list, rate limiting on all auth/public endpoints",
+      "Append-only audit logs, per-school data export with secrets excluded, and audited read-only impersonation for support",
+      "Two seeded demo schools (School of Science — Ahmedabad, PREMIUM; Ramakrishna School — Rajkot, STANDARD) proving tenant isolation in a live walkthrough"
     ],
     security: [
-      "Tenant-scoped queries with cross-tenant regression tests",
-      "JWT access + refresh-token rotation",
-      "httpOnly / sameSite cookies",
-      "bcrypt password hashing (cost >= 10)",
-      "Helmet + CORS allow-list",
-      "Rate limiting on auth and public endpoints",
-      "Role-based access control",
-      "Append-only audit logs"
+      "Tenant-scoped queries with cross-tenant regression tests (20 TENANT_MODELS, test-first)",
+      "Student/Parent row-level self-scope — regression-verified before any feature module was built",
+      "JWT access + refresh-token rotation, single-use DB-backed tokens",
+      "httpOnly / sameSite cookies, bcrypt (cost >= 10)",
+      "Helmet + CORS allow-list, rate limiting on auth and public endpoints",
+      "Role-based access control via roles/permissions/role_permissions join table",
+      "Append-only audit logs; impersonation writes END records, never deletes",
+      "Data export excludes passwordHash/token tables; cross-tenant-tested"
     ],
     note:
-      "Built from scratch as a production-grade portfolio project, not a toy. Two seeded demo schools (School of Science — Ahmedabad, PREMIUM plan; Ramakrishna School — Rajkot, STANDARD plan) prove tenant isolation: log in as one school's admin and the other school's data is simply not there. Razorpay runs in TEST MODE only — real integration, zero real money.",
+      "Built from scratch as a portfolio project worth showing to employers — not a toy, not a UI mockup. Tenant isolation is real, RBAC is real, and the Razorpay integration is genuinely complete (signature verification, server-side amount recalculation, webhook idempotency) but runs on test keys only by design. Two fully-seeded demo schools demonstrate tenant isolation: log in as one school's admin and the other school's data is simply not there. Razorpay and Groq both run on free tiers — no live keys, no real money, no paid services anywhere.",
     tech: ["Next.js 16", "React 19", "TypeScript", "Express", "Prisma", "MySQL", "Tailwind CSS", "Socket.io", "Razorpay", "Cloudinary", "Groq AI", "Vitest", "Playwright", "Vercel"],
     live: "https://studyfy-web.vercel.app",
     api: null,

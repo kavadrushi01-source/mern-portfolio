@@ -137,7 +137,7 @@ SKILL_GROUPS.forEach(([label, items]) => {
 });
 
 section("Projects");
-projects.slice(0, 2).forEach((p) => {
+projects.slice(0, 3).forEach((p) => {
   ensureRoom(200);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11.5);
@@ -229,13 +229,14 @@ const mustContain = [
   "KAVAD RUSHI", "MERN Stack Developer", "Email", "kavadrushi01@gmail.com",
   "PROFESSIONAL SUMMARY", "TECHNICAL SKILLS", "PROJECTS", "EDUCATION",
   "MongoDB", "Express.js", "Leaflet", "OpenStreetMap", "OSRM", "Razorpay",
-  "Bachelor of Computer Applications", "FoodHub", "Wanderlust"
+  "Bachelor of Computer Applications", "FoodHub", "Wanderlust", "Studyfy",
+  "Multi-tenant", "Groq AI", "Prisma", "Next.js"
 ];
 const missing = mustContain.filter((k) => !extracted.includes(k));
 // The resume deliberately drops the long maps bullet; the extracted text
 // must prove both that it is gone and that the chatbot line made it in.
 const mustNotContain = ["Maps & routing with no paid keys"];
-const mustAlsoContain = ["Foodie", "100+ hand-written intents"];
+const mustAlsoContain = ["Foodie", "100+ hand-written intents", "tenant isolation", "School Management"];
 const unwanted = mustNotContain.filter((k) => extracted.includes(k));
 const missing2 = mustAlsoContain.filter((k) => !extracted.includes(k));
 console.log(`extracted text: ${extracted.length} chars`);

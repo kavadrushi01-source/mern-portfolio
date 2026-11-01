@@ -238,6 +238,28 @@
               <a href="https://github.com/kavadrushi01-source/wanderlust-major-project" target="_blank" rel="noreferrer">Source Code: github.com/kavadrushi01-source/wanderlust-major-project</a>
             </div>
           </div>
+          <div class="proj sep">
+            <h3>Studyfy - Multi-tenant School Management System (SaaS)</h3>
+            <p class="meta">Role: Full-Stack Developer | Frontend on Vercel, API on Render, MySQL on Aiven</p>
+            <p class="tech">Next.js 16, React 19, TypeScript, Express, Prisma, MySQL, Tailwind CSS, Socket.io, Razorpay, Cloudinary, Groq AI, Vitest, Playwright, Vercel</p>
+            <p>
+              Multi-tenant cloud-based School Management System (school ERP) built from scratch as a production-grade portfolio project — one deployment serving many independent schools on paid subscriptions. Attendance, fees, exams, timetable, homework, and parent communication in one place.
+            </p>
+            <ul>
+              <li>Multi-tenant SaaS architecture with tenant-scoped queries enforced via Prisma client extension, plus cross-tenant regression tests proving data never leaks between schools.</li>
+              <li>Role-based access control — Platform Owner, School Admin, Teacher, Accountant, Student, Parent, Librarian and Transport Manager, each with row-level data scoping.</li>
+              <li>Phase 1 MVP modules — Student Information System, daily attendance with absentee alerts, fee structures/invoices/receipts, exams & gradebook with auto rank, conflict-free timetable, homework submission, notice board, parent-teacher messaging via Socket.io (scoped for minors).</li>
+              <li>Razorpay test-mode fee payments — real integration with signature verification and webhook idempotency, running on free test keys (zero real money).</li>
+              <li>Groq AI assistant — report-card remarks and attendance anomaly detection on Groq's free tier (no card, no training on your data).</li>
+              <li>JWT auth (15-minute access + 7-day refresh, httpOnly cookies), bcrypt password hashing, Helmet, CORS allow-list, rate limiting on all auth/public endpoints.</li>
+              <li>Append-only audit logs, per-school data export with secrets excluded, and audited read-only impersonation for support.</li>
+              <li>Two seeded demo schools (School of Science — Ahmedabad, PREMIUM; Ramakrishna School — Rajkot, STANDARD) proving tenant isolation in a live walkthrough.</li>
+            </ul>
+            <div class="links">
+              <a href="https://studyfy-web.vercel.app" target="_blank" rel="noreferrer">Live Application: studyfy-web.vercel.app</a>
+              <a href="https://github.com/kavadrushi01-source/Studyfy-Web" target="_blank" rel="noreferrer">Source Code: github.com/kavadrushi01-source/Studyfy-Web</a>
+            </div>
+          </div>
         </section>
 
         <section class="edu">
