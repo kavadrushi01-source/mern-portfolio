@@ -137,7 +137,7 @@ SKILL_GROUPS.forEach(([label, items]) => {
 });
 
 section("Projects");
-projects.slice(0, 3).forEach((p) => {
+projects.slice(0, 2).forEach((p) => {
   ensureRoom(200);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11.5);

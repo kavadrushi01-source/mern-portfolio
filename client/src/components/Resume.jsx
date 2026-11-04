@@ -172,14 +172,13 @@ export default function Resume({ portfolio, projects }) {
 
       section("Projects");
       // Per-project brand colours for the title so each one stands out like a
-      // section header (FoodHub = its orange brand, Wanderlust = its blue brand);
+      // section header (FoodHub = its orange brand, Studyfy = its teal brand);
       // the subtitle stays neutral grey.
       const TITLE_COLORS = {
         FoodHub: [234, 88, 12],
-        Wanderlust: [37, 99, 235],
         Studyfy: [13, 148, 136]
       };
-      const projectsShown = Math.min(projects.length, 3);
+      const projectsShown = Math.min(projects.length, 2);
       projects.slice(0, 2).forEach((p, idx) => {
         ensureRoom(200); // whole project block on one page when possible
         doc.setFont("helvetica", "bold");

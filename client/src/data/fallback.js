@@ -79,38 +79,6 @@ export const FALLBACK_PROJECTS = [
     image: "/projects/foodhub.png"
   },
   {
-    title: "Wanderlust",
-    subtitle: "Airbnb-Style Rental Listing Platform",
-    description:
-      "Full-stack rental listing platform where users can list properties for rent and others can browse, search, and book them. Interactive maps, category filtering, reviews, and image uploads — a complete Airbnb clone.",
-    highlights: [
-      "Browse & search listings with photos, prices, and locations on an interactive map",
-      "Filter by 18 categories — Beach, Mountains, Villas, Camping, Castles, Arctic, and more",
-      "Add, edit & delete your own property listings with image uploads via Cloudinary",
-      "Leave reviews with star ratings on any listing",
-      "Price toggle to show total price with 18% GST included",
-      "User authentication — signup, login, logout with session management"
-    ],
-    security: [
-      "Session-based authentication",
-      "Password hashing with bcrypt",
-      "Server-side validation",
-      "Protected routes for owner-only actions"
-    ],
-    note:
-      "Built as a college major project. Uses OpenStreetMap + Leaflet for interactive maps and Cloudinary for image storage. Now hosted permanently on Vercel serverless (api/index.js + vercel.json, auto-redeploys from main) — the old Render service is deleted and the temporary Back4App addresses expired; the first request can take 10–30s while the function cold-starts.",
-    tech: ["Node.js", "Express", "MongoDB", "EJS", "Bootstrap", "Leaflet", "Cloudinary", "Vercel"],
-    live: "https://wanderlust-major-project-eta.vercel.app",
-    github: "https://github.com/kavadrushi01-source/wanderlust-major-project",
-    demoLogins: {
-      rushi: "666",
-      hitesh: "666"
-    },
-    gradient: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%)",
-    icon: "🏡",
-    image: "/projects/wanderlust.png"
-  },
-  {
     title: "Studyfy",
     subtitle: "Multi-tenant School Management System (SaaS)",
     description:

@@ -44,9 +44,11 @@ Check "clickable project links"        $jsx.Contains("[p.live, p.github]")
 Check "maps bullet dropped from PDF"   $jsx.Contains('h.startsWith("Maps & routing with no paid keys")')
 Check "chatbot work in PDF source"     $jsx.Contains("Foodie") -and $fallback.Contains("Foodie")
 Check "Studyfy title color in PDF"     $jsx.Contains("Studyfy: [13, 148, 136]")
-Check "PDF shows 3 projects cap"       $jsx.Contains("Math.min(projects.length, 3)")
+Check "PDF shows 2 projects cap"       $jsx.Contains("Math.min(projects.length, 2)")
 Check "Studyfy live URL in data"       $fallback.Contains("studyfy-web.vercel.app")
 Check "Studyfy in HTML resume"         $html.Contains("Studyfy - Multi-tenant School Management")
+Check "Wanderlust removed from HTML"   (-not $html.Contains("Wanderlust"))
+Check "Wanderlust removed from PDF"    (-not $jsx.Contains("Wanderlust"))
 
 Write-Output ("`n{0} passed, {1} failed" -f $pass, $fail)
 if ($fail -gt 0) { exit 1 }
