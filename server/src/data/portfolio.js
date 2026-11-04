@@ -17,7 +17,6 @@ const FALLBACK = {
   skills: ["MongoDB", "Express.js", "React.js", "TypeScript", "Node.js", "REST API", "Git & GitHub", "JWT Auth", "Google OAuth", "Mongoose", "MySQL", "Next.js"],
   socials: {
     github: "https://github.com/kavadrushi01-source",
-    linkedin: "https://linkedin.com/in/kavad-rushi-b24484411",
     whatsapp: "919328581846"
   }
 };
@@ -31,7 +30,6 @@ const PORTFOLIO = {
   title: process.env.PORTFOLIO_TITLE || FALLBACK.title,
   socials: {
     github: process.env.GITHUB_URL || FALLBACK.socials.github,
-    linkedin: process.env.LINKEDIN_URL || FALLBACK.socials.linkedin,
     whatsapp: process.env.WHATSAPP_NUMBER || FALLBACK.socials.whatsapp
   }
 };

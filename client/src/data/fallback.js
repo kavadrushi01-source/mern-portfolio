@@ -31,7 +31,6 @@ export const FALLBACK_PORTFOLIO = {
   ],
   socials: {
     github: "https://github.com/kavadrushi01-source",
-    linkedin: "https://linkedin.com/in/kavad-rushi-b24484411",
     whatsapp: "919328581846"
   }
 };
@@ -41,16 +40,11 @@ export const FALLBACK_PROJECTS = [
     title: "FoodHub",
     subtitle: "Food Delivery & E-Commerce Platform",
     description:
-      "Full-stack food delivery + e-commerce platform on the MERN stack — three role-based apps (Customer, Admin Dashboard, Delivery Partner) in one, live map-based delivery tracking and an AI chatbot assistant 'Foodie'. Frontend and API both deployed on Vercel.",
+      "Full-stack food delivery platform — three role-based apps (Customer, Admin, Delivery Partner) with live rider tracking, Razorpay payments, and AI chatbot 'Foodie'.",
     highlights: [
-      "Live delivery tracking, 100% free — customers watch the rider move on a live map with a real road route, distance and ETA, while the delivery partner shares GPS from the partner app",
-      "Maps & routing with no paid keys — Leaflet + OpenStreetMap tiles, Nominatim search and reverse-geocoding, and OSRM road routing (distance, duration, route polyline) with a haversine straight-line fallback when routing is unavailable",
-      "Map-based checkout address — search a place or drop a pin and the address auto-fills from the dropped pin, with saved-address management: set default, delete (confirmed) and duplicate detection",
-      "Payments — Razorpay integration supporting Card, Netbanking, Wallet, UPI and Cash on Delivery, with a checkout that reproduces the live gateway flow: pay with test card 5267 3181 8797 5449 (any expiry, any CVV) and the app raises a simulated OTP step — skip it or type any 6-digit number to confirm the payment. Netbanking and Wallet open a success / failure screen so both outcomes can be demonstrated, and UPI accepts success@razorpay or failure@razorpay",
-      "Delivery partner — a dedicated partner app with assigned drop-offs, live status updates and earnings tracking, where the admin issues an OTP for every order and the hand-off only completes once the partner confirms that OTP",
-      "AI chatbot \"Foodie\" — regex intent engine with 100+ hand-written intents (orders, delivery, payments, coupons, menu, even math), quick-suggestion buttons and a browsable FAQ panel, with no external API needed",
-      "Admin dashboard — revenue, order-count and top-seller analytics with real charts, food / category / coupon CRUD, delivery-partner assignment, refunds, review moderation and store settings",
-      "Platform — premium mobile-first UI with dark / light mode, animations and skeleton loaders, deployed on Vercel's free tier with the API running as a serverless function"
+      "Live rider tracking with Leaflet, OpenStreetMap, and OSRM routing.",
+      "Razorpay checkout and OTP-confirmed delivery handoff.",
+      "Foodie chatbot with 100+ intents."
     ],
     security: [
       "JWT access + refresh-token rotation",
@@ -82,16 +76,11 @@ export const FALLBACK_PROJECTS = [
     title: "Studyfy",
     subtitle: "Multi-tenant School Management System (SaaS)",
     description:
-      "Multi-tenant cloud-based School Management System (school ERP) built from scratch as a production-grade portfolio project. One deployment serves many independent schools on paid subscriptions — attendance, fees, exams, timetable, homework, and parent communication in one place. Role-based access for students, parents, teachers, accountants, librarians, transport managers, school admins and the platform owner, with tenant isolation enforced at the database layer. Razorpay test-mode fee payments, Groq AI assistance, real-time Socket.io updates, and PDF receipts/report cards included.",
+      "Multi-tenant School Management System (school ERP) — one deployment serving many schools. Attendance, fees, exams, timetable, homework, parent communication.",
     highlights: [
-      "Multi-tenant SaaS architecture — one deployment, many isolated schools with tenant-scoped queries enforced via Prisma client extension, plus cross-tenant regression tests proving data never leaks between schools",
-      "Role-based access control — Platform Owner, School Admin, Teacher, Accountant, Student, Parent, Librarian and Transport Manager, each with row-level data scoping; Platform Owner sits outside the tenant model entirely",
-      "Phase 1 MVP modules — Student Information System, daily attendance with absentee alerts, fee structures/invoices/receipts, exams & gradebook with auto rank, conflict-free timetable, homework submission, notice board, parent-teacher messaging (Socket.io, scoped for minors)",
-      "Razorpay test-mode fee payments — real Razorpay integration with signature verification and webhook idempotency, running on free test keys (zero real money)",
-      "Groq AI assistant — report-card remarks and attendance anomaly detection on Groq's free tier (no card, no training on your data)",
-      "JWT auth (15-minute access + 7-day refresh, httpOnly cookies), bcrypt password hashing, Helmet, CORS allow-list, rate limiting on all auth/public endpoints",
-      "Append-only audit logs, per-school data export with secrets excluded, and audited read-only impersonation for support",
-      "Two seeded demo schools (School of Science — Ahmedabad, PREMIUM; Ramakrishna School — Rajkot, STANDARD) proving tenant isolation in a live walkthrough"
+      "Prisma tenant isolation and role-based access across eight roles.",
+      "Razorpay test payments with signature verification and webhook idempotency.",
+      "JWT authentication and append-only audit logs."
     ],
     security: [
       "Tenant-scoped queries with cross-tenant regression tests (20 TENANT_MODELS, test-first)",

@@ -19,15 +19,6 @@ const SOCIALS = [
     )
   },
   {
-    key: "linkedin",
-    label: "LinkedIn",
-    icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-        <path d="M20.5 20h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8.3 19H5v-9h3v9ZM6.5 8.3A1.8 1.8 0 1 1 8.3 6.5a1.8 1.8 0 0 1-1.8 1.8Zm13.5 10.7h-3v-4.4c0-1-.4-1.7-1.3-1.7a1.4 1.4 0 0 0-1.3.9c-.1.2-.1.4-.1.6v4.6h-3V11h3v1.2a3 3 0 0 1 2.7-1.5c2 0 3 1.4 3 5Z" />
-      </svg>
-    )
-  },
-  {
     key: "whatsapp",
     label: "WhatsApp",
     icon: (
@@ -115,13 +106,7 @@ export default function Contact({ portfolio }) {
                 <a
                   key={s.key}
                   className="social-btn"
-                  href={
-                    s.key === "github"
-                      ? portfolio.socials.github
-                      : s.key === "linkedin"
-                        ? portfolio.socials.linkedin
-                        : whatsappHref
-                  }
+                  href={s.key === "github" ? portfolio.socials.github : whatsappHref}
                   target="_blank"
                   rel="noreferrer"
                 >

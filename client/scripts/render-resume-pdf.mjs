@@ -39,7 +39,7 @@ const CONTACT = [
   { label: "Email", value: "kavadrushi01@gmail.com", url: "mailto:kavadrushi01@gmail.com" },
   { label: "Phone", value: "+91 93285 81846", url: "tel:+919328581846" },
   { label: "GitHub", value: "github.com/kavadrushi01-source", url: "https://github.com/kavadrushi01-source" },
-  { label: "LinkedIn", value: "linkedin.com/in/kavad-rushi-b24484411", url: "https://linkedin.com/in/kavad-rushi-b24484411" }
+  { label: "Portfolio", value: "mern-portfolio-client-three.vercel.app", url: "https://mern-portfolio-client-three.vercel.app" }
 ];
 const COL_W = (W - M * 2) / 2;
 const overflow = [];
@@ -101,17 +101,14 @@ const ascii = (s) =>
 const PAGE_H = doc.internal.pageSize.getHeight();
 const BOTTOM = PAGE_H - 62;
 const ensureRoom = (needed) => {
-  if (y + needed > BOTTOM) {
-    doc.addPage();
-    y = 60;
-  }
+  if (y + needed > BOTTOM) throw new Error("Resume content exceeds one A4 page.");
 };
 
 section("Technical Skills");
 doc.setTextColor(50, 60, 80);
 doc.setFontSize(9.5);
 const SKILL_GROUPS = [
-  ["Frontend", "React.js, JavaScript, HTML5, CSS3, Tailwind CSS"],
+  ["Frontend", "React.js, JavaScript, HTML5, CSS3, Tailwind CSS, Next.js"],
   ["Backend", "Node.js, Express.js, REST API"],
   ["Databases", "MongoDB, MySQL"],
   ["Tools and Cloud", "Git, GitHub, Vercel, Render"]
@@ -128,7 +125,32 @@ SKILL_GROUPS.forEach(([label, items]) => {
 });
 
 section("Projects");
-projects.slice(0, 2).forEach((p) => {
+["FoodHub", "Studyfy"]
+  .map((title) => projects.find((project) => project.title === title))
+  .filter(Boolean)
+  .forEach((p) => {
+  const resumeProject = {
+    FoodHub: {
+      description:
+        "Three role-based food-delivery apps with live rider tracking, Razorpay checkout, and the Foodie chatbot.",
+      tech: "React, Node.js, Express, MongoDB, Razorpay, Leaflet",
+      highlights: [
+        "Live maps and road routing with Leaflet, OpenStreetMap, and OSRM.",
+        "Razorpay payments and OTP-confirmed delivery handoff.",
+        "Foodie chatbot with 100+ intents."
+      ]
+    },
+    Studyfy: {
+      description:
+        "Multi-tenant school platform for attendance, fees, exams, and parent communication.",
+      tech: "Next.js, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI",
+      highlights: [
+        "Prisma tenant isolation and role-based access across eight roles.",
+        "Razorpay test payments with signature verification and webhook idempotency.",
+        "JWT authentication and append-only audit logs."
+      ]
+    }
+  }[p.title];
   ensureRoom(200);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11.5);
@@ -141,20 +163,15 @@ projects.slice(0, 2).forEach((p) => {
   y += 13;
   doc.setFontSize(9);
   doc.setTextColor(13, 148, 136);
-  const tech = doc.splitTextToSize(`Tech: ${p.tech.join(", ")}`, W - M * 2);
+  const tech = doc.splitTextToSize(`Tech: ${resumeProject.tech}`, W - M * 2);
   doc.text(tech, M, y);
   y += tech.length * 11 + 2;
   doc.setFontSize(9.5);
   doc.setTextColor(50, 60, 80);
-  const lines = doc.splitTextToSize(ascii(p.description), W - M * 2);
+  const lines = doc.splitTextToSize(ascii(resumeProject.description), W - M * 2);
   doc.text(lines, M, y + 10);
   y += lines.length * 12 + 6;
-  // Mirror the resume's filter: drop the maps bullet so the chatbot
-  // highlight fits inside the 5-bullet cap (see Resume.jsx).
-  (p.highlights || [])
-    .filter((h) => !h.startsWith("Maps & routing with no paid keys"))
-    .slice(0, 5)
-    .forEach((h) => {
+  resumeProject.highlights.forEach((h) => {
     ensureRoom(34);
     const bl = doc.splitTextToSize(`-  ${ascii(h)}`, W - M * 2 - 12);
     doc.text(bl, M + 12, y + 10);
@@ -200,6 +217,11 @@ portfolio.education.forEach((e) => {
   y += 44;
 });
 
+ensureRoom(20);
+if (doc.internal.getNumberOfPages() !== 1) {
+  throw new Error("Resume PDF must contain exactly one page.");
+}
+
 doc.setProperties({
   title: `${portfolio.name} - Resume - MERN Stack Developer`,
   author: portfolio.name,
@@ -220,20 +242,19 @@ const mustContain = [
   "KAVAD RUSHI", "MERN Stack Developer", "Email", "kavadrushi01@gmail.com",
   "TECHNICAL SKILLS", "PROJECTS", "EDUCATION",
   "MongoDB", "Express.js", "Leaflet", "OpenStreetMap", "OSRM", "Razorpay",
-  "Bachelor of Computer Applications", "FoodHub", "Studyfy",
+  "Bachelor of Computer Applications", "FoodHub", "Studyfy", "Portfolio",
+  "mern-portfolio-client-three.vercel.app",
   "Multi-tenant", "Groq AI", "Prisma", "Next.js"
 ];
 const missing = mustContain.filter((k) => !extracted.includes(k));
-// The resume deliberately drops the long maps bullet; the extracted text
-// must prove both that it is gone and that the chatbot line made it in.
-const mustNotContain = ["Maps & routing with no paid keys"];
-const mustAlsoContain = ["Foodie", "100+ hand-written intents", "tenant isolation", "School Management"];
+const mustNotContain = ["linkedin.com/in/kavad-rushi-b24484411"];
+const mustAlsoContain = ["Foodie", "100+ intents", "tenant isolation", "school platform"];
 const unwanted = mustNotContain.filter((k) => extracted.includes(k));
 const missing2 = mustAlsoContain.filter((k) => !extracted.includes(k));
 console.log(`extracted text: ${extracted.length} chars`);
 console.log(`non-ASCII chars in extracted text: ${nonAscii.length}`);
 if (nonAscii.length) console.log(`  sample: ${JSON.stringify(nonAscii.slice(0, 8))}`);
 console.log(missing.length ? `MISSING: ${missing.join(", ")}` : "all probe keywords present in extracted text");
-console.log(unwanted.length ? `UNWANTED: ${unwanted.join(", ")}` : "maps bullet absent from extracted text");
-console.log(missing2.length ? `MISSING: ${missing2.join(", ")}` : "chatbot line present in extracted text");
+console.log(unwanted.length ? `UNWANTED: ${unwanted.join(", ")}` : "LinkedIn absent from extracted text");
+console.log(missing2.length ? `MISSING: ${missing2.join(", ")}` : "condensed project summaries present");
 if (missing.length || unwanted.length || missing2.length) process.exit(1);

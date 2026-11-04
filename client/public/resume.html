@@ -25,8 +25,7 @@
         "telephone": "+91-93285-81846",
         "url": "https://mern-portfolio-client-three.vercel.app",
         "sameAs": [
-          "https://github.com/kavadrushi01-source",
-          "https://linkedin.com/in/kavad-rushi-b24484411"
+          "https://github.com/kavadrushi01-source"
         ],
         "alumniOf": {
           "@type": "CollegeOrUniversity",
@@ -35,7 +34,7 @@
         "knowsAbout": [
           "React.js", "Node.js", "Express.js", "MongoDB", "Mongoose",
           "MySQL", "TypeScript", "JavaScript", "HTML5", "CSS3",
-          "Tailwind CSS", "REST API", "JWT Authentication", "Google OAuth",
+          "Tailwind CSS", "Next.js", "REST API", "JWT Authentication", "Google OAuth",
           "bcrypt", "Zod", "Helmet", "Razorpay", "Leaflet", "OpenStreetMap",
           "Nominatim", "OSRM", "Git", "GitHub", "Vercel"
         ]
@@ -58,12 +57,12 @@
         font-family: "Segoe UI", Arial, Helvetica, sans-serif;
         color: var(--body);
         background: #eef2f7;
-        line-height: 1.5;
-        padding: 28px 16px;
-        font-size: 14px;
+        line-height: 1.35;
+        padding: 20px 16px;
+        font-size: 12px;
       }
       .page {
-        max-width: 820px;
+        max-width: 800px;
         margin: 0 auto;
         background: #fff;
         border: 1px solid var(--line);
@@ -76,42 +75,42 @@
       header {
         background: #f0fdfa;
         border-bottom: 3px solid var(--accent);
-        padding: 26px 40px;
+        padding: 20px 32px;
       }
-      header h1 { font-size: 28px; color: var(--ink); letter-spacing: 0.5px; }
-      header .role { color: var(--accent); font-size: 15px; font-weight: 600; margin-top: 2px; }
-      header .contact { margin-top: 10px; font-size: 13px; }
+      header h1 { font-size: 26px; color: var(--ink); letter-spacing: 0.5px; }
+      header .role { color: var(--accent); font-size: 13px; font-weight: 600; margin-top: 2px; }
+      header .contact { margin-top: 8px; font-size: 11px; }
       header .contact div { margin-bottom: 2px; }
       header .contact strong { color: var(--ink); font-weight: 600; }
       header .contact a { color: var(--accent); text-decoration: none; }
-      main { padding: 24px 40px 36px; }
-      section { margin-bottom: 22px; }
+      main { padding: 16px 32px 24px; }
+      section { margin-bottom: 14px; }
       /* Standard ATS headings: plain text, no emoji or decorative glyphs that a
          parser could mistake for part of the section title. */
       h2 {
-        font-size: 14px;
+        font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 1.4px;
         color: var(--accent);
         border-bottom: 1.5px solid var(--accent);
-        padding-bottom: 5px;
-        margin-bottom: 12px;
+        padding-bottom: 3px;
+        margin-bottom: 7px;
       }
-      p, li { font-size: 14px; }
-      ul { padding-left: 20px; margin-top: 6px; }
-      ul li { margin-bottom: 4px; }
-      .skill-groups { display: flex; flex-direction: column; gap: 5px; }
+      p, li { font-size: 11px; }
+      ul { padding-left: 16px; margin-top: 3px; }
+      ul li { margin-bottom: 2px; }
+      .skill-groups { display: flex; flex-direction: column; gap: 3px; }
       .skill-group strong { color: var(--ink); font-weight: 600; }
-      .proj { margin-bottom: 14px; }
-      .proj.sep { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 4px; }
-      .proj h3 { font-size: 15px; color: var(--ink); }
-      .proj .meta { font-size: 13px; color: var(--muted); margin-top: 1px; }
-      .proj .tech { font-size: 13px; color: var(--accent); margin-top: 2px; }
-      .proj .links { margin-top: 5px; font-size: 13px; }
-      .proj .links a { color: var(--accent); text-decoration: none; margin-right: 14px; }
+      .proj { margin-bottom: 9px; }
+      .proj.sep { border-top: 1px solid var(--line); padding-top: 8px; margin-top: 3px; }
+      .proj h3 { font-size: 12px; color: var(--ink); }
+      .proj .meta { font-size: 10px; color: var(--muted); margin-top: 1px; }
+      .proj .tech { font-size: 10px; color: var(--accent); margin-top: 2px; }
+      .proj .links { margin-top: 3px; font-size: 10px; }
+      .proj .links a { color: var(--accent); text-decoration: none; margin-right: 12px; }
       .proj .links a:hover { text-decoration: underline; }
-      .edu h3 { font-size: 15px; color: var(--ink); }
-      .edu .meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
+      .edu h3 { font-size: 12px; color: var(--ink); }
+      .edu .meta { font-size: 10px; color: var(--muted); margin-top: 2px; }
       .toolbar {
         max-width: 820px;
         margin: 0 auto 14px;
@@ -132,13 +131,28 @@
       }
       button:hover { opacity: 0.9; }
       button:focus-visible { outline: 2px solid #0f172a; outline-offset: 2px; }
-      @page { size: A4; margin: 12mm 14mm; }
+      @page { size: A4; margin: 10mm 12mm; }
       @media print {
-        body { background: #fff; padding: 0; font-size: 11pt; }
+        body { background: #fff; padding: 0; font-size: 9pt; line-height: 1.2; }
         .toolbar { display: none; }
         .page { border: none; border-radius: 0; box-shadow: none; max-width: none; }
-        header { background: none; border-bottom: 2px solid var(--accent); padding: 0 0 10px; }
-        main { padding: 12px 0 0; }
+        header { background: none; border-bottom: 2px solid var(--accent); padding: 0 0 7px; }
+        header h1 { font-size: 22pt; }
+        header .role { font-size: 10pt; }
+        header .contact { font-size: 8pt; margin-top: 5px; }
+        main { padding: 8px 0 0; }
+        section { margin-bottom: 9px; }
+        h2 { font-size: 9pt; margin-bottom: 5px; padding-bottom: 2px; }
+        p, li { font-size: 8pt; }
+        ul { margin-top: 2px; }
+        ul li { margin-bottom: 1px; }
+        .skill-groups { gap: 1px; }
+        .proj { margin-bottom: 6px; }
+        .proj.sep { padding-top: 5px; margin-top: 2px; }
+        .proj h3 { font-size: 9pt; }
+        .proj .meta, .proj .tech, .proj .links { font-size: 7.5pt; }
+        .edu h3 { font-size: 9pt; }
+        .edu .meta { font-size: 7.5pt; }
         /* Never split a project, skill line or heading across two pages. */
         .proj, .skill-group, h2, li { break-inside: avoid; page-break-inside: avoid; }
         h2 { break-after: avoid; page-break-after: avoid; }
@@ -161,15 +175,14 @@
           <div><strong>Email:</strong> <a href="mailto:kavadrushi01@gmail.com">kavadrushi01@gmail.com</a></div>
           <div><strong>Phone:</strong> <a href="tel:+919328581846">+91 93285 81846</a></div>
           <div><strong>GitHub:</strong> <a href="https://github.com/kavadrushi01-source" target="_blank" rel="noreferrer">github.com/kavadrushi01-source</a></div>
-          <div><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/kavad-rushi-b24484411" target="_blank" rel="noreferrer">linkedin.com/in/kavad-rushi-b24484411</a></div>
           <div><strong>Portfolio:</strong> <a href="https://mern-portfolio-client-three.vercel.app" target="_blank" rel="noreferrer">mern-portfolio-client-three.vercel.app</a></div>
         </div>
       </header>
       <main>
         <section>
           <h2>Technical Skills</h2>
-          <div class="skill-groups">
-            <div class="skill-group"><strong>Frontend:</strong> React.js, JavaScript, HTML5, CSS3, Tailwind CSS</div>
+            <div class="skill-groups">
+              <div class="skill-group"><strong>Frontend:</strong> React.js, Next.js, JavaScript, HTML5, CSS3, Tailwind CSS</div>
             <div class="skill-group"><strong>Backend:</strong> Node.js, Express.js, REST API</div>
             <div class="skill-group"><strong>Databases:</strong> MongoDB, MySQL</div>
             <div class="skill-group"><strong>Tools &amp; Cloud:</strong> Git, GitHub, Vercel, Render</div>
@@ -181,21 +194,11 @@
           <div class="proj">
             <h3>FoodHub - Full-Stack Food Delivery and E-Commerce Platform</h3>
             <p class="meta">Role: Full-Stack Developer | Frontend and API deployed on Vercel</p>
-            <p class="tech">React 18, Vite, Tailwind CSS, Zustand, React Router, Framer Motion, Leaflet, OpenStreetMap, Nominatim, OSRM, Node.js, Express.js, MongoDB, Mongoose, JWT, Zod, Razorpay</p>
-            <p>
-              Full-stack food delivery and e-commerce platform containing three role-based
-              applications (Customer, Admin Dashboard, Delivery Partner) in one codebase, with
-              live map-based delivery tracking and the AI chatbot assistant "Foodie".
-            </p>
+            <p class="tech">React, Node.js, Express, MongoDB, Razorpay, Leaflet, OpenStreetMap, OSRM</p>
+            <p>Three role-based food-delivery apps with live rider tracking, Razorpay checkout, and the Foodie chatbot.</p>
             <ul>
-              <li>Built <strong>live delivery tracking</strong> with no paid map API keys: customers follow the rider on a map showing the real road route, distance and estimated arrival time while the partner application shares live GPS coordinates.</li>
-              <li>Implemented mapping and routing using <strong>Leaflet</strong> and <strong>OpenStreetMap</strong> tiles, <strong>Nominatim</strong> forward and reverse geocoding, and <strong>OSRM</strong> road routing for route line, distance and duration, with a <strong>haversine</strong> straight-line fallback when the routing service is unavailable.</li>
-              <li>Developed a map-based checkout address form where users search a place or drop a pin and the address auto-fills via reverse geocoding, plus saved-address management supporting set-default, confirmed delete and duplicate detection.</li>
-              <li>Integrated the <strong>Razorpay</strong> payment gateway for Card, Netbanking, Wallet, UPI and Cash on Delivery, reproducing the live gateway flow in checkout with a simulated OTP confirmation step.</li>
-              <li>Built a dedicated delivery-partner application with assigned drop-offs, live order status updates and earnings tracking, where the admin issues an OTP for every order and hand-off completes only after partner confirmation.</li>
-              <li>Added the "Foodie" AI chatbot, a regex intent engine with 100+ hand-written intents covering orders, delivery, payments, coupons and menu queries, with quick-suggestion buttons and a browsable FAQ panel, running without any external API.</li>
-              <li>Developed an admin dashboard with revenue, order-count and top-seller analytics on real charts, along with food, category and coupon CRUD, delivery-partner assignment, refunds, review moderation and store settings.</li>
-              <li>Secured the platform with JWT access and refresh-token rotation in httpOnly cookies, bcrypt password hashing, Helmet headers, a CORS allow-list, rate limiting, mongo-sanitize and Zod validation on every write endpoint.</li>
+              <li>Live maps and road routing; Razorpay payments and OTP-confirmed delivery.</li>
+              <li>Foodie chatbot with 100+ intents.</li>
             </ul>
             <div class="links">
               <a href="https://foodhub-seven-gules.vercel.app" target="_blank" rel="noreferrer">Live Application: foodhub-seven-gules.vercel.app</a>
@@ -205,19 +208,11 @@
           <div class="proj sep">
             <h3>Studyfy - Multi-tenant School Management System (SaaS)</h3>
             <p class="meta">Role: Full-Stack Developer | Frontend on Vercel, API on Render, MySQL on Aiven</p>
-            <p class="tech">Next.js 16, React 19, TypeScript, Express, Prisma, MySQL, Tailwind CSS, Socket.io, Razorpay, Cloudinary, Groq AI, Vitest, Playwright, Vercel</p>
-            <p>
-              Multi-tenant cloud-based School Management System (school ERP) built from scratch as a production-grade portfolio project — one deployment serving many independent schools on paid subscriptions. Attendance, fees, exams, timetable, homework, and parent communication in one place.
-            </p>
+            <p class="tech">Next.js, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI</p>
+            <p>Multi-tenant school platform for attendance, fees, exams, and parent communication.</p>
             <ul>
-              <li>Multi-tenant SaaS architecture with tenant-scoped queries enforced via Prisma client extension, plus cross-tenant regression tests proving data never leaks between schools.</li>
-              <li>Role-based access control — Platform Owner, School Admin, Teacher, Accountant, Student, Parent, Librarian and Transport Manager, each with row-level data scoping.</li>
-              <li>Phase 1 MVP modules — Student Information System, daily attendance with absentee alerts, fee structures/invoices/receipts, exams & gradebook with auto rank, conflict-free timetable, homework submission, notice board, parent-teacher messaging via Socket.io (scoped for minors).</li>
-              <li>Razorpay test-mode fee payments — real integration with signature verification and webhook idempotency, running on free test keys (zero real money).</li>
-              <li>Groq AI assistant — report-card remarks and attendance anomaly detection on Groq's free tier (no card, no training on your data).</li>
-              <li>JWT auth (15-minute access + 7-day refresh, httpOnly cookies), bcrypt password hashing, Helmet, CORS allow-list, rate limiting on all auth/public endpoints.</li>
-              <li>Append-only audit logs, per-school data export with secrets excluded, and audited read-only impersonation for support.</li>
-              <li>Two seeded demo schools (School of Science — Ahmedabad, PREMIUM; Ramakrishna School — Rajkot, STANDARD) proving tenant isolation in a live walkthrough.</li>
+              <li>Prisma tenant isolation and role-based access across eight roles.</li>
+              <li>Razorpay test payments with signature verification and webhook idempotency.</li>
             </ul>
             <div class="links">
               <a href="https://studyfy-web.vercel.app" target="_blank" rel="noreferrer">Live Application: studyfy-web.vercel.app</a>

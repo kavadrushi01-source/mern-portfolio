@@ -1,8 +1,35 @@
 import { useState } from "react";
 import { jsPDF } from "jspdf";
 
+const RESUME_PROJECTS = {
+  FoodHub: {
+    description:
+      "Three role-based food-delivery apps with live rider tracking, Razorpay checkout, and the Foodie chatbot.",
+    tech: "React, Node.js, Express, MongoDB, Razorpay, Leaflet",
+    highlights: [
+      "Live maps and road routing with Leaflet, OpenStreetMap, and OSRM.",
+      "Razorpay payments and OTP-confirmed delivery handoff.",
+      "Foodie chatbot with 100+ intents."
+    ]
+  },
+  Studyfy: {
+    description:
+      "Multi-tenant school platform for attendance, fees, exams, and parent communication.",
+    tech: "Next.js, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI",
+    highlights: [
+      "Prisma tenant isolation and role-based access across eight roles.",
+      "Razorpay test payments with signature verification and webhook idempotency.",
+      "JWT authentication and append-only audit logs."
+    ]
+  }
+};
+const RESUME_PROJECT_ORDER = ["FoodHub", "Studyfy"];
+
 export default function Resume({ portfolio, projects }) {
   const [busy, setBusy] = useState(false);
+  const resumeProjects = RESUME_PROJECT_ORDER
+    .map((title) => projects.find((project) => project.title === title))
+    .filter(Boolean);
 
   function downloadPdf() {
     setBusy(true);
@@ -32,19 +59,13 @@ export default function Resume({ portfolio, projects }) {
       doc.setTextColor(15, 118, 110);
       doc.text("MERN Stack Developer", M, 82);
 
-      /*
-       * Contact details as real, clickable PDF links, laid out as a two-column
-       * grid. The previous version appended all four fields to a single running
-       * x-position, so the LinkedIn URL ran off the right edge of the A4 page
-       * and was truncated. Each column is measured against the page width
-       * before it is drawn, so nothing can overflow regardless of font metrics.
-       */
+      /* Contact details are clickable links in a measured two-column grid. */
       doc.setFontSize(9);
       const CONTACT = [
         { label: "Email", value: "kavadrushi01@gmail.com", url: "mailto:kavadrushi01@gmail.com" },
         { label: "Phone", value: "+91 93285 81846", url: "tel:+919328581846" },
         { label: "GitHub", value: "github.com/kavadrushi01-source", url: "https://github.com/kavadrushi01-source" },
-        { label: "LinkedIn", value: "linkedin.com/in/kavad-rushi-b24484411", url: "https://linkedin.com/in/kavad-rushi-b24484411" }
+        { label: "Portfolio", value: "mern-portfolio-client-three.vercel.app", url: "https://mern-portfolio-client-three.vercel.app" }
       ];
       const COL_W = (W - M * 2) / 2;
       CONTACT.forEach((c, i) => {
@@ -107,14 +128,12 @@ export default function Resume({ portfolio, projects }) {
           .replace(/\s+/g, " ")
           .trim();
 
-      // Keep content clear of the footer: start a fresh page instead of letting
-      // a long project block run into it.
+      // Keep the entire resume on one page and fail clearly if it no longer fits.
       const PAGE_H = doc.internal.pageSize.getHeight();
       const BOTTOM = PAGE_H - 62;
       const ensureRoom = (needed) => {
         if (y + needed > BOTTOM) {
-          doc.addPage();
-          y = 60;
+          throw new Error("Resume content exceeds one A4 page.");
         }
       };
 
@@ -137,7 +156,7 @@ export default function Resume({ portfolio, projects }) {
        * technologies and keep the block inside the page width.
        */
       const SKILL_GROUPS = [
-        ["Frontend", "React.js, JavaScript, HTML5, CSS3, Tailwind CSS"],
+        ["Frontend", "React.js, JavaScript, HTML5, CSS3, Tailwind CSS, Next.js"],
         ["Backend", "Node.js, Express.js, REST API"],
         ["Databases", "MongoDB, MySQL"],
         ["Tools and Cloud", "Git, GitHub, Vercel, Render"]
@@ -164,8 +183,9 @@ export default function Resume({ portfolio, projects }) {
         FoodHub: [234, 88, 12],
         Studyfy: [13, 148, 136]
       };
-      const projectsShown = Math.min(projects.length, 2);
-      projects.slice(0, 2).forEach((p, idx) => {
+      const projectsShown = resumeProjects.length;
+      resumeProjects.forEach((p, idx) => {
+        const resumeProject = RESUME_PROJECTS[p.title];
         ensureRoom(200); // whole project block on one page when possible
         doc.setFont("helvetica", "bold");
         doc.setFontSize(11.5);
@@ -177,35 +197,19 @@ export default function Resume({ portfolio, projects }) {
         doc.setTextColor(71, 85, 105);
         doc.text(` - ${p.subtitle}`, M + titleW + 4, y);
         y += 13;
-        // Tech stack line (teal), comma separated so each item is a discrete
-        // keyword rather than one glued-together string.
+        // A short, relevant stack keeps the resume focused and on one page.
         doc.setFontSize(9);
         doc.setTextColor(13, 148, 136);
-        const tech = doc.splitTextToSize(`Tech: ${p.tech.join(", ")}`, W - M * 2);
+        const tech = doc.splitTextToSize(`Tech: ${resumeProject.tech}`, W - M * 2);
         doc.text(tech, M, y);
         y += tech.length * 11 + 2;
         // Description
         doc.setFontSize(9.5);
         doc.setTextColor(50, 60, 80);
-        const lines = doc.splitTextToSize(ascii(p.description), W - M * 2);
+        const lines = doc.splitTextToSize(ascii(resumeProject.description), W - M * 2);
         doc.text(lines, M, y + 10);
         y += lines.length * 12 + 6;
-        // Key highlights as bullets. The "Maps & routing with no paid keys"
-        // bullet is deliberately filtered out of the PDF: it is long, repeats
-        // the live-tracking bullet, and pushes the AI chatbot work past the
-        // 5-bullet cap. The website keeps the full list; only the resume
-        // trims it. With the maps line gone, the "Foodie" chatbot highlight
-        // lands inside the cap.
-        // 5 is the cap that still lets both projects stay close to one A4 page;
-        // ensureRoom below starts a new page rather than clipping if a block
-        // runs long.
-        //
-        // A real hyphen-minus is used instead of the bullet glyph: some ATS
-        // PDF readers drop non-WinAnsi characters, silently losing the line.
-        (p.highlights || [])
-          .filter((h) => !h.startsWith("Maps & routing with no paid keys"))
-          .slice(0, 5)
-          .forEach((h) => {
+        resumeProject.highlights.forEach((h) => {
           ensureRoom(34);
           const bl = doc.splitTextToSize(`-  ${ascii(h)}`, W - M * 2 - 12);
           doc.text(bl, M + 12, y + 10);
@@ -266,6 +270,7 @@ export default function Resume({ portfolio, projects }) {
         y += 44;
       });
 
+      ensureRoom(20);
       doc.setDrawColor(200, 210, 220);
       doc.setLineWidth(0.7);
       doc.line(M, y + 2, W - M, y + 2);
@@ -292,7 +297,13 @@ export default function Resume({ portfolio, projects }) {
         creator: "Kavad Rushi Portfolio"
       });
 
+      if (doc.internal.getNumberOfPages() !== 1) {
+        throw new Error("Resume PDF must contain exactly one page.");
+      }
       doc.save(`${portfolio.name.replace(/\s+/g, "_")}_Resume.pdf`);
+    } catch (error) {
+      console.error("[resume] PDF generation failed:", error);
+      window.alert("The resume PDF could not be generated. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -353,7 +364,7 @@ export default function Resume({ portfolio, projects }) {
           <div className="resume-projects">
             <h4>Top Projects</h4>
             <div className="resume-proj-list">
-              {projects.slice(0, 2).map((p) => (
+              {resumeProjects.map((p) => (
                 <div key={p.title} className="resume-proj">
                   <strong>{p.title}</strong> — {p.subtitle}
                   {p.live && (
