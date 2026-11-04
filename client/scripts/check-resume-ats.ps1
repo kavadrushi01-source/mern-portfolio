@@ -23,20 +23,21 @@ Check "no emoji"                       (([regex]::Matches($html, "[\uD800-\uDBFF
 Check "print break-inside rules"       $html.Contains("break-inside: avoid")
 
 Write-Output "`nStandard ATS section headings (resume.html)"
-$expected = @("Professional Summary", "Technical Skills", "Projects", "Education")
+$expected = @("Technical Skills", "Projects", "Education")
 $found = [regex]::Matches($html, "<h2>([^<]+)</h2>") | ForEach-Object { $_.Groups[1].Value }
 foreach ($e in $expected) { Check "section '$e'" ($found -contains $e) }
 
 Write-Output "`nResume.jsx (generated PDF)"
 Check "no filled dark header band"     (-not $jsx.Contains('doc.rect(0, 0, W, 110, "F")'))
-Check "standard 'Professional Summary'" $jsx.Contains('section("Professional Summary")')
-Check "standard 'Technical Skills'"     $jsx.Contains('section("Technical Skills")')
+Check "no Professional Summary"        (-not $jsx.Contains('section("Professional Summary")'))
+Check "standard 'Technical Skills'"    $jsx.Contains('section("Technical Skills")')
 Check "labelled clickable contact"      $jsx.Contains('label: "Email"')
 Check "categorised skill groups"        $jsx.Contains("SKILL_GROUPS")
+Check "simplified skills"              $jsx.Contains('"Frontend", "React.js, JavaScript, HTML5, CSS3, Tailwind CSS"')
 Check "ASCII bullet (no glyph)"        $jsx.Contains('`-  ${ascii(h)}`') -and (-not $jsx.Contains([string][char]0x2022))
 Check "contact in 2-col grid"          $jsx.Contains("COL_W")
 Check "no running x for contacts"      (-not $jsx.Contains("let cx = M;"))
-Check "Education after Projects"       ($jsx.IndexOf('section("Projects")') -lt $jsx.IndexOf('section("Education")'))
+Check "Projects before Education"      ($jsx.IndexOf('section("Projects")') -lt $jsx.IndexOf('section("Education")'))
 Check "coursework line"                $jsx.Contains("Relevant Coursework")
 Check "PDF metadata keywords"          $jsx.Contains("setProperties")
 Check "core PDF fonts only"             $jsx.Contains('doc.setFont("helvetica"')

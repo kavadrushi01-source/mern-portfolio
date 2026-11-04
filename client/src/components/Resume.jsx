@@ -124,21 +124,9 @@ export default function Resume({ portfolio, projects }) {
        * version drew an inline "Summary" heading, which many parsers do not
        * recognise as a section boundary.
        */
-      section("Professional Summary");
-      doc.setTextColor(50, 60, 80);
-      doc.setFontSize(10);
-      // Concatenate into one paragraph: some parsers split a multi-paragraph
-      // summary into unrelated fields.
-      const summary = ascii(portfolio.about.join(" "));
-      const sumLines = doc.splitTextToSize(summary, W - M * 2);
-      doc.text(sumLines, M, y);
-      y += sumLines.length * 13 + 2;
-
       /*
-       * Section order is Summary -> Technical Skills -> Projects -> Education.
-       * Education previously came second, which pushed the most important
-       * content (skills and shipped work) down and is not the order recruiters
-       * or ATS keyword scanners expect.
+       * Section order is Technical Skills -> Projects -> Education. Recruiters
+       * and ATS keyword scanners expect skills and shipped work up front.
        */
       section("Technical Skills");
       doc.setTextColor(50, 60, 80);
@@ -149,12 +137,10 @@ export default function Resume({ portfolio, projects }) {
        * technologies and keep the block inside the page width.
        */
       const SKILL_GROUPS = [
-        ["Frontend", "React.js, JavaScript, TypeScript, HTML5, CSS3, Tailwind CSS, Vite, Zustand, React Router, Framer Motion"],
-        ["Backend", "Node.js, Express.js, REST API, JWT Authentication, Google OAuth, Zod, Helmet, Rate Limiting"],
-        ["Databases", "MongoDB, Mongoose, MySQL, SQL, Data Modelling"],
-        ["Maps and Location", "Leaflet, OpenStreetMap, Nominatim Geocoding, OSRM Routing, Haversine Formula, GPS Tracking"],
-        ["Payments", "Razorpay (Card, Netbanking, Wallet, UPI, Cash on Delivery)"],
-        ["Tools and Cloud", "Git, GitHub, Postman, Vercel, Render, Serverless Functions, CI/CD"]
+        ["Frontend", "React.js, JavaScript, HTML5, CSS3, Tailwind CSS"],
+        ["Backend", "Node.js, Express.js, REST API"],
+        ["Databases", "MongoDB, MySQL"],
+        ["Tools and Cloud", "Git, GitHub, Vercel, Render"]
       ];
       SKILL_GROUPS.forEach(([label, items]) => {
         const line = `${label}: ${items}`;

@@ -107,23 +107,14 @@ const ensureRoom = (needed) => {
   }
 };
 
-section("Professional Summary");
-doc.setTextColor(50, 60, 80);
-doc.setFontSize(10);
-const sumLines = doc.splitTextToSize(ascii(portfolio.about.join(" ")), W - M * 2);
-doc.text(sumLines, M, y);
-y += sumLines.length * 13 + 2;
-
 section("Technical Skills");
 doc.setTextColor(50, 60, 80);
 doc.setFontSize(9.5);
 const SKILL_GROUPS = [
-  ["Frontend", "React.js, JavaScript, TypeScript, HTML5, CSS3, Tailwind CSS, Vite, Zustand, React Router, Framer Motion"],
-  ["Backend", "Node.js, Express.js, REST API, JWT Authentication, Google OAuth, Zod, Helmet, Rate Limiting"],
-  ["Databases", "MongoDB, Mongoose, MySQL, SQL, Data Modelling"],
-  ["Maps and Location", "Leaflet, OpenStreetMap, Nominatim Geocoding, OSRM Routing, Haversine Formula, GPS Tracking"],
-  ["Payments", "Razorpay (Card, Netbanking, Wallet, UPI, Cash on Delivery)"],
-  ["Tools and Cloud", "Git, GitHub, Postman, Vercel, Render, Serverless Functions, CI/CD"]
+  ["Frontend", "React.js, JavaScript, HTML5, CSS3, Tailwind CSS"],
+  ["Backend", "Node.js, Express.js, REST API"],
+  ["Databases", "MongoDB, MySQL"],
+  ["Tools and Cloud", "Git, GitHub, Vercel, Render"]
 ];
 SKILL_GROUPS.forEach(([label, items]) => {
   const itemLines = doc.splitTextToSize(items, W - M * 2 - 120);
@@ -227,9 +218,9 @@ const extracted = (raw.match(/\((?:[^()\\]|\\.)*\)/g) || [])
 const nonAscii = (extracted.match(/[\u0080-\uFFFF]/g) || []);
 const mustContain = [
   "KAVAD RUSHI", "MERN Stack Developer", "Email", "kavadrushi01@gmail.com",
-  "PROFESSIONAL SUMMARY", "TECHNICAL SKILLS", "PROJECTS", "EDUCATION",
+  "TECHNICAL SKILLS", "PROJECTS", "EDUCATION",
   "MongoDB", "Express.js", "Leaflet", "OpenStreetMap", "OSRM", "Razorpay",
-  "Bachelor of Computer Applications", "FoodHub", "Wanderlust", "Studyfy",
+  "Bachelor of Computer Applications", "FoodHub", "Studyfy",
   "Multi-tenant", "Groq AI", "Prisma", "Next.js"
 ];
 const missing = mustContain.filter((k) => !extracted.includes(k));
