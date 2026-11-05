@@ -63,7 +63,8 @@ function ProjectModal({ project, onClose }) {
             <div className="modal-section">
               <h4>Documentation</h4>
               <p className="modal-doc-intro">
-                For more info about the website, check out:
+                For a step-by-step guide to using the website, open the User
+                Guide. Demo Data explains the sample schools and accounts.
               </p>
               <div className="modal-doc-links">
                 {project.documentation.map((doc) => (
