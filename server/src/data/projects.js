@@ -26,7 +26,6 @@ const PROJECTS = [
     note: "Try the Customer, Admin, and Delivery Partner demo accounts below. Customer checkout and the delivery handoff each show their own OTP confirmation step.",
     tech: ["React 18", "Vite", "Tailwind CSS", "Zustand", "React Router", "Framer Motion", "Node.js", "Express", "MongoDB", "JWT", "Zod", "Razorpay", "Leaflet", "OpenStreetMap", "Nominatim", "OSRM", "AI Chatbot", "Vercel"],
     live: "https://foodhub-seven-gules.vercel.app",
-    api: "https://foodhub-pearl-tau.vercel.app",
     github: "https://github.com/kavadrushi01-source/foodhub",
     demoLogins: {
       admin: "admin@foodhub.com / Admin@123",
@@ -94,7 +93,6 @@ const PROJECTS = [
       "Explore the seeded School of Science and Ramakrishna School accounts to see tenant isolation. Razorpay runs in test mode.",
     tech: ["Next.js 16", "React 19", "TypeScript", "Express", "Prisma", "MySQL", "Tailwind CSS", "Socket.io", "Razorpay", "Cloudinary", "Groq AI", "Vitest", "Playwright", "Vercel"],
     live: "https://studyfy-web.vercel.app",
-    api: null,
     github: "https://github.com/kavadrushi01-source/Studyfy-Web",
     demoLogins: null,
     gradient: "linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #0891b2 100%)",
