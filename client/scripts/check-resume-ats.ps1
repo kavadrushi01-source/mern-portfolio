@@ -30,7 +30,7 @@ Check "FoodHub demo logins in HTML"   $html.Contains("admin@foodhub.com / Admin@
 Check "FoodHub tech listed first"     ($foodHubHtml.IndexOf("class=""tech""") -lt $foodHubHtml.IndexOf("A full-stack food-delivery system"))
 Check "Project Features headings"     ([regex]::Matches($html, "Project Features").Count -eq 2) -and $projectUi.Contains("<h4>Project Features</h4>")
 Check "Studyfy AI and messaging in HTML" $html.Contains("AI tools generate report-card remarks") -and $html.Contains("Socket.io delivers parent-teacher messages")
-Check "Studyfy simulated fee payment wording" $html.Contains("Razorpay supports simulated fee payments") -and $resumeProjects.Contains("Razorpay supports simulated fee payments") -and $fallback.Contains("Razorpay supports simulated fee payments") -and $serverProjects.Contains("Razorpay supports simulated fee payments")
+Check "Studyfy simulated fee payment wording" $html.Contains("Razorpay is used in a simulated (fake) fee-payment system") -and $resumeProjects.Contains("Razorpay is used in a simulated (fake) fee-payment system") -and $fallback.Contains("Razorpay is used in a simulated (fake) fee-payment system") -and $serverProjects.Contains("Razorpay is used in a simulated (fake) fee-payment system")
 Check "final GitHub and portfolio info line" $html.Contains("For more info on these projects, visit") -and $html.Contains("https://github.com/kavadrushi01-source</a>") -and $html.Contains("https://mern-portfolio-client-three.vercel.app/#projects")
 Check "responsive resume layout"      $html.Contains("@media screen and (max-width: 600px)") -and $html.Contains("overflow-wrap: anywhere")
 Check "visit resume project spacing"  $html.Contains(".proj.sep { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 7px; }")
