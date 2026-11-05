@@ -51,7 +51,7 @@ function ProjectModal({ project, onClose }) {
           )}
 
           <div className="modal-section">
-            <h4>Key Features</h4>
+            <h4>Project Features</h4>
             <ul className="modal-features">
               {project.highlights.map((h) => (
                 <li key={h}>{h}</li>

@@ -40,12 +40,12 @@ export const FALLBACK_PROJECTS = [
     title: "FoodHub",
     subtitle: "Food Delivery & E-Commerce Platform",
     description:
-      "Food delivery platform with separate Customer, Admin, and Delivery Partner apps for ordering, operations, and last-mile delivery.",
+      "Food-ordering platform with separate Customer, Admin, and Delivery Partner apps for ordering, operations, and last-mile delivery.",
     highlights: [
-      "Live rider tracking and map-based address search with Leaflet, OpenStreetMap, and OSRM.",
-      "Razorpay checkout with a simulated payment OTP; delivery handoff is confirmed by a separate OTP.",
-      "Foodie chatbot answers menu, order, delivery, and payment questions using 100+ intents.",
-      "Admin dashboard manages orders, menu, coupons, delivery partners, and sales."
+      "Customer: browse food, place orders, and follow delivery; Admin: manage orders, menu, coupons, and sales; Partner: handle assigned deliveries and share live location.",
+      "Leaflet, OpenStreetMap, and OSRM provide map-based addresses, live rider location, routes, and arrival estimates.",
+      "Razorpay checkout supports online payment and a simulated payment OTP; a separate OTP confirms the delivery handoff.",
+      "Foodie answers menu, order, delivery, and payment questions with 100+ intents."
     ],
     security: [
       "JWT access + refresh-token rotation",
@@ -76,12 +76,12 @@ export const FALLBACK_PROJECTS = [
     title: "Studyfy",
     subtitle: "Multi-tenant School Management System (SaaS)",
     description:
-      "Multi-tenant school platform for six core school roles: School Admin, Teacher, Accountant, Student, Parent, and Transport Manager. Platform Owner and Librarian access are also supported.",
+      "Multi-tenant school management platform for six core school roles: School Admin, Teacher, Accountant, Student, Parent, and Transport Manager. Platform Owner and Librarian access are also supported.",
     highlights: [
-      "Attendance tracking with absentee alerts, fee invoices and receipts, exams, gradebook, timetable, and homework.",
-      "Groq AI helps generate report-card remarks and flag attendance anomalies; try it in the AI/report tools.",
-      "Socket.io parent-teacher messaging and notices; Razorpay test-mode fee payments.",
-      "Prisma tenant isolation keeps each school's records separate."
+      "Manage student records, daily attendance and absentee alerts, fee invoices and receipts, exams, gradebooks, timetables, and homework.",
+      "AI generates report-card remarks and attendance-anomaly insights through the AI tools.",
+      "Socket.io powers parent-teacher messages and school notices; Razorpay handles test-mode fee payments.",
+      "Prisma tenant isolation keeps each school's records separate across a shared deployment."
     ],
     security: [
       "Tenant-scoped queries with cross-tenant regression tests (20 TENANT_MODELS, test-first)",

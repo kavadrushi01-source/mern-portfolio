@@ -161,12 +161,13 @@ export default function Resume({ portfolio, projects }) {
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
         doc.text(p.title, M, y);
-        const titleW = doc.getTextWidth(p.title);
+        y += 13;
         doc.setFont("helvetica", "normal");
         doc.setTextColor(115, 115, 115);
-        const subtitle = doc.splitTextToSize(` - ${p.subtitle}`, W - M * 2 - titleW - 4);
-        doc.text(subtitle, M + titleW + 4, y);
-        y += 13;
+        doc.setFontSize(8.5);
+        const subtitle = doc.splitTextToSize(p.subtitle, W - M * 2);
+        doc.text(subtitle, M, y);
+        y += subtitle.length * 10 + 1;
         doc.setFontSize(8.5);
         doc.setTextColor(75, 75, 75);
         const tech = doc.splitTextToSize(`Tech: ${resumeProject.tech}`, W - M * 2);
@@ -178,6 +179,11 @@ export default function Resume({ portfolio, projects }) {
         const lines = doc.splitTextToSize(ascii(resumeProject.description), W - M * 2);
         doc.text(lines, M, y + 9);
         y += lines.length * 10 + 3;
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Project Features", M, y + 8);
+        y += 16;
         doc.setFont("helvetica", "normal");
         doc.setFontSize(8.5);
         doc.setTextColor(85, 85, 85);
@@ -187,17 +193,7 @@ export default function Resume({ portfolio, projects }) {
           doc.text(bl, M + 10, y + 8);
           y += bl.length * 9 + 2;
         });
-        ensureRoom(12);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(8);
-        doc.setTextColor(75, 75, 75);
-        doc.text("More info: GitHub | Portfolio", M + 10, y + 8);
-        const githubStart = M + 10 + doc.getTextWidth("More info: ");
-        const githubWidth = doc.getTextWidth("GitHub");
-        const separatorWidth = doc.getTextWidth(" | ");
-        doc.link(githubStart, y, githubWidth, 10, { url: p.github });
-        doc.link(githubStart + githubWidth + separatorWidth, y, doc.getTextWidth("Portfolio"), 10, { url: PORTFOLIO_URL });
-        y += 12;
+        y += 5;
         if (idx < projectsShown - 1) {
           doc.setDrawColor(175, 175, 175);
           doc.setLineWidth(0.5);
@@ -234,9 +230,20 @@ export default function Resume({ portfolio, projects }) {
       });
 
       ensureRoom(20);
-      doc.setDrawColor(175, 175, 175);
-      doc.setLineWidth(0.7);
-      doc.line(M, y + 2, W - M, y + 2);
+      const moreInfo = "For more info on these projects, visit GitHub or Portfolio.";
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8.5);
+      doc.setTextColor(75, 75, 75);
+      doc.text(moreInfo, M, y + 12);
+      const githubStart = M + doc.getTextWidth("For more info on these projects, visit ");
+      const githubWidth = doc.getTextWidth("GitHub");
+      const portfolioStart = githubStart + githubWidth + doc.getTextWidth(" or ");
+      doc.link(githubStart, y + 4, githubWidth, 10, {
+        url: "https://github.com/kavadrushi01-source"
+      });
+      doc.link(portfolioStart, y + 4, doc.getTextWidth("Portfolio"), 10, {
+        url: PORTFOLIO_URL
+      });
 
       /*
        * PDF document properties. Some ATS ingestion tools read Title / Author /

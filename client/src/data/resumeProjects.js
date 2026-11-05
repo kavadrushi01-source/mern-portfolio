@@ -1,24 +1,25 @@
 export const RESUME_PROJECTS = {
   FoodHub: {
     description:
-      "Food delivery with Customer, Admin, and Delivery Partner apps.",
+      "A food-ordering platform with separate Customer, Admin, and Delivery Partner apps.",
     tech: "React 18, JavaScript, Vite, Tailwind CSS, Zustand, Node.js, Express, MongoDB, Razorpay, Leaflet, OpenStreetMap, OSRM",
     highlights: [
-      "Leaflet and OpenStreetMap show live rider routes and map-based addresses.",
-      "Foodie chatbot answers menu, order, delivery, and payment questions with 100+ intents.",
-      "Razorpay checkout OTP; a separate OTP confirms delivery handoff.",
-      "Demo Admin: admin@foodhub.com / Admin@123; Customer: user@foodhub.com / User@123; Delivery: delivery@foodhub.com / Delivery@123."
+      "Customer: browse food, place orders, and follow delivery; Admin: manage orders, menu, coupons, and sales; Partner: handle assigned deliveries and share live location.",
+      "Leaflet, OpenStreetMap, and OSRM provide map-based addresses, live rider location, routes, and arrival estimates.",
+      "Razorpay checkout supports online payment and a simulated payment OTP; a separate OTP confirms the delivery handoff.",
+      "Foodie answers menu, order, delivery, and payment questions with 100+ intents.",
+      "Demo Admin: admin@foodhub.com / Admin@123; Customer: user@foodhub.com / User@123; Delivery Partner: delivery@foodhub.com / Delivery@123."
     ]
   },
   Studyfy: {
     description:
-      "Multi-tenant school platform for six core roles: Admin, Teacher, Accountant, Student, Parent, and Transport Manager; also supports Platform Owner and Librarian.",
+      "A multi-tenant school management platform for six core school roles: Admin, Teacher, Accountant, Student, Parent, and Transport Manager. Platform Owner and Librarian access are also supported.",
     tech: "Next.js, React, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI",
     highlights: [
-      "Attendance, fee invoices, exams, gradebook, timetable, and homework.",
-      "Groq AI generates report-card remarks and flags attendance anomalies.",
-      "Socket.io parent-teacher messaging; Razorpay test-mode fee payments.",
-      "Prisma tenant isolation keeps each school's records separate."
+      "Manage student records, daily attendance and absentee alerts, fee invoices and receipts, exams, gradebooks, timetables, and homework.",
+      "AI generates report-card remarks and attendance-anomaly insights through the AI tools.",
+      "Socket.io powers parent-teacher messages and school notices; Razorpay handles test-mode fee payments.",
+      "Prisma tenant isolation keeps each school's records separate across a shared deployment."
     ]
   }
 };
