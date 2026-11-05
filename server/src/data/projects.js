@@ -40,23 +40,23 @@ const PROJECTS = [
     title: "Wanderlust",
     subtitle: "Airbnb-Style Rental Listing Platform",
     description:
-      "Full-stack rental listing platform where users can list properties for rent and others can browse, search, and book them. Interactive maps, category filtering, reviews, and image uploads — a complete Airbnb clone.",
+      "Full-stack rental marketplace where hosts publish stays and guests discover, filter, map, and review properties.",
     highlights: [
-      "Browse & search listings with photos, prices, and locations on an interactive map",
-      "Filter by 18 categories — Beach, Mountains, Villas, Camping, Castles, Arctic, and more",
-      "Add, edit & delete your own property listings with image uploads via Cloudinary",
-      "Leave reviews with star ratings on any listing",
-      "Price toggle to show total price with 18% GST included",
-      "User authentication — signup, login, logout with session management"
+      "Browse and search property listings with photos, prices, locations, and an interactive map.",
+      "Filter stays across 18 categories, including beaches, mountains, villas, camping, and castles.",
+      "Create, edit, and delete your own listings with Cloudinary image uploads.",
+      "Leave star-rated reviews and compare nightly prices with an optional total including 18% GST.",
+      "Sign up, log in, and manage listings through session-based authentication."
     ],
     security: [
       "Session-based authentication",
       "Password hashing with bcrypt",
       "Server-side validation",
-      "Protected routes for owner-only actions"
+      "Owner-only listing actions"
     ],
-    note: "Built as a college major project. Uses OpenStreetMap + Leaflet for interactive maps and Cloudinary for image storage. Now hosted permanently on Vercel serverless (api/index.js + vercel.json, auto-redeploys from main) — the old Render service is deleted and the temporary Back4App addresses expired; the first request can take 10–30s while the function cold-starts.",
-    tech: ["Node.js", "Express", "MongoDB", "EJS", "Bootstrap", "Leaflet", "Cloudinary", "Vercel"],
+    note:
+      "College major project featuring Leaflet and OpenStreetMap maps with Cloudinary-hosted property images.",
+    tech: ["Node.js", "Express", "MongoDB", "EJS", "Bootstrap", "Leaflet", "OpenStreetMap", "Cloudinary", "Vercel"],
     live: "https://wanderlust-major-project-eta.vercel.app",
     github: "https://github.com/kavadrushi01-source/wanderlust-major-project",
     demoLogins: {

@@ -88,6 +88,7 @@ Check "Studyfy in HTML resume"         $html.Contains("Studyfy - Multi-tenant Sc
 Check "Wanderlust removed from HTML"   (-not $html.Contains("Wanderlust"))
 Check "Wanderlust removed from PDF"    (-not $jsx.Contains("Wanderlust"))
 Check "portfolio project copy synced"  $fallback.Contains("100+ intents") -and $serverProjects.Contains("100+ hand-written intents") -and $projectUi.Contains("Tech Stack")
+Check "Wanderlust in portfolio data only" $fallback.Contains('title: "Wanderlust"') -and $serverProjects.Contains('title: "Wanderlust"') -and $fallback.Contains("wanderlust-major-project-eta.vercel.app") -and (-not $html.Contains("Wanderlust")) -and (-not $jsx.Contains("Wanderlust")) -and $resumeProjects.Contains('RESUME_PROJECT_ORDER = ["FoodHub", "Studyfy"]')
 
 Write-Output ("`n{0} passed, {1} failed" -f $pass, $fail)
 if ($fail -gt 0) { exit 1 }

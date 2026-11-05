@@ -74,6 +74,37 @@ export const FALLBACK_PROJECTS = [
     image: "/projects/foodhub.png"
   },
   {
+    title: "Wanderlust",
+    subtitle: "Airbnb-Style Rental Listing Platform",
+    description:
+      "Full-stack rental marketplace where hosts publish stays and guests discover, filter, map, and review properties.",
+    highlights: [
+      "Browse and search property listings with photos, prices, locations, and an interactive map.",
+      "Filter stays across 18 categories, including beaches, mountains, villas, camping, and castles.",
+      "Create, edit, and delete your own listings with Cloudinary image uploads.",
+      "Leave star-rated reviews and compare nightly prices with an optional total including 18% GST.",
+      "Sign up, log in, and manage listings through session-based authentication."
+    ],
+    security: [
+      "Session-based authentication",
+      "bcrypt password hashing",
+      "Server-side validation",
+      "Owner-only listing actions"
+    ],
+    note:
+      "College major project featuring Leaflet and OpenStreetMap maps with Cloudinary-hosted property images.",
+    tech: ["Node.js", "Express", "MongoDB", "EJS", "Bootstrap", "Leaflet", "OpenStreetMap", "Cloudinary", "Vercel"],
+    live: "https://wanderlust-major-project-eta.vercel.app",
+    github: "https://github.com/kavadrushi01-source/wanderlust-major-project",
+    demoLogins: {
+      rushi: "666",
+      hitesh: "666"
+    },
+    gradient: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%)",
+    icon: "🏡",
+    image: "/projects/wanderlust.png"
+  },
+  {
     title: "Studyfy",
     subtitle: "Multi-tenant School Management System (SaaS)",
     description:
