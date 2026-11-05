@@ -95,8 +95,16 @@ export const FALLBACK_PROJECTS = [
       "Append-only audit logs; impersonation writes END records, never deletes",
       "Data export excludes passwordHash/token tables; cross-tenant-tested"
     ],
-    note:
-      "Explore the seeded School of Science and Ramakrishna School accounts to see tenant isolation. Razorpay runs in test mode.",
+    documentation: [
+      {
+        label: "User Guide",
+        url: "https://github.com/kavadrushi01-source/Studyfy-Web/blob/main/docs/USER_GUIDE.md"
+      },
+      {
+        label: "Demo Data",
+        url: "https://github.com/kavadrushi01-source/Studyfy-Web/blob/main/DEMO_DATA.md"
+      }
+    ],
     tech: ["Next.js 16", "React 19", "TypeScript", "Express", "Prisma", "MySQL", "Tailwind CSS", "Socket.io", "Razorpay", "Cloudinary", "Groq AI", "Vitest", "Playwright", "Vercel"],
     live: "https://studyfy-web.vercel.app",
     github: "https://github.com/kavadrushi01-source/Studyfy-Web",

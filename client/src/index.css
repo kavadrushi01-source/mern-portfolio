@@ -985,6 +985,18 @@ img {
   font-size: 0.7rem;
 }
 
+.modal-doc-intro {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.modal-doc-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .modal-security {
   display: flex;
   flex-wrap: wrap;
