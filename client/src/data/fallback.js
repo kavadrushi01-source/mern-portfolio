@@ -83,7 +83,7 @@ export const FALLBACK_PROJECTS = [
       "School workflows cover student records, daily attendance and absentee alerts, fee invoices and receipts, exams, gradebooks, timetables, and homework.",
       "Role-based permissions tailor staff management tools and student/parent views; student and parent access is scoped to their own records.",
       "AI tools generate report-card remarks and surface attendance-anomaly insights for school staff.",
-      "Socket.io delivers parent-teacher messages and school notices; Razorpay supports test-mode fee payments.",
+      "Socket.io delivers parent-teacher messages and school notices; Razorpay supports simulated fee payments.",
       "Prisma tenant scoping isolates each school's records; audit logs track important administrative actions."
     ],
     security: [
