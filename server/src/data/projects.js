@@ -3,16 +3,12 @@ const PROJECTS = [
     title: "FoodHub",
     subtitle: "Food Delivery & E-Commerce Platform",
     description:
-      "Full-stack food delivery + e-commerce platform on the MERN stack — three role-based apps (Customer, Admin Dashboard, Delivery Partner) in one, live map-based delivery tracking and an AI chatbot assistant 'Foodie'. Frontend and API both deployed on Vercel.",
+      "Food delivery platform with separate Customer, Admin, and Delivery Partner apps for ordering, operations, and last-mile delivery.",
     highlights: [
-      "Live delivery tracking, 100% free — customers watch the rider move on a live map with a real road route, distance and ETA, while the delivery partner shares GPS from the partner app",
-      "Maps & routing with no paid keys — Leaflet + OpenStreetMap tiles, Nominatim search and reverse-geocoding, and OSRM road routing (distance, duration, route polyline) with a haversine straight-line fallback when routing is unavailable",
-      "Map-based checkout address — search a place or drop a pin and the address auto-fills from the dropped pin, with saved-address management: set default, delete (confirmed) and duplicate detection",
-      "Payments — Razorpay integration supporting Card, Netbanking, Wallet, UPI and Cash on Delivery, with a checkout that reproduces the live gateway flow: pay with test card 5267 3181 8797 5449 (any expiry, any CVV) and the app raises a simulated OTP step — skip it or type any 6-digit number to confirm the payment. Netbanking and Wallet open a success / failure screen so both outcomes can be demonstrated, and UPI accepts success@razorpay or failure@razorpay",
-      "Delivery partner — a dedicated partner app with assigned drop-offs, live status updates and earnings tracking, where the admin issues an OTP for every order and the hand-off only completes once the partner confirms that OTP",
-      "AI chatbot \"Foodie\" — regex intent engine with 100+ hand-written intents (orders, delivery, payments, coupons, menu, even math), quick-suggestion buttons and a browsable FAQ panel, with no external API needed",
-      "Admin dashboard — revenue, order-count and top-seller analytics with real charts, food / category / coupon CRUD, delivery-partner assignment, refunds, review moderation and store settings",
-      "Platform — premium mobile-first UI with dark / light mode, animations and skeleton loaders, deployed on Vercel's free tier with the API running as a serverless function"
+      "Live rider tracking and map-based address search with Leaflet, OpenStreetMap, and OSRM.",
+      "Razorpay checkout with a simulated payment OTP; delivery handoff is confirmed by a separate OTP.",
+      "Foodie chatbot answers menu, order, delivery, and payment questions using 100+ intents.",
+      "Admin dashboard manages orders, menu, coupons, delivery partners, and sales."
     ],
     security: [
       "JWT access + refresh-token rotation",
@@ -25,7 +21,7 @@ const PROJECTS = [
       "Role-based access control",
       "Winston structured logging"
     ],
-    note: "Payments run through a Razorpay integration covering card, netbanking, wallet, UPI and cash on delivery, and every delivery is confirmed with an OTP. Delivery tracking and address entry run on Leaflet + OpenStreetMap with Nominatim geocoding and OSRM road routing — no paid map API keys. A built-in AI chatbot called \"Foodie\" helps customers with orders, delivery, payments and the menu at any time.",
+    note: "Try the Customer, Admin, and Delivery Partner demo accounts below. Customer checkout and the delivery handoff each show their own OTP confirmation step.",
     tech: ["React 18", "Vite", "Tailwind CSS", "Zustand", "React Router", "Framer Motion", "Node.js", "Express", "MongoDB", "JWT", "Zod", "Razorpay", "Leaflet", "OpenStreetMap", "Nominatim", "OSRM", "AI Chatbot", "Vercel"],
     live: "https://foodhub-seven-gules.vercel.app",
     api: "https://foodhub-pearl-tau.vercel.app",
@@ -74,16 +70,12 @@ const PROJECTS = [
     title: "Studyfy",
     subtitle: "Multi-tenant School Management System (SaaS)",
     description:
-      "Multi-tenant cloud-based School Management System (school ERP) built from scratch as a production-grade portfolio project. One deployment serves many independent schools on paid subscriptions — attendance, fees, exams, timetable, homework, and parent communication in one place. Role-based access for students, parents, teachers, accountants, librarians, transport managers, school admins and the platform owner, with tenant isolation enforced at the database layer. Razorpay test-mode fee payments, Groq AI assistance, real-time Socket.io updates, and PDF receipts/report cards included.",
+      "Multi-tenant school platform for six core school roles: School Admin, Teacher, Accountant, Student, Parent, and Transport Manager. Platform Owner and Librarian access are also supported.",
     highlights: [
-      "Multi-tenant SaaS architecture — one deployment, many isolated schools with tenant-scoped queries enforced via Prisma client extension, plus cross-tenant regression tests proving data never leaks between schools",
-      "Role-based access control — Platform Owner, School Admin, Teacher, Accountant, Student, Parent, Librarian and Transport Manager, each with row-level data scoping; Platform Owner sits outside the tenant model entirely",
-      "Phase 1 MVP modules — Student Information System, daily attendance with absentee alerts, fee structures/invoices/receipts, exams & gradebook with auto rank, conflict-free timetable, homework submission, notice board, parent-teacher messaging (Socket.io, scoped for minors)",
-      "Razorpay test-mode fee payments — real Razorpay integration with signature verification and webhook idempotency, running on free test keys (zero real money)",
-      "Groq AI assistant — report-card remarks and attendance anomaly detection on Groq's free tier (no card, no training on your data)",
-      "JWT auth (15-minute access + 7-day refresh, httpOnly cookies), bcrypt password hashing, Helmet, CORS allow-list, rate limiting on all auth/public endpoints",
-      "Append-only audit logs, per-school data export with secrets excluded, and audited read-only impersonation for support",
-      "Two seeded demo schools (School of Science — Ahmedabad, PREMIUM; Ramakrishna School — Rajkot, STANDARD) proving tenant isolation in a live walkthrough"
+      "Attendance tracking with absentee alerts, fee invoices and receipts, exams, gradebook, timetable, and homework.",
+      "Groq AI helps generate report-card remarks and flag attendance anomalies; try it in the AI/report tools.",
+      "Socket.io parent-teacher messaging and notices; Razorpay test-mode fee payments.",
+      "Prisma tenant isolation keeps each school's records separate."
     ],
     security: [
       "Tenant-scoped queries with cross-tenant regression tests (20 TENANT_MODELS, test-first)",
@@ -96,7 +88,7 @@ const PROJECTS = [
       "Data export excludes passwordHash/token tables; cross-tenant-tested"
     ],
     note:
-      "Built from scratch as a portfolio project worth showing to employers — not a toy, not a UI mockup. Tenant isolation is real, RBAC is real, and the Razorpay integration is genuinely complete (signature verification, server-side amount recalculation, webhook idempotency) but runs on test keys only by design. Two fully-seeded demo schools demonstrate tenant isolation: log in as one school's admin and the other school's data is simply not there. Razorpay and Groq both run on free tiers — no live keys, no real money, no paid services anywhere.",
+      "Explore the seeded School of Science and Ramakrishna School accounts to see tenant isolation. Razorpay runs in test mode.",
     tech: ["Next.js 16", "React 19", "TypeScript", "Express", "Prisma", "MySQL", "Tailwind CSS", "Socket.io", "Razorpay", "Cloudinary", "Groq AI", "Vitest", "Playwright", "Vercel"],
     live: "https://studyfy-web.vercel.app",
     api: null,

@@ -40,11 +40,12 @@ export const FALLBACK_PROJECTS = [
     title: "FoodHub",
     subtitle: "Food Delivery & E-Commerce Platform",
     description:
-      "Full-stack food delivery platform — three role-based apps (Customer, Admin, Delivery Partner) with live rider tracking, Razorpay payments, and AI chatbot 'Foodie'.",
+      "Food delivery platform with separate Customer, Admin, and Delivery Partner apps for ordering, operations, and last-mile delivery.",
     highlights: [
-      "Live rider tracking with Leaflet, OpenStreetMap, and OSRM routing.",
-      "Razorpay checkout and OTP-confirmed delivery handoff.",
-      "Foodie chatbot with 100+ intents."
+      "Live rider tracking and map-based address search with Leaflet, OpenStreetMap, and OSRM.",
+      "Razorpay checkout with a simulated payment OTP; delivery handoff is confirmed by a separate OTP.",
+      "Foodie chatbot answers menu, order, delivery, and payment questions using 100+ intents.",
+      "Admin dashboard manages orders, menu, coupons, delivery partners, and sales."
     ],
     security: [
       "JWT access + refresh-token rotation",
@@ -57,8 +58,7 @@ export const FALLBACK_PROJECTS = [
       "Role-based access control",
       "Winston structured logging"
     ],
-    note:
-      "Payments run through a Razorpay integration covering card, netbanking, wallet, UPI and cash on delivery, and every delivery is confirmed with an OTP. Delivery tracking and address entry run on Leaflet + OpenStreetMap with Nominatim geocoding and OSRM road routing — no paid map API keys. A built-in AI chatbot called \"Foodie\" helps customers with orders, delivery, payments and the menu at any time.",
+    note: "Try the Customer, Admin, and Delivery Partner demo accounts below. Customer checkout and delivery handoff each have their own OTP confirmation step.",
     tech: ["React 18", "Vite", "Tailwind CSS", "Zustand", "React Router", "Framer Motion", "Node.js", "Express", "MongoDB", "JWT", "Zod", "Razorpay", "Leaflet", "OpenStreetMap", "Nominatim", "OSRM", "AI Chatbot", "Vercel"],
     live: "https://foodhub-seven-gules.vercel.app",
     api: "https://foodhub-pearl-tau.vercel.app",
@@ -76,11 +76,12 @@ export const FALLBACK_PROJECTS = [
     title: "Studyfy",
     subtitle: "Multi-tenant School Management System (SaaS)",
     description:
-      "Multi-tenant School Management System (school ERP) — one deployment serving many schools. Attendance, fees, exams, timetable, homework, parent communication.",
+      "Multi-tenant school platform for six core school roles: School Admin, Teacher, Accountant, Student, Parent, and Transport Manager. Platform Owner and Librarian access are also supported.",
     highlights: [
-      "Prisma tenant isolation and role-based access across eight roles.",
-      "Razorpay test payments with signature verification and webhook idempotency.",
-      "JWT authentication and append-only audit logs."
+      "Attendance tracking with absentee alerts, fee invoices and receipts, exams, gradebook, timetable, and homework.",
+      "Groq AI helps generate report-card remarks and flag attendance anomalies; try it in the AI/report tools.",
+      "Socket.io parent-teacher messaging and notices; Razorpay test-mode fee payments.",
+      "Prisma tenant isolation keeps each school's records separate."
     ],
     security: [
       "Tenant-scoped queries with cross-tenant regression tests (20 TENANT_MODELS, test-first)",
@@ -93,7 +94,7 @@ export const FALLBACK_PROJECTS = [
       "Data export excludes passwordHash/token tables; cross-tenant-tested"
     ],
     note:
-      "Built from scratch as a portfolio project worth showing to employers — not a toy, not a UI mockup. Tenant isolation is real, RBAC is real, and the Razorpay integration is genuinely complete (signature verification, server-side amount recalculation, webhook idempotency) but runs on test keys only by design. Two fully-seeded demo schools demonstrate tenant isolation: log in as one school's admin and the other school's data is simply not there. Razorpay and Groq both run on free tiers — no live keys, no real money, no paid services anywhere.",
+      "Explore the seeded School of Science and Ramakrishna School accounts to see tenant isolation. Razorpay runs in test mode.",
     tech: ["Next.js 16", "React 19", "TypeScript", "Express", "Prisma", "MySQL", "Tailwind CSS", "Socket.io", "Razorpay", "Cloudinary", "Groq AI", "Vitest", "Playwright", "Vercel"],
     live: "https://studyfy-web.vercel.app",
     api: null,

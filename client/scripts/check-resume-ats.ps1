@@ -5,6 +5,9 @@ $root = Split-Path -Parent $PSScriptRoot
 $html = Get-Content (Join-Path $root "public\resume.html") -Raw
 $jsx = Get-Content (Join-Path $root "src\components\Resume.jsx") -Raw
 $fallback = Get-Content (Join-Path $root "src\data\fallback.js") -Raw
+$resumeProjects = Get-Content (Join-Path $root "src\data\resumeProjects.js") -Raw
+$projectUi = Get-Content (Join-Path $root "src\components\Projects.jsx") -Raw
+$serverProjects = Get-Content (Join-Path $root "..\server\src\data\projects.js") -Raw
 $pass = 0; $fail = 0
 function Check($name, $ok) {
   if ($ok) { $script:pass++; Write-Output ("  PASS  {0}" -f $name) }
@@ -21,6 +24,12 @@ Check "labelled contact fields"        $html.Contains("<strong>Email:</strong>")
 Check "LinkedIn removed from HTML"     (-not $html.Contains("linkedin.com/in/kavad-rushi-b24484411"))
 Check "Portfolio link in HTML"         $html.Contains("mern-portfolio-client-three.vercel.app")
 Check "Next.js skill in HTML"          $html.Contains("Next.js")
+Check "black and gray print colors"   $html.Contains("--accent: #111") -and $html.Contains("--muted: #666")
+Check "FoodHub demo logins in HTML"   $html.Contains("admin@foodhub.com / Admin@123") -and $html.Contains("user@foodhub.com / User@123") -and $html.Contains("delivery@foodhub.com / Delivery@123")
+ $foodHubHtml = $html.Substring($html.IndexOf("FoodHub -"))
+Check "FoodHub tech listed first"     ($foodHubHtml.IndexOf("class=""tech""") -lt $foodHubHtml.IndexOf("Three apps for Customers"))
+Check "Studyfy AI and messaging in HTML" $html.Contains("report-card remarks") -and $html.Contains("Socket.io parent-teacher messaging")
+Check "GitHub and portfolio links for both HTML projects" ([regex]::Matches($html, "href=""https://mern-portfolio-client-three\.vercel\.app/#projects""").Count -eq 2) -and ([regex]::Matches($html, "GitHub: github.com/kavadrushi01-source/").Count -eq 2)
 Check "no arrow glyph"                 (-not $html.Contains([string][char]0x2197))
 Check "no emoji"                       (([regex]::Matches($html, "[\uD800-\uDBFF][\uDC00-\uDFFF]")).Count -eq 0)
 Check "print break-inside rules"       $html.Contains("break-inside: avoid")
@@ -46,16 +55,27 @@ Check "Projects before Education"      ($jsx.IndexOf('section("Projects")') -lt 
 Check "coursework line"                $jsx.Contains("Relevant Coursework")
 Check "PDF metadata keywords"          $jsx.Contains("setProperties")
 Check "core PDF fonts only"             $jsx.Contains('doc.setFont("helvetica"')
-Check "clickable project links"        $jsx.Contains("[p.live, p.github]")
+Check "clickable project GitHub/portfolio links" $jsx.Contains('doc.link(githubStart') -and $jsx.Contains("url: PORTFOLIO_URL")
 Check "single-page PDF enforced"       $jsx.Contains("Resume content exceeds one A4 page.") -and (-not $jsx.Contains("doc.addPage()"))
-Check "condensed project summaries"    $jsx.Contains("Three role-based food-delivery apps") -and $jsx.Contains("Multi-tenant school platform")
-Check "chatbot work in PDF source"     $jsx.Contains("Foodie") -and $fallback.Contains("Foodie")
-Check "Studyfy title color in PDF"     $jsx.Contains("Studyfy: [13, 148, 136]")
-Check "PDF selects FoodHub and Studyfy" $jsx.Contains('RESUME_PROJECT_ORDER = ["FoodHub", "Studyfy"]')
+$pdfColors = [regex]::Matches($jsx, 'doc\.setTextColor\((\d+),\s*(\d+),\s*(\d+)\)')
+$grayOnly = $pdfColors.Count -gt 0
+foreach ($color in $pdfColors) {
+  if (($color.Groups[1].Value -ne $color.Groups[2].Value) -or ($color.Groups[2].Value -ne $color.Groups[3].Value)) {
+    $grayOnly = $false
+  }
+}
+Check "black and gray PDF palette"     ($grayOnly -and $jsx.Contains("doc.setTextColor(0, 0, 0)"))
+Check "FoodHub demo logins in PDF"     $resumeProjects.Contains("admin@foodhub.com / Admin@123") -and $resumeProjects.Contains("user@foodhub.com / User@123") -and $resumeProjects.Contains("delivery@foodhub.com / Delivery@123")
+Check "FoodHub integrations in PDF"    $resumeProjects.Contains("Foodie chatbot") -and $resumeProjects.Contains("Razorpay checkout OTP") -and $resumeProjects.Contains("OpenStreetMap")
+Check "Studyfy AI and messaging in PDF" $resumeProjects.Contains("report-card remarks") -and $resumeProjects.Contains("attendance anomalies") -and $resumeProjects.Contains("Socket.io")
+Check "six core Studyfy roles clear"   $resumeProjects.Contains("six core roles") -and $resumeProjects.Contains("Platform Owner and Librarian")
+Check "both projects have more-info links" $resumeProjects.Contains("RESUME_PROJECT_ORDER")
+Check "PDF selects FoodHub and Studyfy" $resumeProjects.Contains('RESUME_PROJECT_ORDER = ["FoodHub", "Studyfy"]')
 Check "Studyfy live URL in data"       $fallback.Contains("studyfy-web.vercel.app")
 Check "Studyfy in HTML resume"         $html.Contains("Studyfy - Multi-tenant School Management")
 Check "Wanderlust removed from HTML"   (-not $html.Contains("Wanderlust"))
 Check "Wanderlust removed from PDF"    (-not $jsx.Contains("Wanderlust"))
+Check "portfolio project copy synced"  $fallback.Contains("100+ intents") -and $serverProjects.Contains("100+ hand-written intents") -and $projectUi.Contains("Tech Stack")
 
 Write-Output ("`n{0} passed, {1} failed" -f $pass, $fail)
 if ($fail -gt 0) { exit 1 }

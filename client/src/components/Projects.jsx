@@ -29,6 +29,15 @@ function ProjectModal({ project, onClose }) {
             <span className="modal-subtitle">{project.subtitle}</span>
           </div>
 
+          <div className="modal-section">
+            <h4>Tech Stack</h4>
+            <div className="modal-tech">
+              {project.tech.map((t) => (
+                <span key={t} className="tech-badge">{t}</span>
+              ))}
+            </div>
+          </div>
+
           <p className="modal-desc">{project.description}</p>
 
           {project.note && (
@@ -73,15 +82,6 @@ function ProjectModal({ project, onClose }) {
             </div>
           )}
 
-          <div className="modal-section">
-            <h4>Tech Stack</h4>
-            <div className="modal-tech">
-              {project.tech.map((t) => (
-                <span key={t} className="tech-badge">{t}</span>
-              ))}
-            </div>
-          </div>
-
           <div className="modal-actions">
             {project.live && (
               <a className="btn btn-primary" href={project.live} target="_blank" rel="noreferrer">
@@ -105,7 +105,10 @@ function ProjectModal({ project, onClose }) {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
               </svg>
-              Source Code
+              GitHub
+            </a>
+            <a className="btn btn-outline" href="https://mern-portfolio-client-three.vercel.app/#projects" target="_blank" rel="noreferrer">
+              Portfolio
             </a>
           </div>
         </div>
@@ -151,8 +154,6 @@ export default function Projects({ projects }) {
                   <p className="project-subtitle">{p.subtitle}</p>
                 </div>
 
-                <p className="project-desc">{p.description}</p>
-
                 <div className="tech-list">
                   {p.tech.slice(0, 5).map((t) => (
                     <span key={t} className="tech">{t}</span>
@@ -161,6 +162,8 @@ export default function Projects({ projects }) {
                     <span className="tech tech-more">+{p.tech.length - 5}</span>
                   )}
                 </div>
+
+                <p className="project-desc">{p.description}</p>
 
                 <div className="project-actions">
                   <a

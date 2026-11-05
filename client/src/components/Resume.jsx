@@ -1,29 +1,6 @@
 import { useState } from "react";
 import { jsPDF } from "jspdf";
-
-const RESUME_PROJECTS = {
-  FoodHub: {
-    description:
-      "Three role-based food-delivery apps with live rider tracking, Razorpay checkout, and the Foodie chatbot.",
-    tech: "React, Node.js, Express, MongoDB, Razorpay, Leaflet",
-    highlights: [
-      "Live maps and road routing with Leaflet, OpenStreetMap, and OSRM.",
-      "Razorpay payments and OTP-confirmed delivery handoff.",
-      "Foodie chatbot with 100+ intents."
-    ]
-  },
-  Studyfy: {
-    description:
-      "Multi-tenant school platform for attendance, fees, exams, and parent communication.",
-    tech: "Next.js, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI",
-    highlights: [
-      "Prisma tenant isolation and role-based access across eight roles.",
-      "Razorpay test payments with signature verification and webhook idempotency.",
-      "JWT authentication and append-only audit logs."
-    ]
-  }
-};
-const RESUME_PROJECT_ORDER = ["FoodHub", "Studyfy"];
+import { PORTFOLIO_URL, RESUME_PROJECT_ORDER, RESUME_PROJECTS } from "../data/resumeProjects.js";
 
 export default function Resume({ portfolio, projects }) {
   const [busy, setBusy] = useState(false);
@@ -47,16 +24,16 @@ export default function Resume({ portfolio, projects }) {
        * 14 core PDF fonts are standard, so no font embedding is required and
        * text extraction is reliable.
        */
-      doc.setTextColor(17, 24, 39);
+      doc.setTextColor(0, 0, 0);
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(26);
+      doc.setFontSize(28);
       doc.text(portfolio.name.toUpperCase(), M, 62, {
         link: "https://github.com/kavadrushi01-source"
       });
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(12.5);
-      doc.setTextColor(15, 118, 110);
+      doc.setTextColor(55, 55, 55);
       doc.text("MERN Stack Developer", M, 82);
 
       /* Contact details are clickable links in a measured two-column grid. */
@@ -65,7 +42,7 @@ export default function Resume({ portfolio, projects }) {
         { label: "Email", value: "kavadrushi01@gmail.com", url: "mailto:kavadrushi01@gmail.com" },
         { label: "Phone", value: "+91 93285 81846", url: "tel:+919328581846" },
         { label: "GitHub", value: "github.com/kavadrushi01-source", url: "https://github.com/kavadrushi01-source" },
-        { label: "Portfolio", value: "mern-portfolio-client-three.vercel.app", url: "https://mern-portfolio-client-three.vercel.app" }
+        { label: "Portfolio", value: "mern-portfolio-client-three.vercel.app", url: PORTFOLIO_URL }
       ];
       const COL_W = (W - M * 2) / 2;
       CONTACT.forEach((c, i) => {
@@ -73,7 +50,7 @@ export default function Resume({ portfolio, projects }) {
         const row = Math.floor(i / 2);
         const x = M + col * COL_W;
         const cy = 99 + row * 13;
-        doc.setTextColor(90, 100, 115);
+        doc.setTextColor(145, 145, 145);
         doc.text(`${c.label}: `, x, cy);
         const lw = doc.getTextWidth(`${c.label}: `);
         // Clamp the value to the column so it can never spill into the margin.
@@ -85,11 +62,11 @@ export default function Resume({ portfolio, projects }) {
           }
           shown = `${shown}...`;
         }
-        doc.setTextColor(15, 118, 110);
+        doc.setTextColor(75, 75, 75);
         doc.text(shown, x + lw, cy, { link: c.url });
       });
 
-      doc.setDrawColor(15, 118, 110);
+      doc.setDrawColor(120, 120, 120);
       doc.setLineWidth(1.4);
       doc.line(M, 118, W - M, 118);
 
@@ -97,16 +74,16 @@ export default function Resume({ portfolio, projects }) {
       const section = (title) => {
         y += 24;
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.setTextColor(15, 118, 110);
+        doc.setFontSize(13);
+        doc.setTextColor(0, 0, 0);
         doc.text(title.toUpperCase(), M, y);
         const tw = doc.getTextWidth(title.toUpperCase());
-        doc.setDrawColor(15, 118, 110);
-        doc.setLineWidth(0.8);
+        doc.setDrawColor(90, 90, 90);
+        doc.setLineWidth(1);
         doc.line(M, y + 5, M + tw, y + 5);
         doc.setFont("helvetica", "normal");
-        doc.setFontSize(10.5);
-        doc.setTextColor(30, 41, 59);
+        doc.setFontSize(9.5);
+        doc.setTextColor(65, 65, 65);
         y += 19;
       };
 
@@ -148,7 +125,7 @@ export default function Resume({ portfolio, projects }) {
        * and ATS keyword scanners expect skills and shipped work up front.
        */
       section("Technical Skills");
-      doc.setTextColor(50, 60, 80);
+      doc.setTextColor(65, 65, 65);
       doc.setFontSize(9.5);
       /*
        * Skills are grouped by category rather than emitted as one long run-on
@@ -176,70 +153,56 @@ export default function Resume({ portfolio, projects }) {
       });
 
       section("Projects");
-      // Per-project brand colours for the title so each one stands out like a
-      // section header (FoodHub = its orange brand, Studyfy = its teal brand);
-      // the subtitle stays neutral grey.
-      const TITLE_COLORS = {
-        FoodHub: [234, 88, 12],
-        Studyfy: [13, 148, 136]
-      };
       const projectsShown = resumeProjects.length;
       resumeProjects.forEach((p, idx) => {
         const resumeProject = RESUME_PROJECTS[p.title];
-        ensureRoom(200); // whole project block on one page when possible
+        ensureRoom(170);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(11.5);
-        const [tr, tg, tb] = TITLE_COLORS[p.title] || [15, 23, 42];
-        doc.setTextColor(tr, tg, tb);
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);
         doc.text(p.title, M, y);
         const titleW = doc.getTextWidth(p.title);
         doc.setFont("helvetica", "normal");
-        doc.setTextColor(71, 85, 105);
-        doc.text(` - ${p.subtitle}`, M + titleW + 4, y);
+        doc.setTextColor(115, 115, 115);
+        const subtitle = doc.splitTextToSize(` - ${p.subtitle}`, W - M * 2 - titleW - 4);
+        doc.text(subtitle, M + titleW + 4, y);
         y += 13;
-        // A short, relevant stack keeps the resume focused and on one page.
-        doc.setFontSize(9);
-        doc.setTextColor(13, 148, 136);
+        doc.setFontSize(8.5);
+        doc.setTextColor(75, 75, 75);
         const tech = doc.splitTextToSize(`Tech: ${resumeProject.tech}`, W - M * 2);
         doc.text(tech, M, y);
-        y += tech.length * 11 + 2;
-        // Description
-        doc.setFontSize(9.5);
-        doc.setTextColor(50, 60, 80);
+        y += tech.length * 9 + 1;
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(0, 0, 0);
         const lines = doc.splitTextToSize(ascii(resumeProject.description), W - M * 2);
-        doc.text(lines, M, y + 10);
-        y += lines.length * 12 + 6;
+        doc.text(lines, M, y + 9);
+        y += lines.length * 10 + 3;
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8.5);
+        doc.setTextColor(85, 85, 85);
         resumeProject.highlights.forEach((h) => {
-          ensureRoom(34);
-          const bl = doc.splitTextToSize(`-  ${ascii(h)}`, W - M * 2 - 12);
-          doc.text(bl, M + 12, y + 10);
-          y += bl.length * 12 + 3;
+          const bl = doc.splitTextToSize(`-  ${ascii(h)}`, W - M * 2 - 10);
+          ensureRoom(bl.length * 9 + 3);
+          doc.text(bl, M + 10, y + 8);
+          y += bl.length * 9 + 2;
         });
-        // Live and source links as real clickable PDF annotations, with the
-        // URL written out in full so the text is readable even if the parser
-        // ignores link annotations.
-        [p.live, p.github].filter(Boolean).forEach((url) => {
-          ensureRoom(24);
-          const label = url === p.live ? "Live Application" : "Source Code";
-          const shown = url.replace(/^https?:\/\//, "");
-          doc.setFont("helvetica", "bold");
-          doc.setFontSize(9);
-          doc.setTextColor(2, 132, 199);
-          doc.text(`${label}: `, M + 12, y + 10);
-          const lw = doc.getTextWidth(`${label}: `);
-          doc.setFont("helvetica", "normal");
-          doc.text(shown, M + 12 + lw, y + 10, { link: url });
-          doc.setFont("helvetica", "normal");
-          y += 15;
-        });
-        y += 8;
-        // Thin grey divider between project blocks (after FoodHub) so the two
-        // entries read cleanly as separate sections.
+        ensureRoom(12);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(8);
+        doc.setTextColor(75, 75, 75);
+        doc.text("More info: GitHub | Portfolio", M + 10, y + 8);
+        const githubStart = M + 10 + doc.getTextWidth("More info: ");
+        const githubWidth = doc.getTextWidth("GitHub");
+        const separatorWidth = doc.getTextWidth(" | ");
+        doc.link(githubStart, y, githubWidth, 10, { url: p.github });
+        doc.link(githubStart + githubWidth + separatorWidth, y, doc.getTextWidth("Portfolio"), 10, { url: PORTFOLIO_URL });
+        y += 12;
         if (idx < projectsShown - 1) {
-          doc.setDrawColor(200, 210, 220);
-          doc.setLineWidth(0.7);
+          doc.setDrawColor(175, 175, 175);
+          doc.setLineWidth(0.5);
           doc.line(M, y, W - M, y);
-          y += 14;
+          y += 7;
         }
       });
 
@@ -250,18 +213,18 @@ export default function Resume({ portfolio, projects }) {
       portfolio.education.forEach((e) => {
         ensureRoom(56);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(10.5);
-        doc.setTextColor(17, 24, 39);
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
         doc.text(e.degree, M, y);
         doc.setFont("helvetica", "normal");
-        doc.setFontSize(9.5);
-        doc.setTextColor(71, 85, 105);
+        doc.setFontSize(8.5);
+        doc.setTextColor(105, 105, 105);
         doc.text(
           `${e.institution}   |   ${e.period}${e.cgpa ? `   |   CGPA: ${e.cgpa}` : ""}`,
           M,
           y + 14
         );
-        doc.setTextColor(90, 100, 115);
+        doc.setTextColor(140, 140, 140);
         doc.text(
           "Relevant Coursework: Data Structures, Algorithms, Database Management Systems, Web Development, Operating Systems",
           M,
@@ -271,17 +234,9 @@ export default function Resume({ portfolio, projects }) {
       });
 
       ensureRoom(20);
-      doc.setDrawColor(200, 210, 220);
+      doc.setDrawColor(175, 175, 175);
       doc.setLineWidth(0.7);
       doc.line(M, y + 2, W - M, y + 2);
-
-      doc.setTextColor(100, 116, 139);
-      doc.setFontSize(8.5);
-      doc.text(
-        "kavadrushi01@gmail.com  |  +91 93285 81846  |  github.com/kavadrushi01-source  |  Available for full-time work",
-        M,
-        y + 20
-      );
 
       /*
        * PDF document properties. Some ATS ingestion tools read Title / Author /
