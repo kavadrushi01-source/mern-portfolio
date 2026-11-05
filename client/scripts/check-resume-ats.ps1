@@ -7,6 +7,7 @@ $jsx = Get-Content (Join-Path $root "src\components\Resume.jsx") -Raw
 $fallback = Get-Content (Join-Path $root "src\data\fallback.js") -Raw
 $resumeProjects = Get-Content (Join-Path $root "src\data\resumeProjects.js") -Raw
 $projectUi = Get-Content (Join-Path $root "src\components\Projects.jsx") -Raw
+$css = Get-Content (Join-Path $root "src\index.css") -Raw
 $serverProjects = Get-Content (Join-Path $root "..\server\src\data\projects.js") -Raw
 $pass = 0; $fail = 0
 function Check($name, $ok) {
@@ -30,7 +31,8 @@ Check "FoodHub demo logins in HTML"   $html.Contains("admin@foodhub.com / Admin@
 Check "FoodHub tech listed first"     ($foodHubHtml.IndexOf("class=""tech""") -lt $foodHubHtml.IndexOf("A full-stack food-delivery system"))
 Check "Project Features headings"     ([regex]::Matches($html, "Project Features").Count -eq 2) -and $projectUi.Contains("<h4>Project Features</h4>")
 Check "project modals keep demo and GitHub only" $projectUi.Contains("Live Demo") -and $projectUi.Contains("GitHub") -and (-not $projectUi.Contains("Live API")) -and (-not $projectUi.Contains(">Portfolio<"))
-Check "Studyfy docs links explain website guide" $projectUi.Contains("step-by-step guide to using the website") -and $projectUi.Contains("Demo Data explains the sample schools and accounts") -and $fallback.Contains("label: ""User Guide""") -and $fallback.Contains("label: ""Demo Data""") -and $serverProjects.Contains("label: ""User Guide""") -and $serverProjects.Contains("label: ""Demo Data""")
+Check "Studyfy docs highlight at top of project info" ($projectUi.IndexOf("<h4>Documentation</h4>") -lt $projectUi.IndexOf("<h4>Tech Stack</h4>")) -and $projectUi.Contains("step-by-step guide to using the website") -and $projectUi.Contains("Demo Data explains the sample schools and accounts") -and $fallback.Contains("label: ""User Guide""") -and $fallback.Contains("label: ""Demo Data""") -and $serverProjects.Contains("label: ""User Guide""") -and $serverProjects.Contains("label: ""Demo Data""")
+Check "Studyfy docs guidance highlighted yellow" $css.Contains(".modal-doc-intro") -and $css.Contains("color: #fbbf24;") -and $css.Contains("rgba(251, 191, 36, 0.06)")
 Check "obsolete Studyfy Razorpay note removed" (-not $fallback.Contains("Razorpay runs in test mode")) -and (-not $serverProjects.Contains("Razorpay runs in test mode"))
 Check "Studyfy AI and messaging in HTML" $html.Contains("AI tools generate report-card remarks") -and $html.Contains("Socket.io delivers parent-teacher messages")
 Check "Studyfy simulated fee payment wording" $html.Contains("Razorpay is used in a simulated (fake) fee-payment system") -and $resumeProjects.Contains("Razorpay is used in a simulated (fake) fee-payment system") -and $fallback.Contains("Razorpay is used in a simulated (fake) fee-payment system") -and $serverProjects.Contains("Razorpay is used in a simulated (fake) fee-payment system")

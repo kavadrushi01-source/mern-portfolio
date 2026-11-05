@@ -986,7 +986,11 @@ img {
 }
 
 .modal-doc-intro {
-  color: var(--muted);
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.06);
+  border: 1px solid rgba(251, 191, 36, 0.15);
+  border-radius: 12px;
+  padding: 12px 14px;
   font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 10px;

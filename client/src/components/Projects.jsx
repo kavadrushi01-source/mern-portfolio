@@ -29,6 +29,29 @@ function ProjectModal({ project, onClose }) {
             <span className="modal-subtitle">{project.subtitle}</span>
           </div>
 
+          {project.documentation?.length > 0 && (
+            <div className="modal-section">
+              <h4>Documentation</h4>
+              <p className="modal-doc-intro">
+                For a step-by-step guide to using the website, open the User
+                Guide. Demo Data explains the sample schools and accounts.
+              </p>
+              <div className="modal-doc-links">
+                {project.documentation.map((doc) => (
+                  <a
+                    className="btn btn-outline btn-sm"
+                    href={doc.url}
+                    key={doc.label}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {doc.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="modal-section">
             <h4>Tech Stack</h4>
             <div className="modal-tech">
@@ -58,29 +81,6 @@ function ProjectModal({ project, onClose }) {
               ))}
             </ul>
           </div>
-
-          {project.documentation?.length > 0 && (
-            <div className="modal-section">
-              <h4>Documentation</h4>
-              <p className="modal-doc-intro">
-                For a step-by-step guide to using the website, open the User
-                Guide. Demo Data explains the sample schools and accounts.
-              </p>
-              <div className="modal-doc-links">
-                {project.documentation.map((doc) => (
-                  <a
-                    className="btn btn-outline btn-sm"
-                    href={doc.url}
-                    key={doc.label}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {doc.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
 
           <div className="modal-section">
             <h4>Security</h4>
