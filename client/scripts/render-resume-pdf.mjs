@@ -130,10 +130,13 @@ SKILL_GROUPS.forEach(([label, items]) => {
 });
 
 section("Projects");
+const projectsShown = RESUME_PROJECT_ORDER.filter((title) =>
+  projects.some((project) => project.title === title)
+).length;
 RESUME_PROJECT_ORDER
   .map((title) => projects.find((project) => project.title === title))
   .filter(Boolean)
-  .forEach((p) => {
+  .forEach((p, idx) => {
   const resumeProject = RESUME_PROJECTS[p.title];
   ensureRoom(170);
   doc.setFont("helvetica", "bold");
@@ -172,7 +175,13 @@ RESUME_PROJECT_ORDER
     doc.text(bl, M + 10, y + 8);
     y += bl.length * 9 + 2;
   });
-  y += 5;
+  y += 10;
+  if (idx < projectsShown - 1) {
+    doc.setDrawColor(175, 175, 175);
+    doc.setLineWidth(0.7);
+    doc.line(M, y, W - M, y);
+    y += 12;
+  }
 });
 
 section("Education");
@@ -243,7 +252,8 @@ const mustContain = [
   "Multi-tenant", "Groq AI", "Prisma", "Next.js", "admin@foodhub.com",
   "Admin@123", "user@foodhub.com", "User@123", "delivery@foodhub.com",
   "Delivery@123", "Socket.io", "AI generates report-card remarks", "attendance-anomaly",
-  "six core school roles", "Project Features", "For more info on these projects"
+  "Six core roles are Admin", "Project Features", "For more info on these projects",
+  "JWT authentication", "Role-specific access"
 ];
 const missing = mustContain.filter((k) => !extracted.includes(k));
 const mustNotContain = ["linkedin.com/in/kavad-rushi-b24484411"];

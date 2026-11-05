@@ -193,12 +193,12 @@ export default function Resume({ portfolio, projects }) {
           doc.text(bl, M + 10, y + 8);
           y += bl.length * 9 + 2;
         });
-        y += 5;
+        y += 10;
         if (idx < projectsShown - 1) {
           doc.setDrawColor(175, 175, 175);
-          doc.setLineWidth(0.5);
+          doc.setLineWidth(0.7);
           doc.line(M, y, W - M, y);
-          y += 7;
+          y += 12;
         }
       });
 
