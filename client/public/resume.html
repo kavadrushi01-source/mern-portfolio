@@ -205,28 +205,29 @@
           <div class="proj">
             <h3>FoodHub - Food Delivery Platform</h3>
             <p class="tech"><strong>Tech:</strong> React 18, JavaScript, Vite, Tailwind CSS, Zustand, Node.js, Express, MongoDB, Razorpay, Leaflet, OpenStreetMap, OSRM</p>
-            <p>A full-stack food-ordering platform with dedicated Customer, Admin, and Delivery Partner apps, connecting checkout to last-mile delivery.</p>
+            <p>A full-stack food-delivery system with separate customer, admin, and delivery-partner apps, covering the order journey from menu discovery through doorstep handoff.</p>
             <h4 class="features-title">Project Features</h4>
             <ul>
-              <li>Customers browse food, place orders, and track delivery; Admins manage orders, menus, coupons, and sales; Delivery Partners handle assigned drops and share live location.</li>
-              <li>Leaflet, OpenStreetMap, and OSRM provide map-based addresses, rider location, routes, and arrival estimates.</li>
-              <li>Razorpay checkout supports online payment and a simulated payment OTP; a separate OTP confirms delivery handoff.</li>
-              <li>Foodie answers menu, order, delivery, and payment questions with 100+ intents.</li>
-              <li>JWT authentication and role-based access protect customer, admin, and delivery workflows.</li>
+              <li>Customer app: discover restaurants and menus, manage a cart, apply coupons, place orders, and track order status.</li>
+              <li>Admin app: manage menus, coupons, orders, and sales; delivery partners handle assigned orders, update progress, and share live location.</li>
+              <li>Leaflet and OpenStreetMap support address selection; OSRM maps delivery routes and estimates arrival from the rider's location.</li>
+              <li>Razorpay checkout handles online payments. Separate OTP steps confirm simulated payment and delivery handoff.</li>
+              <li>Foodie chatbot answers menu, order, delivery, and payment questions using 100+ intents.</li>
+              <li>JWT authentication and role-based permissions separate customer, admin, and delivery workflows.</li>
               <li>Demo Admin: admin@foodhub.com / Admin@123; Customer: user@foodhub.com / User@123; Delivery: delivery@foodhub.com / Delivery@123.</li>
             </ul>
           </div>
           <div class="proj sep">
             <h3>Studyfy - Multi-tenant School Management System (SaaS)</h3>
             <p class="tech"><strong>Tech:</strong> Next.js, React, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI</p>
-            <p>A shared-deployment school management platform that isolates data for each school. Six core roles are Admin, Teacher, Accountant, Student, Parent, and Transport Manager; Platform Owner and Librarian access are also supported.</p>
+            <p>A multi-tenant school management platform on a shared deployment with isolated school data. The six core roles are Admin, Teacher, Accountant, Student, Parent, and Transport Manager; Platform Owner and Librarian access are also supported.</p>
             <h4 class="features-title">Project Features</h4>
             <ul>
-              <li>Student records, daily attendance and absentee alerts, fee invoices and receipts, exams, gradebooks, timetables, and homework.</li>
-              <li>Role-specific access lets school staff manage records while students and parents use their relevant school information.</li>
-              <li>AI generates report-card remarks and attendance-anomaly insights through the AI tools.</li>
-              <li>Socket.io powers parent-teacher messages and school notices; Razorpay handles test-mode fee payments.</li>
-              <li>Prisma tenant isolation keeps each school's records separate across a shared deployment.</li>
+              <li>School workflows cover student records, daily attendance and absentee alerts, fee invoices and receipts, exams, gradebooks, timetables, and homework.</li>
+              <li>Role-based permissions tailor staff management tools and student/parent views; student and parent access is scoped to their own records.</li>
+              <li>AI tools generate report-card remarks and surface attendance-anomaly insights for school staff.</li>
+              <li>Socket.io delivers parent-teacher messages and school notices; Razorpay supports test-mode fee payments.</li>
+              <li>Prisma tenant scoping isolates each school's records; audit logs track important administrative actions.</li>
             </ul>
           </div>
         </section>
