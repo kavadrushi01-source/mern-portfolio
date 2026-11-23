@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { jsPDF } from "jspdf";
-import { PORTFOLIO_URL, RESUME_PROJECT_ORDER, RESUME_PROJECTS } from "../data/resumeProjects.js";
+import {
+  PORTFOLIO_URL,
+  RESUME_PROJECT_ORDER,
+  RESUME_PROJECTS,
+  RESUME_SUMMARY
+} from "../data/resumeProjects.js";
 
 export default function Resume({ portfolio, projects }) {
   const [busy, setBusy] = useState(false);
@@ -72,7 +77,7 @@ export default function Resume({ portfolio, projects }) {
 
       // Standard, recognisable ATS section heading.
       const section = (title) => {
-        y += 24;
+        y += 18;
         doc.setFont("helvetica", "bold");
         doc.setFontSize(13);
         doc.setTextColor(0, 0, 0);
@@ -84,7 +89,7 @@ export default function Resume({ portfolio, projects }) {
         doc.setFont("helvetica", "normal");
         doc.setFontSize(9.5);
         doc.setTextColor(65, 65, 65);
-        y += 19;
+        y += 14;
       };
 
       /*
@@ -116,14 +121,17 @@ export default function Resume({ portfolio, projects }) {
 
       y = 138;
       /*
-       * "PROFESSIONAL SUMMARY" is the standard ATS section name. The old
-       * version drew an inline "Summary" heading, which many parsers do not
-       * recognise as a section boundary.
+       * Skills and selected projects follow the profile summary so the resume
+       * surfaces role fit and shipped work before education.
        */
-      /*
-       * Section order is Technical Skills -> Projects -> Education. Recruiters
-       * and ATS keyword scanners expect skills and shipped work up front.
-       */
+      section("Professional Summary");
+      doc.setTextColor(65, 65, 65);
+      doc.setFontSize(9.5);
+      const summaryLines = doc.splitTextToSize(RESUME_SUMMARY, W - M * 2);
+      ensureRoom(summaryLines.length * 12 + 6);
+      doc.text(summaryLines, M, y);
+      y += summaryLines.length * 12 + 6;
+
       section("Technical Skills");
       doc.setTextColor(65, 65, 65);
       doc.setFontSize(9.5);
@@ -133,9 +141,9 @@ export default function Resume({ portfolio, projects }) {
        * technologies and keep the block inside the page width.
        */
       const SKILL_GROUPS = [
-        ["Frontend", "React.js, JavaScript, HTML5, CSS3, Tailwind CSS, Next.js"],
-        ["Backend", "Node.js, Express.js, REST API"],
-        ["Databases", "MongoDB, MySQL"],
+        ["Frontend", "React.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, Next.js"],
+        ["Backend", "Node.js, Express.js, REST API, JWT authentication"],
+        ["Databases", "MongoDB, Mongoose, MySQL"],
         ["Tools and Cloud", "Git, GitHub, Vercel, Render"]
       ];
       SKILL_GROUPS.forEach(([label, items]) => {
@@ -161,6 +169,14 @@ export default function Resume({ portfolio, projects }) {
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
         doc.text(p.title, M, y);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8);
+        doc.setTextColor(0, 110, 125);
+        const githubWidth = doc.getTextWidth("GitHub");
+        const liveWidth = doc.getTextWidth("Live Demo");
+        const githubX = W - M - githubWidth;
+        doc.text("Live Demo", githubX - liveWidth - 10, y, { link: resumeProject.live });
+        doc.text("GitHub", githubX, y, { link: resumeProject.github });
         y += 13;
         doc.setFont("helvetica", "normal");
         doc.setTextColor(115, 115, 115);
@@ -291,13 +307,18 @@ export default function Resume({ portfolio, projects }) {
               <p>{portfolio.title} • Full-stack developer</p>
             </div>
             <div className="resume-actions">
-              <a className="btn btn-outline" href="/resume" target="_blank" rel="noreferrer">
+              <a className="btn btn-outline" href="/resume" target="_blank" rel="noreferrer" aria-label="Visit the full resume">
                 Visit Resume ↗
               </a>
-              <button className="btn btn-primary" onClick={downloadPdf} disabled={busy}>
+              <button className="btn btn-primary" onClick={downloadPdf} disabled={busy} aria-label="Download resume as PDF">
                 {busy ? "Preparing…" : "⬇ Download Resume"}
               </button>
             </div>
+          </div>
+
+          <div className="resume-summary">
+            <h4>Professional Summary</h4>
+            <p>{RESUME_SUMMARY}</p>
           </div>
 
           <div className="resume-body">

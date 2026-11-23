@@ -101,6 +101,7 @@
       ul li { margin-bottom: 2px; }
       .skill-groups { display: flex; flex-direction: column; gap: 3px; }
       .skill-group strong { color: var(--ink); font-weight: 600; }
+      .summary { font-size: 11px; color: #444; }
       .proj { margin-bottom: 14px; }
       .proj.sep { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 7px; }
       .proj h3 { font-size: 12px; color: var(--ink); }
@@ -158,6 +159,7 @@
         ul { margin-top: 2px; }
         ul li { margin-bottom: 1px; }
         .skill-groups { gap: 1px; }
+        .summary { font-size: 8pt; }
         .proj { margin-bottom: 11px; }
         .proj.sep { padding-top: 9px; margin-top: 6px; }
         .proj h3 { font-size: 9pt; }
@@ -191,11 +193,16 @@
       </header>
       <main>
         <section>
+          <h2>Professional Summary</h2>
+          <p class="summary">Full-stack developer delivering production-ready React and Node.js applications, from secure APIs and database architecture to payments, mapping, and AI-assisted workflows.</p>
+        </section>
+
+        <section>
           <h2>Technical Skills</h2>
           <div class="skill-groups">
-            <div class="skill-group"><strong>Frontend:</strong> React.js, Next.js, JavaScript, HTML5, CSS3, Tailwind CSS</div>
-            <div class="skill-group"><strong>Backend:</strong> Node.js, Express.js, REST API</div>
-            <div class="skill-group"><strong>Databases:</strong> MongoDB, MySQL</div>
+            <div class="skill-group"><strong>Frontend:</strong> React.js, TypeScript, Next.js, JavaScript, HTML5, CSS3, Tailwind CSS</div>
+            <div class="skill-group"><strong>Backend:</strong> Node.js, Express.js, REST API, JWT authentication</div>
+            <div class="skill-group"><strong>Databases:</strong> MongoDB, Mongoose, MySQL</div>
             <div class="skill-group"><strong>Tools &amp; Cloud:</strong> Git, GitHub, Vercel, Render</div>
           </div>
         </section>
@@ -205,29 +212,25 @@
           <div class="proj">
             <h3>FoodHub - Food Delivery Platform</h3>
             <p class="tech"><strong>Tech:</strong> React 18, JavaScript, Vite, Tailwind CSS, Zustand, Node.js, Express, MongoDB, Razorpay, Leaflet, OpenStreetMap, OSRM</p>
-            <p>A full-stack food-delivery system with separate customer, admin, and delivery-partner apps, covering the order journey from menu discovery through doorstep handoff.</p>
+            <p class="links"><a href="https://foodhub-seven-gules.vercel.app" target="_blank" rel="noreferrer">Live Demo</a><a href="https://github.com/kavadrushi01-source/foodhub" target="_blank" rel="noreferrer">GitHub</a></p>
+            <p>Built and deployed a food-delivery platform across three role-specific apps, supporting the order lifecycle from menu discovery through doorstep handoff.</p>
             <h4 class="features-title">Project Features</h4>
             <ul>
-              <li>Customer app: discover restaurants and menus, manage a cart, apply coupons, place orders, and track order status.</li>
-              <li>Admin app: manage menus, coupons, orders, and sales; delivery partners handle assigned orders, update progress, and share live location.</li>
-              <li>Leaflet and OpenStreetMap support address selection; OSRM maps delivery routes and estimates arrival from the rider's location.</li>
-              <li>Razorpay checkout handles online payments. Separate OTP steps confirm simulated payment and delivery handoff.</li>
-              <li>Foodie chatbot answers menu, order, delivery, and payment questions using 100+ intents.</li>
-              <li>JWT authentication and role-based permissions separate customer, admin, and delivery workflows.</li>
-              <li>Demo Admin: admin@foodhub.com / Admin@123; Customer: user@foodhub.com / User@123; Delivery: delivery@foodhub.com / Delivery@123.</li>
+              <li>Integrated Razorpay checkout, order tracking, OTP-confirmed payment and delivery handoffs, and mapped rider routes.</li>
+              <li>Built a chatbot covering menu, order, delivery, and payment questions with 100+ intents.</li>
+              <li>Implemented JWT authentication and role-based permissions for customer, admin, and delivery workflows.</li>
             </ul>
           </div>
           <div class="proj sep">
             <h3>Studyfy - Multi-tenant School Management System (SaaS)</h3>
             <p class="tech"><strong>Tech:</strong> Next.js, React, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI</p>
-            <p>A multi-tenant school management platform on a shared deployment with isolated school data. The six core roles are Admin, Teacher, Accountant, Student, Parent, and Transport Manager; Platform Owner and Librarian access are also supported.</p>
+            <p class="links"><a href="https://studyfy-web.vercel.app" target="_blank" rel="noreferrer">Live Demo</a><a href="https://github.com/kavadrushi01-source/Studyfy-Web" target="_blank" rel="noreferrer">GitHub</a></p>
+            <p>Built a multi-tenant school management platform with tenant isolation across 20 data models, serving six core roles plus Platform Owner and Librarian access.</p>
             <h4 class="features-title">Project Features</h4>
             <ul>
-              <li>School workflows cover student records, daily attendance and absentee alerts, fee invoices and receipts, exams, gradebooks, timetables, and homework.</li>
-              <li>Role-based permissions tailor staff management tools and student/parent views; student and parent access is scoped to their own records.</li>
-              <li>AI tools generate report-card remarks and surface attendance-anomaly insights for school staff.</li>
-              <li>Socket.io delivers parent-teacher messages and school notices; Razorpay is used in a simulated (fake) fee-payment system.</li>
-              <li>Prisma tenant scoping isolates each school's records; audit logs track important administrative actions.</li>
+              <li>Implemented Prisma tenant scoping across 20 models with cross-tenant regression tests and administrative audit logs.</li>
+              <li>Delivered student, attendance, fees, exams, timetables, and homework workflows for six core roles.</li>
+              <li>Added AI-assisted report-card remarks and attendance-anomaly insights, plus Socket.io messaging.</li>
             </ul>
           </div>
         </section>

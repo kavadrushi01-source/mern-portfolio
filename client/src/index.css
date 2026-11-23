@@ -1101,6 +1101,26 @@ img {
   font-size: 0.92rem;
 }
 
+.resume-summary {
+  margin-top: 20px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: 10px;
+  background: rgba(20, 184, 166, 0.05);
+}
+.resume-summary h4 {
+  color: var(--primary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+.resume-summary p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 .resume-body {
   display: grid;
   grid-template-columns: 1fr 1fr;
