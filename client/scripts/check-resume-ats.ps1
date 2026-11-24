@@ -37,6 +37,7 @@ Check "obsolete Studyfy Razorpay note removed" (-not $fallback.Contains("Razorpa
 Check "Studyfy AI and messaging in HTML" $html.Contains("AI-assisted report-card remarks and attendance-anomaly insights") -and $html.Contains("Socket.io messaging")
 Check "Studyfy payment details remain in portfolio" $fallback.Contains("Razorpay is used in a simulated (fake) fee-payment system") -and $serverProjects.Contains("Razorpay is used in a simulated (fake) fee-payment system")
 Check "resume Studyfy title omits SaaS" (-not $html.Contains("School Management System (SaaS)")) -and (-not $resumeProjects.Contains("(SaaS)"))
+Check "Groq AI removed from both resumes" (-not $html.Contains("Groq AI")) -and (-not $resumeProjects.Contains("Groq AI"))
 Check "final GitHub and portfolio info line" $html.Contains("For more info on these projects, visit") -and $html.Contains("https://github.com/kavadrushi01-source</a>") -and $html.Contains("https://mern-portfolio-client-three.vercel.app/#projects")
 Check "responsive resume layout"      $html.Contains("@media screen and (max-width: 600px)") -and $html.Contains("overflow-wrap: anywhere")
 Check "visit resume project spacing"  $html.Contains(".proj.sep { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 7px; }")

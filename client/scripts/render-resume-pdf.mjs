@@ -261,7 +261,7 @@ const mustContain = [
   "MongoDB", "Express.js", "Leaflet", "OpenStreetMap", "OSRM", "Razorpay",
   "Bachelor of Computer Applications", "FoodHub", "Studyfy", "Portfolio",
   "mern-portfolio-client-three.vercel.app", "Multi-tenant School Management System",
-  "Groq AI", "Prisma", "Next.js", "Socket.io", "six core roles",
+  "Prisma", "Next.js", "Socket.io", "six core roles",
   "Project Features", "For more info on these projects", "JWT", "OTP"
 ];
 const mustAlsoContain = [
@@ -280,6 +280,7 @@ const missing = [...mustContain, ...mustAlsoContain].filter((k) => !extracted.in
 const mustNotContain = [
   "linkedin.com/in/kavad-rushi-b24484411",
   "(SaaS)",
+  "Groq AI",
   "admin@foodhub.com",
   "Admin@123",
   "delivery@foodhub.com"

@@ -18,7 +18,7 @@ export const RESUME_PROJECTS = {
     subtitle: "Multi-tenant School Management System",
     description:
       "Built a multi-tenant school management platform with tenant isolation across 20 data models, serving six core roles plus Platform Owner and Librarian access.",
-    tech: "Next.js, React, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI",
+    tech: "Next.js, React, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay",
     highlights: [
       "Implemented Prisma tenant scoping across 20 models with cross-tenant regression tests and administrative audit logs.",
       "Delivered student, attendance, fees, exams, timetables, and homework workflows for six core roles.",
