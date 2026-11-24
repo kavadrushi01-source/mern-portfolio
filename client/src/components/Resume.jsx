@@ -171,7 +171,7 @@ export default function Resume({ portfolio, projects }) {
         doc.text(p.title, M, y);
         doc.setFont("helvetica", "normal");
         doc.setFontSize(8);
-        doc.setTextColor(0, 110, 125);
+        doc.setTextColor(75, 75, 75);
         const githubWidth = doc.getTextWidth("GitHub");
         const liveWidth = doc.getTextWidth("Live Demo");
         const githubX = W - M - githubWidth;

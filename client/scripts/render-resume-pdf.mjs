@@ -251,17 +251,17 @@ const mustContain = [
   "mern-portfolio-client-three.vercel.app",
   "Multi-tenant", "Groq AI", "Prisma", "Next.js", "admin@foodhub.com",
   "Admin@123", "user@foodhub.com", "User@123", "delivery@foodhub.com",
-  "Delivery@123", "Socket.io", "AI tools generate report-card remarks", "attendance-anomaly",
-  "The six core roles are Admin", "Project Features", "For more info on these projects",
-  "JWT authentication", "role-based permissions", "delivery handoff"
+  "Delivery@123", "Socket.io", "Groq AI", "attendance anomaly summaries",
+  "school ERP", "eight roles", "Project Features", "For more info on these projects",
+  "JWT", "RBAC", "OTP"
 ];
 const missing = mustContain.filter((k) => !extracted.includes(k));
 const mustNotContain = ["linkedin.com/in/kavad-rushi-b24484411"];
 const mustAlsoContain = [
   "Foodie chatbot",
-  "100+ intents",
-  "tenant scoping isolates",
-  "school management platform",
+  "search the menu",
+  "tenant scoping covers 20 models",
+  "School admin modules",
   "GitHub",
   "Portfolio"
 ];

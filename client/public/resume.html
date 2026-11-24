@@ -213,24 +213,29 @@
             <h3>FoodHub - Food Delivery Platform</h3>
             <p class="tech"><strong>Tech:</strong> React 18, JavaScript, Vite, Tailwind CSS, Zustand, Node.js, Express, MongoDB, Razorpay, Leaflet, OpenStreetMap, OSRM</p>
             <p class="links"><a href="https://foodhub-seven-gules.vercel.app" target="_blank" rel="noreferrer">Live Demo</a><a href="https://github.com/kavadrushi01-source/foodhub" target="_blank" rel="noreferrer">GitHub</a></p>
-            <p>Built and deployed a food-delivery platform across three role-specific apps, supporting the order lifecycle from menu discovery through doorstep handoff.</p>
+            <p>Built and deployed a full-stack food-delivery and e-commerce platform across customer, admin, and delivery-partner apps, covering discovery, checkout, payment, tracking, and delivery handoff.</p>
             <h4 class="features-title">Project Features</h4>
             <ul>
-              <li>Integrated Razorpay checkout, order tracking, OTP-confirmed payment and delivery handoffs, and mapped rider routes.</li>
-              <li>Built a chatbot covering menu, order, delivery, and payment questions with 100+ intents.</li>
-              <li>Implemented JWT authentication and role-based permissions for customer, admin, and delivery workflows.</li>
+              <li>Customer: search the menu, manage cart/wishlist and coupons, save addresses, place/cancel orders, and follow live status.</li>
+              <li>Admin: manage menu, categories, coupons, users, reviews, store settings, assignments, refunds, and sales analytics.</li>
+              <li>Partner: receive deliveries, share live GPS location, follow routes, track earnings, and verify handoff with OTP.</li>
+              <li>Leaflet, OpenStreetMap, Nominatim, and OSRM support address search, live tracking, road routes, distance, and ETA.</li>
+              <li>Razorpay simulated checkout and OTP are separate from delivery OTP. JWT, refresh tokens, secure cookies, and RBAC protect roles.</li>
+              <li>Foodie chatbot answers 100+ menu, order, payment, and delivery intents. Demo: admin@foodhub.com / Admin@123, user@foodhub.com / User@123, delivery@foodhub.com / Delivery@123.</li>
             </ul>
           </div>
           <div class="proj sep">
             <h3>Studyfy - Multi-tenant School Management System (SaaS)</h3>
             <p class="tech"><strong>Tech:</strong> Next.js, React, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI</p>
             <p class="links"><a href="https://studyfy-web.vercel.app" target="_blank" rel="noreferrer">Live Demo</a><a href="https://github.com/kavadrushi01-source/Studyfy-Web" target="_blank" rel="noreferrer">GitHub</a></p>
-            <p>Built a multi-tenant school management platform with tenant isolation across 20 data models, serving six core roles plus Platform Owner and Librarian access.</p>
+            <p>Built a multi-tenant school ERP on a shared deployment, isolating each school's users and records while supporting eight roles and role-specific dashboards.</p>
             <h4 class="features-title">Project Features</h4>
             <ul>
-              <li>Implemented Prisma tenant scoping across 20 models with cross-tenant regression tests and administrative audit logs.</li>
-              <li>Delivered student, attendance, fees, exams, timetables, and homework workflows for six core roles.</li>
-              <li>Added AI-assisted report-card remarks and attendance-anomaly insights, plus Socket.io messaging.</li>
+              <li>Prisma tenant scoping covers 20 models with cross-tenant tests, row-level student/parent access, RBAC, audit logs, and refresh-token security.</li>
+              <li>School admin modules cover admissions and CSV import, guardians, staff, classes, sections, ID cards, analytics, certificates, and enquiry CRM.</li>
+              <li>Attendance, absentee emails, exams and grades, timetable generation, homework, notices, and parent-teacher chat are handled by Socket.io.</li>
+              <li>Fees, receipts and refunds, library loans/fines, transport routes, HR/payroll, salary slips, inventory, and PWA offline screens serve role dashboards.</li>
+              <li>Groq AI generates draft report-card remarks and attendance anomaly summaries for teacher review; Razorpay test-mode flow has no live-money charges.</li>
             </ul>
           </div>
         </section>
