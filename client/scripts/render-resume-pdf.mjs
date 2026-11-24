@@ -13,7 +13,8 @@ import { FALLBACK_PORTFOLIO, FALLBACK_PROJECTS } from "../src/data/fallback.js";
 import {
   PORTFOLIO_URL,
   RESUME_PROJECT_ORDER,
-  RESUME_PROJECTS
+  RESUME_PROJECTS,
+  RESUME_SUMMARY
 } from "../src/data/resumeProjects.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -25,7 +26,7 @@ const projects = FALLBACK_PROJECTS;
 const doc = new jsPDF({ unit: "pt", format: "a4" });
 const W = doc.internal.pageSize.getWidth();
 const M = 48;
-let y = 132;
+let y = 138;
 
 doc.setTextColor(0, 0, 0);
 doc.setFont("helvetica", "bold");
@@ -74,7 +75,7 @@ doc.setLineWidth(1.4);
 doc.line(M, 118, W - M, 118);
 
 const section = (title) => {
-  y += 24;
+  y += 18;
   doc.setFont("helvetica", "bold");
   doc.setFontSize(13);
   doc.setTextColor(0, 0, 0);
@@ -87,7 +88,7 @@ const section = (title) => {
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9.5);
   doc.setTextColor(65, 65, 65);
-  y += 19;
+  y += 14;
 };
 
 // Normalise typographic punctuation to ASCII: em/en dashes, curly quotes,
@@ -106,27 +107,38 @@ const ascii = (s) =>
 const PAGE_H = doc.internal.pageSize.getHeight();
 const BOTTOM = PAGE_H - 62;
 const ensureRoom = (needed) => {
-  if (y + needed > BOTTOM) throw new Error("Resume content exceeds one A4 page.");
+  if (y + needed > BOTTOM) {
+    throw new Error(`Resume content exceeds one A4 page at y=${y} (needed ${needed}, bottom ${BOTTOM}).`);
+  }
 };
+
+section("Professional Summary");
+doc.setTextColor(65, 65, 65);
+doc.setFontSize(9.5);
+const summaryLines = doc.splitTextToSize(RESUME_SUMMARY, W - M * 2);
+ensureRoom(summaryLines.length * 12 + 6);
+doc.text(summaryLines, M, y);
+y += summaryLines.length * 12 + 6;
 
 section("Technical Skills");
 doc.setTextColor(65, 65, 65);
 doc.setFontSize(9.5);
 const SKILL_GROUPS = [
-  ["Frontend", "React.js, JavaScript, HTML5, CSS3, Tailwind CSS, Next.js"],
-  ["Backend", "Node.js, Express.js, REST API"],
-  ["Databases", "MongoDB, MySQL"],
+  ["Frontend", "React.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, Next.js"],
+  ["Backend", "Node.js, Express.js, REST API, JWT authentication"],
+  ["Databases", "MongoDB, Mongoose, MySQL"],
   ["Tools and Cloud", "Git, GitHub, Vercel, Render"]
 ];
 SKILL_GROUPS.forEach(([label, items]) => {
-  const itemLines = doc.splitTextToSize(items, W - M * 2 - 120);
+  const gl = doc.splitTextToSize(`${label}: ${items}`, W - M * 2);
+  const itemLines = doc.splitTextToSize(items, W - M * 2 - doc.getTextWidth(`${label}: `));
   ensureRoom(itemLines.length * 12 + 3);
   doc.setFont("helvetica", "bold");
   doc.text(`${label}: `, M, y);
   const lw = doc.getTextWidth(`${label}: `);
   doc.setFont("helvetica", "normal");
   doc.text(itemLines, M + lw, y);
-  y += itemLines.length * 12 + 3;
+  y += Math.max(gl.length, itemLines.length) * 12 + 3;
 });
 
 section("Projects");
@@ -201,14 +213,14 @@ portfolio.education.forEach((e) => {
   );
   doc.setTextColor(140, 140, 140);
   doc.text(
-    "Coursework: Data Structures, Algorithms, Database Systems, Web Development",
+    "Relevant Coursework: Data Structures, Algorithms, Database Management Systems, Web Development, Operating Systems",
     M,
     y + 28
   );
   y += 44;
 });
 
-ensureRoom(20);
+ensureRoom(15);
 if (doc.internal.getNumberOfPages() !== 1) {
   throw new Error("Resume PDF must contain exactly one page.");
 }

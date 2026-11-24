@@ -245,7 +245,7 @@ export default function Resume({ portfolio, projects }) {
         y += 44;
       });
 
-      ensureRoom(20);
+      ensureRoom(15);
       const moreInfo = "For more info on these projects, visit GitHub or Portfolio.";
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8.5);
