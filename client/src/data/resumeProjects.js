@@ -2,30 +2,27 @@ export const RESUME_PROJECTS = {
   FoodHub: {
     live: "https://foodhub-seven-gules.vercel.app",
     github: "https://github.com/kavadrushi01-source/foodhub",
+    subtitle: "Food Delivery & E-Commerce Platform",
     description:
-      "Built and deployed a full-stack food-delivery and e-commerce platform across customer, admin, and delivery-partner apps, covering discovery, checkout, payment, tracking, and delivery handoff.",
+      "Built and deployed a food-delivery platform across three role-specific apps, supporting the order lifecycle from menu discovery through doorstep handoff.",
     tech: "React 18, JavaScript, Vite, Tailwind CSS, Zustand, Node.js, Express, MongoDB, Razorpay, Leaflet, OpenStreetMap, OSRM",
     highlights: [
-      "Customer: search the menu, manage cart/wishlist and coupons, save addresses, place/cancel orders, and follow live status.",
-      "Admin: manage menu, categories, coupons, users, reviews, store settings, assignments, refunds, and sales analytics.",
-      "Partner: receive deliveries, share live GPS location, follow routes, track earnings, and verify handoff with OTP.",
-      "Leaflet, OpenStreetMap, Nominatim, and OSRM support address search, live tracking, road routes, distance, and ETA.",
-      "Razorpay simulated checkout and OTP are separate from delivery OTP. JWT, refresh tokens, secure cookies, and RBAC protect roles.",
-      "Foodie chatbot answers 100+ menu, order, payment, and delivery intents. Demo: admin@foodhub.com / Admin@123, user@foodhub.com / User@123, delivery@foodhub.com / Delivery@123."
+      "Integrated Razorpay checkout, order tracking, OTP-confirmed payment and delivery handoffs, and mapped rider routes.",
+      "Built a chatbot covering menu, order, delivery, and payment questions with 100+ intents.",
+      "Implemented JWT authentication and role-based permissions for customer, admin, and delivery workflows."
     ]
   },
   Studyfy: {
     live: "https://studyfy-web.vercel.app",
     github: "https://github.com/kavadrushi01-source/Studyfy-Web",
+    subtitle: "Multi-tenant School Management System",
     description:
-      "Built a multi-tenant school ERP on a shared deployment, isolating each school's users and records while supporting eight roles and role-specific dashboards.",
+      "Built a multi-tenant school management platform with tenant isolation across 20 data models, serving six core roles plus Platform Owner and Librarian access.",
     tech: "Next.js, React, TypeScript, Express, Prisma, MySQL, Socket.io, Razorpay, Groq AI",
     highlights: [
-      "Prisma tenant scoping covers 20 models with cross-tenant tests, row-level student/parent access, RBAC, audit logs, and refresh-token security.",
-      "School admin modules cover admissions and CSV import, guardians, staff, classes, sections, ID cards, analytics, certificates, and enquiry CRM.",
-      "Attendance, absentee emails, exams and grades, timetable generation, homework, notices, and parent-teacher chat are handled by Socket.io.",
-      "Fees, receipts and refunds, library loans/fines, transport routes, HR/payroll, salary slips, inventory, and PWA offline screens serve role dashboards.",
-      "Groq AI generates draft report-card remarks and attendance anomaly summaries for teacher review; Razorpay test-mode flow has no live-money charges."
+      "Implemented Prisma tenant scoping across 20 models with cross-tenant regression tests and administrative audit logs.",
+      "Delivered student, attendance, fees, exams, timetables, and homework workflows for six core roles.",
+      "Added AI-assisted report-card remarks and attendance-anomaly insights, plus Socket.io messaging."
     ]
   }
 };

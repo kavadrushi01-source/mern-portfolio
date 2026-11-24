@@ -159,7 +159,7 @@ RESUME_PROJECT_ORDER
   doc.setFont("helvetica", "normal");
   doc.setTextColor(115, 115, 115);
   doc.setFontSize(8.5);
-  const subtitle = doc.splitTextToSize(p.subtitle, W - M * 2);
+  const subtitle = doc.splitTextToSize(resumeProject.subtitle, W - M * 2);
   doc.text(subtitle, M, y);
   y += subtitle.length * 10 + 1;
   doc.setFontSize(8.5);
@@ -260,29 +260,34 @@ const mustContain = [
   "TECHNICAL SKILLS", "PROJECTS", "EDUCATION",
   "MongoDB", "Express.js", "Leaflet", "OpenStreetMap", "OSRM", "Razorpay",
   "Bachelor of Computer Applications", "FoodHub", "Studyfy", "Portfolio",
-  "mern-portfolio-client-three.vercel.app",
-  "Multi-tenant", "Groq AI", "Prisma", "Next.js", "admin@foodhub.com",
-  "Admin@123", "user@foodhub.com", "User@123", "delivery@foodhub.com",
-  "Delivery@123", "Socket.io", "Groq AI", "attendance anomaly summaries",
-  "school ERP", "eight roles", "Project Features", "For more info on these projects",
-  "JWT", "RBAC", "OTP"
+  "mern-portfolio-client-three.vercel.app", "Multi-tenant School Management System",
+  "Groq AI", "Prisma", "Next.js", "Socket.io", "six core roles",
+  "Project Features", "For more info on these projects", "JWT", "OTP"
 ];
-const missing = mustContain.filter((k) => !extracted.includes(k));
-const mustNotContain = ["linkedin.com/in/kavad-rushi-b24484411"];
 const mustAlsoContain = [
-  "Foodie chatbot",
-  "search the menu",
-  "tenant scoping covers 20 models",
-  "School admin modules",
+  "Built and deployed a food-delivery platform across three role-specific apps",
+  "Integrated Razorpay checkout, order tracking, OTP-confirmed payment and delivery handoffs, and mapped rider routes.",
+  "Built a chatbot covering menu, order, delivery, and payment questions with 100+ intents.",
+  "Implemented JWT authentication and role-based permissions for customer, admin, and delivery workflows.",
+  "Built a multi-tenant school management platform with tenant isolation across 20 data models",
+  "Implemented Prisma tenant scoping across 20 models with cross-tenant regression tests and administrative audit logs.",
+  "Delivered student, attendance, fees, exams, timetables, and homework workflows for six core roles.",
+  "Added AI-assisted report-card remarks and attendance-anomaly insights, plus Socket.io messaging.",
   "GitHub",
   "Portfolio"
 ];
+const missing = [...mustContain, ...mustAlsoContain].filter((k) => !extracted.includes(k));
+const mustNotContain = [
+  "linkedin.com/in/kavad-rushi-b24484411",
+  "(SaaS)",
+  "admin@foodhub.com",
+  "Admin@123",
+  "delivery@foodhub.com"
+];
 const unwanted = mustNotContain.filter((k) => extracted.includes(k));
-const missing2 = mustAlsoContain.filter((k) => !extracted.includes(k));
 console.log(`extracted text: ${extracted.length} chars`);
 console.log(`non-ASCII chars in extracted text: ${nonAscii.length}`);
 if (nonAscii.length) console.log(`  sample: ${JSON.stringify(nonAscii.slice(0, 8))}`);
 console.log(missing.length ? `MISSING: ${missing.join(", ")}` : "all probe keywords present in extracted text");
-console.log(unwanted.length ? `UNWANTED: ${unwanted.join(", ")}` : "LinkedIn absent from extracted text");
-console.log(missing2.length ? `MISSING: ${missing2.join(", ")}` : "condensed project summaries present");
-if (missing.length || unwanted.length || missing2.length) process.exit(1);
+console.log(unwanted.length ? `UNWANTED: ${unwanted.join(", ")}` : "excluded resume details are absent");
+if (missing.length || unwanted.length) process.exit(1);

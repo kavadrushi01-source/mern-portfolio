@@ -181,7 +181,7 @@ export default function Resume({ portfolio, projects }) {
         doc.setFont("helvetica", "normal");
         doc.setTextColor(115, 115, 115);
         doc.setFontSize(8.5);
-        const subtitle = doc.splitTextToSize(p.subtitle, W - M * 2);
+        const subtitle = doc.splitTextToSize(resumeProject.subtitle, W - M * 2);
         doc.text(subtitle, M, y);
         y += subtitle.length * 10 + 1;
         doc.setFontSize(8.5);
@@ -349,7 +349,7 @@ export default function Resume({ portfolio, projects }) {
             <div className="resume-proj-list">
               {resumeProjects.map((p) => (
                 <div key={p.title} className="resume-proj">
-                  <strong>{p.title}</strong> — {p.subtitle}
+                  <strong>{p.title}</strong> — {RESUME_PROJECTS[p.title].subtitle}
                   {p.live && (
                     <a href={p.live} target="_blank" rel="noreferrer">
                       Live ↗
